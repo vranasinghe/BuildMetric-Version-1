@@ -91,6 +91,29 @@ const Service = () => {
         }}
       >
 
+        <style>{`
+          /* Equal-height cards so titles, text and buttons line up */
+          .service-slider6 .slick-track {
+            display: flex !important;
+          }
+          .service-slider6 .slick-slide {
+            height: auto !important;
+          }
+          .service-slider6 .slick-slide > div,
+          .service-slider6 .slick-slide > div > div {
+            height: 100%;
+          }
+          .service-slider6 .service-card.style6 {
+            height: 100%;
+          }
+          /* Same size for every service icon */
+          .service-card.style6 .service-card_icon img {
+            width: 70px;
+            height: 70px;
+            object-fit: contain;
+            display: block;
+          }
+        `}</style>
         <div className="container">
           <div className="service-card-wrap6">
             <div className="row justify-content-center">

@@ -64,12 +64,33 @@ const CounterOne = () => {
                         font-size: 15px;
                     }
                 }
+                @media (max-width: 575px) {
+                    .counter-area-1 {
+                        padding-top: 50px !important;
+                        padding-bottom: 30px !important;
+                    }
+                    .counter-area-1 .row {
+                        --bs-gutter-y: 32px;
+                    }
+                    .outline-counter-card {
+                        text-align: center;
+                    }
+                    .outline-counter-number {
+                        font-size: 46px;
+                        letter-spacing: -1px;
+                        justify-content: center;
+                        margin-bottom: 8px;
+                    }
+                    .outline-counter-text {
+                        font-size: 14px;
+                    }
+                }
             `}</style>
             <div className="container">
                 <div className="row justify-content-between gy-40">
                     {counters.map((c, index) => (
                         <div
-                            className="col-xl-auto col-lg-auto col-md-6 col-sm-6"
+                            className="col-xl-auto col-lg-auto col-md-6 col-6"
                             key={c.id || index}
                         >
                             <div className="outline-counter-card">
@@ -95,4 +116,4 @@ const CounterOne = () => {
 };
 
 export default CounterOne;
-
+

@@ -238,6 +238,44 @@ const HeaderOne = () => {
                 }
 
                 /* Header navigation links - Full-height filled square/rectangle */
+                /* Mobile / tablet (<= 991px): logo + menu toggle only */
+                @media (max-width: 991px) {
+                    .header-layout1.nav-header {
+                        min-height: 71px !important;
+                    }
+                    .header-layout1 .header-inner-row {
+                        min-height: 0 !important;
+                    }
+                    .header-layout1 .main-menu {
+                        display: none !important;
+                    }
+                    .header-layout1 .header-nav-bar {
+                        padding: 0 16px !important;
+                        min-height: 70px !important;
+                    }
+                    .header-layout1 .header-mobile-logo img {
+                        height: 44px !important;
+                        max-width: 190px !important;
+                    }
+                    .header-layout1 .navbar-right .menu-toggle {
+                        width: 44px;
+                        height: 44px;
+                        display: inline-flex;
+                        align-items: center;
+                        justify-content: center;
+                        background: #263b82;
+                        color: #ffffff;
+                        border: none;
+                        border-radius: 4px;
+                        font-size: 22px;
+                        line-height: 1;
+                        padding: 0;
+                    }
+                    .header-layout1 .sticky-wrapper.sticky .header-nav-bar {
+                        min-height: 64px !important;
+                    }
+                }
+
                 .header-layout1 .main-menu > ul > li > a {
                     font-weight: 700 !important;
                     font-size: 15px !important;
@@ -315,7 +353,7 @@ const HeaderOne = () => {
             <header className="nav-header header-layout1 header-decoration" style={{ background: "#fff", borderBottom: "1px solid #e7e8ec", minHeight: isSticky ? "117px" : "auto", position: "relative" }}>
                 <div className={`sticky-wrapper ${isSticky ? 'sticky' : ''}`} style={{ background: "#fff", padding: 0 }}>
                     <div className="container-fluid" style={{ padding: 0 }}>
-                        <div className="d-flex align-items-stretch" style={{ width: "100%", minHeight: isSticky ? "72px" : "116px" }}>
+                        <div className="header-inner-row d-flex align-items-stretch" style={{ width: "100%", minHeight: isSticky ? "72px" : "116px" }}>
                             {/* Left Box: Full-height Logo */}
                             <div className="header-logo-box d-none d-lg-flex align-items-center justify-content-center" style={{
                                 width: isSticky ? "260px" : "290px",
@@ -501,9 +539,9 @@ const HeaderOne = () => {
                                     background: "#fff"
                                 }}>
                                     {/* Mobile Logo for <= 991px */}
-                                    <div className="d-lg-none py-2">
+                                    <div className="header-mobile-logo d-lg-none py-2">
                                         <Link to="/home-1">
-                                            <img src="/assets/img/buildmetric-logo.png" alt="BuildMetric CONSULTANCY" style={{ height: "48px", maxWidth: "220px", width: "auto" }} />
+                                            <img src={headerData.logoUrl || "/assets/img/buildmetric-logo.png"} alt="BuildMetric CONSULTANCY" style={{ height: "48px", maxWidth: "220px", width: "auto", objectFit: "contain", display: "block" }} />
                                         </Link>
                                     </div>
 
@@ -552,7 +590,7 @@ const HeaderOne = () => {
 
                                     {/* Mobile Hamburger Toggle */}
                                     <div className="navbar-right d-inline-flex d-lg-none">
-                                        <button onClick={handleMobileMenuOpen} type="button" className="menu-toggle icon-btn"><i className="ri-menu-line"></i></button>
+                                        <button onClick={handleMobileMenuOpen} type="button" aria-label="Open menu" className="menu-toggle icon-btn"><i className="ri-menu-line"></i></button>
                                     </div>
 
                                     {/* Right Action Controls: Search + Vertical Divider + Grid */}

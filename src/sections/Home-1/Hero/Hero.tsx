@@ -165,6 +165,49 @@ const Hero = () => {
             right: 15px;
           }
         }
+        @media (max-width: 767px) {
+          .hero-1 .hero-slide {
+            min-height: 560px !important;
+          }
+          .hero-1 .hero-style1 {
+            padding-top: 110px !important;
+            padding-bottom: 130px !important;
+            padding-left: 4px;
+            padding-right: 4px;
+          }
+          .hero-1 .hero-subtitle {
+            justify-content: center;
+            font-size: 13px;
+            letter-spacing: 0.2em !important;
+          }
+          .hero-1 .hero-title {
+            font-size: 34px !important;
+            line-height: 1.2 !important;
+          }
+          .hero-1 .hero-text {
+            font-size: 16px !important;
+            line-height: 1.6 !important;
+          }
+          /* Move arrows below the content so they don't cover the text */
+          .hero-side-arrow {
+            top: auto;
+            bottom: 36px;
+            transform: none;
+            width: 42px;
+            height: 42px;
+            font-size: 18px;
+          }
+          .hero-side-arrow:hover,
+          .hero-side-arrow:active {
+            transform: none;
+          }
+          .hero-side-arrow.prev-arrow {
+            left: calc(50% - 50px);
+          }
+          .hero-side-arrow.next-arrow {
+            right: calc(50% - 50px);
+          }
+        }
       `}</style>
     </div>
   );

@@ -8,6 +8,9 @@ import ProjectDetails from "./sections/pages/ProjectDetails";
 import Contact from "./sections/pages/Contact";
 import AdminLayout from "./admin/AdminLayout";
 import { ContentProvider } from "./admin/ContentContext";
+import { AuthProvider } from "./auth/AuthContext";
+import AuthPage from "./sections/pages/AuthPage";
+import Account from "./sections/pages/Account";
 
 const router = createBrowserRouter([
 	{ path: "/", element: <HomeOne /> },
@@ -18,14 +21,19 @@ const router = createBrowserRouter([
 	{ path: "/project", element: <Project /> },
 	{ path: "/project-details", element: <ProjectDetails /> },
 	{ path: "/contact", element: <Contact /> },
+	{ path: "/login", element: <AuthPage mode="login" /> },
+	{ path: "/register", element: <AuthPage mode="register" /> },
+	{ path: "/account", element: <Account /> },
 	{ path: "/admin", element: <AdminLayout /> },
 ]);
 
 function App() {
 	return (
-		<ContentProvider>
-			<RouterProvider router={router} />
-		</ContentProvider>
+		<AuthProvider>
+			<ContentProvider>
+				<RouterProvider router={router} />
+			</ContentProvider>
+		</AuthProvider>
 	);
 }
 

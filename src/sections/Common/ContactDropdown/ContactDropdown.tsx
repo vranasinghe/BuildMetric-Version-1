@@ -2,9 +2,17 @@
 
 import { useState, useEffect, useRef } from "react";
 
-const ContactDropdown = () => {
+const PLACEHOLDER = "Your Inquiry";
+
+// Optional value/onChange let a parent form read the chosen service.
+const ContactDropdown = ({ value, onChange }: { value?: string; onChange?: (value: string) => void }) => {
   const [isOpen, setIsOpen] = useState(false);
-  const [selected, setSelected] = useState("Your Inquiry");
+  const [internal, setInternal] = useState(PLACEHOLDER);
+  const selected = value !== undefined ? value || PLACEHOLDER : internal;
+  const setSelected = (label: string) => {
+    setInternal(label);
+    onChange?.(label === PLACEHOLDER ? "" : label);
+  };
   const dropdownRef = useRef<HTMLDivElement>(null);
 
   const options = [
@@ -39,10 +47,10 @@ const ContactDropdown = () => {
           <span className="current">{selected}</span>
           <ul className="list">
             <li
-              className={`option ${selected === "Your Inquiry" ? "selected focus" : ""}`}
-              onClick={() => setSelected("Your Inquiry")}
+              className={`option ${selected === PLACEHOLDER ? "selected focus" : ""}`}
+              onClick={() => setSelected(PLACEHOLDER)}
             >
-              Your Inquiry
+              {PLACEHOLDER}
             </li>
             {options.map((option, index) => (
               <li

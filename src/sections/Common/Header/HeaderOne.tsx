@@ -3,10 +3,12 @@ import React, { useEffect, useRef, useState } from "react";
 import { Link, useLocation } from "react-router-dom";
 import MultiPageMobileMenu from "../MultiPageMobileMenu/MultiPageMobileMenu"; 
 import { useContent } from "../../../admin/ContentContext";
+import { useAuth } from "../../../auth/AuthContext";
 
 const HeaderOne = () => {
     const { content } = useContent();
     const headerData = content.header;
+    const { user } = useAuth();
     const location = useLocation();
     const currentPath = location.pathname;
 
@@ -595,6 +597,29 @@ const HeaderOne = () => {
 
                                     {/* Right Action Controls: Search + Vertical Divider + Grid */}
                                     <div className="d-none d-lg-flex align-items-center" style={{ gap: "20px" }}>
+
+                                        {/* Client account: Login or My Account */}
+                                        <Link
+                                            to={user ? (user.role === "admin" ? "/admin" : "/account") : "/login"}
+                                            className="header-account-link"
+                                            style={{
+                                                display: "inline-flex",
+                                                alignItems: "center",
+                                                gap: "6px",
+                                                height: "38px",
+                                                padding: "0 14px",
+                                                border: "1.5px solid #263b82",
+                                                color: "#263b82",
+                                                fontSize: "13px",
+                                                fontWeight: 700,
+                                                letterSpacing: "0.5px",
+                                                textDecoration: "none",
+                                                whiteSpace: "nowrap",
+                                            }}
+                                        >
+                                            <i className={user ? "ri-user-3-line" : "ri-login-box-line"} style={{ fontSize: "16px" }} />
+                                            {user ? (user.role === "admin" ? "ADMIN PANEL" : "MY ACCOUNT") : "LOGIN"}
+                                        </Link>
 
                                         {/* Search Icon */}
                                         <button

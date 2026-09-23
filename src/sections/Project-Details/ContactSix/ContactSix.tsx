@@ -1,6 +1,6 @@
  
 
-import NiceSelectDropDown from "../../Common/NiceSelectDropDown/NiceSelectDropDown";
+import InquiryForm from "../../Common/InquiryForm/InquiryForm";
 
 
 const ContactSix = () => {
@@ -29,68 +29,7 @@ const ContactSix = () => {
                                     </span>
                                     <h2 className="sec-title">Have a project in mind?</h2>
                                 </div>
-                                <form
-                                     onSubmit={e => e.preventDefault()}
-                                    className="contact-form ajax-contact"
-                                >
-                                    <div className="row gy-4">
-                                        <div className="col-md-6">
-                                            <div className="form-group">
-                                                <input
-                                                    type="text"
-                                                    className="form-control"
-                                                    name="name"
-                                                    id="name"
-                                                    placeholder="Your Name"
-                                                />
-                                            </div>
-                                        </div>
-                                        <div className="col-md-6">
-                                            <div className="form-group">
-                                                <input
-                                                    type="email"
-                                                    className="form-control"
-                                                    name="email"
-                                                    id="email"
-                                                    placeholder="Email Address"
-                                                />
-                                            </div>
-                                        </div>
-                                        <div className="col-md-6">
-                                            <div className="form-group">
-                                                <input
-                                                    type="tel"
-                                                    className="form-control"
-                                                    name="number"
-                                                    id="number"
-                                                    placeholder="Phone Number"
-                                                />
-                                            </div>
-                                        </div>
-                                        <div className="col-md-6">
-                                            <NiceSelectDropDown />
-                                        </div>
-
-                                        <div className="col-12">
-                                            <div className="form-group ">
-                                                <textarea
-                                                    name="message"
-                                                    id="message"
-                                                    cols={30}
-                                                    rows={3}
-                                                    className="form-control"
-                                                    placeholder="Message..."
-                                                ></textarea>
-                                            </div>
-                                        </div>
-                                        <div className="form-btn col-12">
-                                            <button className="btn w-100">
-                                                Submit Now <i className="ri-arrow-right-up-line"></i>
-                                            </button>
-                                        </div>
-                                    </div>
-                                    <p className="form-messages mb-0 mt-3"></p>
-                                </form>
+                                <InquiryForm />
                             </div>
                         </div>
                     </div>

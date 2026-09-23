@@ -1,8 +1,11 @@
 import { useState } from "react";
 import { Link, useLocation } from "react-router-dom";
+import { useAuth } from "../../../auth/AuthContext";
 
 const MultiPageMobileMenu = ({ isMenuOpen, setIsMenuOpen }: any) => {
     const location = useLocation();
+    const { user } = useAuth();
+    const accountPath = user ? (user.role === "admin" ? "/admin" : "/account") : "/login";
     const currentPath = location.pathname;
     const isActive = (path: string) => {
         if (path === "/" || path === "/home-1") {
@@ -64,6 +67,11 @@ const MultiPageMobileMenu = ({ isMenuOpen, setIsMenuOpen }: any) => {
                         </li>
                         <li className={isActive("/contact") ? "active" : ""}>
                             <Link to="/contact" className={isActive("/contact") ? "active" : ""} onClick={handleMobileMenuClose}>Contact</Link>
+                        </li>
+                        <li className={isActive(accountPath) ? "active" : ""}>
+                            <Link to={accountPath} className={isActive(accountPath) ? "active" : ""} onClick={handleMobileMenuClose}>
+                                {user ? (user.role === "admin" ? "Admin Panel" : "My Account") : "Login / Register"}
+                            </Link>
                         </li>
                     </ul>
                 </div>

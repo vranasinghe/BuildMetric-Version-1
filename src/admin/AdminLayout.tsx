@@ -10,6 +10,10 @@ import AdminProjects from "./pages/AdminProjects";
 import AdminContact from "./pages/AdminContact";
 import AdminFooter from "./pages/AdminFooter";
 import AdminBackup from "./pages/AdminBackup";
+import AdminInquiries from "./pages/AdminInquiries";
+import AdminClients from "./pages/AdminClients";
+import AdminLogin from "./AdminLogin";
+import { useAuth } from "../auth/AuthContext";
 
 interface NavItem {
   id: string;
@@ -22,6 +26,8 @@ interface NavItem {
 // Only main topics of each header section!
 const navItems: NavItem[] = [
   { id: "dashboard", label: "Dashboard", headerTag: "System", icon: "ri-dashboard-3-line", previewUrl: "/" },
+  { id: "inquiries", label: "Inquiries", headerTag: "Clients", icon: "ri-mail-open-line", previewUrl: "/contact" },
+  { id: "clients", label: "Clients", headerTag: "Clients", icon: "ri-group-line", previewUrl: "" },
   { id: "header", label: "Global Header", headerTag: "Header", icon: "ri-layout-top-line", previewUrl: "/" },
   { id: "home", label: "Home", headerTag: "Home", icon: "ri-home-4-line", previewUrl: "/" },
   { id: "about", label: "About", headerTag: "About", icon: "ri-information-line", previewUrl: "/about" },
@@ -37,6 +43,7 @@ const AdminLayout: React.FC = () => {
   const currentTab = searchParams.get("tab") || "dashboard";
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const { lastSaved, exportJSON } = useContent();
+  const { user, loading, logout } = useAuth();
 
   const activeNavItem = navItems.find((item) => item.id === currentTab) || 
     (currentTab === "service-details" ? navItems.find(n => n.id === "services") : null) ||
@@ -71,10 +78,21 @@ const AdminLayout: React.FC = () => {
         return <AdminFooter />;
       case "backup":
         return <AdminBackup />;
+      case "inquiries":
+        return <AdminInquiries />;
+      case "clients":
+        return <AdminClients />;
       default:
         return <AdminDashboard />;
     }
   };
+
+  if (loading) {
+    return <div style={{ padding: "40px", textAlign: "center", fontFamily: "'Titillium Web', sans-serif" }}>Loading...</div>;
+  }
+  if (!user || user.role !== "admin") {
+    return <AdminLogin />;
+  }
 
   return (
     <div
@@ -336,8 +354,31 @@ const AdminLayout: React.FC = () => {
               Logged in as
             </div>
             <div style={{ fontSize: "12px", color: "#ffffff", fontWeight: 700 }}>
-              BuildMetric Administrator
+              {user.name}
             </div>
+            <div style={{ fontSize: "11px", color: "#9aa0ac", marginBottom: "10px", wordBreak: "break-all" }}>
+              {user.email}
+            </div>
+            <button
+              type="button"
+              onClick={logout}
+              style={{
+                width: "100%",
+                padding: "8px 0",
+                background: "transparent",
+                color: "#ffffff",
+                border: "1px solid rgba(255, 255, 255, 0.25)",
+                fontSize: "12px",
+                fontWeight: 700,
+                cursor: "pointer",
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+                gap: "6px",
+              }}
+            >
+              <i className="ri-logout-box-r-line" /> Log out
+            </button>
           </div>
         </aside>
 

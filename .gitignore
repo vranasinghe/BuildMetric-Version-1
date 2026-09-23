@@ -24,3 +24,7 @@ powershell.cmd
 *.njsproj
 *.sln
 *.sw?
+
+# Environment secrets
+.env
+server/.env

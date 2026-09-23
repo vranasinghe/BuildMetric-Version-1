@@ -23,13 +23,17 @@ async function main() {
   const name = process.env.ADMIN_NAME || "BuildMetric Administrator";
   const hash = await bcrypt.hash(password, 12);
 
-  await pool.query(
+  const { rows } = await pool.query(
     `INSERT INTO users (name, email, password_hash, role)
      VALUES ($1, $2, $3, 'admin')
      ON CONFLICT (email) DO UPDATE
-       SET role = 'admin', password_hash = EXCLUDED.password_hash, name = EXCLUDED.name`,
+       SET role = 'admin', password_hash = EXCLUDED.password_hash, name = EXCLUDED.name
+     RETURNING id`,
     [name, email, hash]
   );
+  // The password may have changed, so sign the admin out everywhere.
+  await pool.query("UPDATE sessions SET revoked_at = NOW() WHERE user_id = $1 AND revoked_at IS NULL", [rows[0].id]);
+  await pool.query("DELETE FROM login_attempts WHERE email = $1", [email]);
   console.log(`Admin account ready: ${email}`);
 }
 

@@ -1,17 +1,17 @@
 import { Router } from "express";
-import rateLimit from "express-rate-limit";
 import { query } from "../db.js";
 import { requireAuth } from "../middleware/auth.js";
+import { dbRateLimit } from "../rateLimit.js";
 import * as v from "../validate.js";
 
 const router = Router();
 
-const submitLimiter = rateLimit({
+// Per account (requireAuth runs first), so changing IP address doesn't help.
+const submitLimiter = dbRateLimit("inquiry", {
   windowMs: 60 * 60 * 1000,
   limit: 10,
-  standardHeaders: "draft-7",
-  legacyHeaders: false,
-  message: { error: "You have sent several inquiries recently. Please try again later." },
+  message: "You have sent several inquiries recently. Please try again later.",
+  keyGenerator: (req) => `user-${req.user.id}`,
 });
 
 export const INQUIRY_COLUMNS =

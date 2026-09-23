@@ -1,6 +1,17 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { useContent } from "../ContentContext";
+import { useAuth } from "../../auth/AuthContext";
+import { api } from "../../lib/api";
+
+interface Stats {
+  clients: number;
+  inquiries: number;
+  new: number;
+  in_progress: number;
+  resolved: number;
+  closed: number;
+}
 
 interface SectionCard {
   title: string;
@@ -14,6 +25,16 @@ interface SectionCard {
 
 const AdminDashboard: React.FC = () => {
   const { content, lastSaved, exportJSON } = useContent();
+  const { user } = useAuth();
+  const [stats, setStats] = useState<Stats | null>(null);
+
+  useEffect(() => {
+    api<{ stats: Stats }>("/admin/stats")
+      .then((d) => setStats(d.stats))
+      .catch(() => setStats(null));
+  }, []);
+
+  const firstName = user?.name.split(" ")[0] || "Admin";
 
   const sections: SectionCard[] = [
     {
@@ -92,271 +113,72 @@ const AdminDashboard: React.FC = () => {
 
   return (
     <div>
-      {/* Top Banner */}
-      <div
-        style={{
-          background: "linear-gradient(135deg, #001F5B 0%, #0c1527 100%)",
-          color: "#ffffff",
-          padding: "30px 35px",
-          borderLeft: "6px solid #f15a24",
-          marginBottom: "35px",
-          display: "flex",
-          justifyContent: "space-between",
-          alignItems: "center",
-          flexWrap: "wrap",
-          gap: "20px",
-        }}
-      >
+      <div className="adm-welcome">
         <div>
-          <span
-            style={{
-              backgroundColor: "rgba(241, 90, 36, 0.2)",
-              color: "#f15a24",
-              fontWeight: 700,
-              fontSize: "12px",
-              padding: "4px 10px",
-              letterSpacing: "1px",
-              textTransform: "uppercase",
-              display: "inline-block",
-              marginBottom: "10px",
-            }}
-          >
-            BuildMetric CMS Engine
-          </span>
-          <h1 style={{ fontSize: "28px", fontWeight: 700, margin: "0 0 8px 0", color: "#fff" }}>
-            Component & Section Management
-          </h1>
-          <p style={{ margin: 0, color: "rgba(255, 255, 255, 0.75)", fontSize: "15px", maxWidth: "680px" }}>
-            Directly edit every single component and content block across all header sections of the BuildMetric website.
-            Changes are saved live and take immediate effect.
+          <span className="adm-eyebrow">Dashboard</span>
+          <h1 className="adm-page-title">Welcome back, {firstName}</h1>
+          <p className="adm-page-sub">
+            Manage client inquiries and edit every section of the BuildMetric website. Content changes are saved
+            instantly and appear on the live site.
           </p>
         </div>
-
-        <div style={{ display: "flex", gap: "12px", flexWrap: "wrap" }}>
-          <button
-            onClick={exportJSON}
-            style={{
-              backgroundColor: "#f15a24",
-              color: "#fff",
-              border: "none",
-              padding: "12px 22px",
-              fontWeight: 700,
-              fontSize: "13px",
-              display: "flex",
-              alignItems: "center",
-              gap: "8px",
-              cursor: "pointer",
-              letterSpacing: "0.5px",
-              borderRadius: "0",
-            }}
-          >
-            <i className="ri-download-2-line" style={{ fontSize: "16px" }} />
-            Export Backup (.json)
-          </button>
-          <Link
-            to="/"
-            target="_blank"
-            rel="noopener noreferrer"
-            style={{
-              backgroundColor: "rgba(255, 255, 255, 0.12)",
-              color: "#ffffff",
-              textDecoration: "none",
-              padding: "12px 22px",
-              fontWeight: 700,
-              fontSize: "13px",
-              display: "flex",
-              alignItems: "center",
-              gap: "8px",
-              border: "1px solid rgba(255, 255, 255, 0.25)",
-              borderRadius: "0",
-            }}
-          >
-            <i className="ri-external-link-line" style={{ fontSize: "16px" }} />
-            View Live Site
+        <div className="adm-actions">
+          <Link to="/admin?tab=inquiries" className="adm-btn">
+            <i className="ri-mail-open-line" /> View Inquiries
+          </Link>
+          <Link to="/" target="_blank" rel="noopener noreferrer" className="adm-btn adm-btn-outline">
+            <i className="ri-external-link-line" /> View Website
           </Link>
         </div>
       </div>
 
-      {/* Quick Summary Bar */}
-      <div
-        style={{
-          display: "grid",
-          gridTemplateColumns: "repeat(auto-fit, minmax(220px, 1fr))",
-          gap: "18px",
-          marginBottom: "35px",
-        }}
-      >
-        <div
-          style={{
-            background: "#ffffff",
-            padding: "20px",
-            border: "1px solid #e7e8ec",
-            borderTop: "3px solid #001F5B",
-          }}
-        >
-          <div style={{ color: "#686e7d", fontSize: "12px", fontWeight: 700, textTransform: "uppercase" }}>
-            Total Sections
-          </div>
-          <div style={{ fontSize: "28px", fontWeight: 700, color: "#001F5B", marginTop: "4px" }}>
-            9 Header Areas
-          </div>
-          <div style={{ fontSize: "12px", color: "#9aa0ac", marginTop: "4px" }}>All site pages covered</div>
-        </div>
+      <div className="adm-stats">
+        {[
+          { label: "New inquiries", value: stats?.new, color: "#f15a24", tab: "inquiries" },
+          { label: "In progress", value: stats?.in_progress, color: "#263b82", tab: "inquiries" },
+          { label: "Total inquiries", value: stats?.inquiries, color: "#001f5b", tab: "inquiries" },
+          { label: "Registered clients", value: stats?.clients, color: "#15161c", tab: "clients" },
+        ].map((s) => (
+          <Link
+            key={s.label}
+            to={`/admin?tab=${s.tab}`}
+            className="adm-stat adm-stat-link"
+            style={{ "--stat-color": s.color } as React.CSSProperties}
+          >
+            <div className="adm-stat-value">{s.value ?? "–"}</div>
+            <div className="adm-stat-label">{s.label}</div>
+          </Link>
+        ))}
+      </div>
 
-        <div
-          style={{
-            background: "#ffffff",
-            padding: "20px",
-            border: "1px solid #e7e8ec",
-            borderTop: "3px solid #f15a24",
-          }}
-        >
-          <div style={{ color: "#686e7d", fontSize: "12px", fontWeight: 700, textTransform: "uppercase" }}>
-            Services Configured
-          </div>
-          <div style={{ fontSize: "28px", fontWeight: 700, color: "#f15a24", marginTop: "4px" }}>
-            {content.servicesPage.services.length} Specialized
-          </div>
-          <div style={{ fontSize: "12px", color: "#9aa0ac", marginTop: "4px" }}>With {content.serviceDetailsList.length} rich articles</div>
-        </div>
-
-        <div
-          style={{
-            background: "#ffffff",
-            padding: "20px",
-            border: "1px solid #e7e8ec",
-            borderTop: "3px solid #008060",
-          }}
-        >
-          <div style={{ color: "#686e7d", fontSize: "12px", fontWeight: 700, textTransform: "uppercase" }}>
-            System Persistence
-          </div>
-          <div style={{ fontSize: "28px", fontWeight: 700, color: "#008060", marginTop: "4px" }}>
-            Live Sync
-          </div>
-          <div style={{ fontSize: "12px", color: "#9aa0ac", marginTop: "4px" }}>
-            {lastSaved ? `Last saved: ${lastSaved.toLocaleTimeString()}` : "Ready for edits"}
-          </div>
+      <div className="adm-page-head" style={{ marginBottom: 16 }}>
+        <h2 className="adm-section-title" style={{ margin: 0 }}>Website content</h2>
+        <div className="adm-actions">
+          <span className="adm-saved">
+            <i className="ri-checkbox-circle-fill" />
+            {lastSaved ? `Last saved ${lastSaved.toLocaleTimeString()}` : "All changes saved"}
+          </span>
+          <button type="button" onClick={exportJSON} className="adm-btn adm-btn-sm adm-btn-ghost">
+            <i className="ri-download-2-line" /> Download Backup
+          </button>
         </div>
       </div>
 
-      {/* Grid of All Header Sections */}
-      <h2 style={{ fontSize: "20px", fontWeight: 700, color: "#001F5B", marginBottom: "18px" }}>
-        Select a Header Section to Edit Components
-      </h2>
-
-      <div
-        style={{
-          display: "grid",
-          gridTemplateColumns: "repeat(auto-fill, minmax(320px, 1fr))",
-          gap: "24px",
-        }}
-      >
+      <div className="adm-grid">
         {sections.map((sec) => (
-          <div
-            key={sec.adminTab}
-            style={{
-              background: "#ffffff",
-              border: "1px solid #e7e8ec",
-              padding: "24px",
-              display: "flex",
-              flexDirection: "column",
-              justifyContent: "space-between",
-              transition: "transform 0.2s ease, box-shadow 0.2s ease",
-            }}
-          >
-            <div>
-              <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", marginBottom: "14px" }}>
-                <span
-                  style={{
-                    backgroundColor: "#f4f5f7",
-                    color: "#001F5B",
-                    fontSize: "11px",
-                    fontWeight: 700,
-                    padding: "3px 8px",
-                    letterSpacing: "0.5px",
-                    textTransform: "uppercase",
-                  }}
-                >
-                  {sec.headerTag}
-                </span>
-                <span
-                  style={{
-                    width: "36px",
-                    height: "36px",
-                    backgroundColor: "rgba(0, 31, 91, 0.06)",
-                    color: "#001F5B",
-                    display: "inline-flex",
-                    alignItems: "center",
-                    justifyContent: "center",
-                    fontSize: "18px",
-                  }}
-                >
-                  <i className={sec.icon} />
-                </span>
-              </div>
-
-              <h3 style={{ fontSize: "18px", fontWeight: 700, color: "#141d30", margin: "0 0 8px 0" }}>
-                {sec.title}
-              </h3>
-
-              <p style={{ color: "#686e7d", fontSize: "13px", lineHeight: "1.6", margin: "0 0 14px 0" }}>
-                {sec.description}
-              </p>
-
-              <div
-                style={{
-                  fontSize: "12px",
-                  color: "#001F5B",
-                  fontWeight: 600,
-                  backgroundColor: "#fbfbfc",
-                  padding: "6px 10px",
-                  borderLeft: "2px solid #001F5B",
-                  marginBottom: "20px",
-                }}
-              >
-                {sec.itemsCount}
-              </div>
+          <div key={sec.adminTab} className="adm-module">
+            <div className="adm-module-icon">
+              <i className={sec.icon} />
             </div>
-
-            <div style={{ display: "flex", gap: "10px" }}>
-              <Link
-                to={`/admin?tab=${sec.adminTab}`}
-                style={{
-                  flex: 1,
-                  backgroundColor: "#001F5B",
-                  color: "#ffffff",
-                  textDecoration: "none",
-                  padding: "10px 16px",
-                  fontSize: "13px",
-                  fontWeight: 700,
-                  textAlign: "center",
-                  letterSpacing: "0.5px",
-                  display: "inline-block",
-                  transition: "background-color 0.2s ease",
-                }}
-                onMouseEnter={(e) => (e.currentTarget.style.backgroundColor = "#f15a24")}
-                onMouseLeave={(e) => (e.currentTarget.style.backgroundColor = "#001F5B")}
-              >
-                Edit Components
+            <h3>{sec.title}</h3>
+            <p>{sec.description}</p>
+            <div className="adm-module-meta">{sec.itemsCount}</div>
+            <div className="adm-module-actions">
+              <Link to={`/admin?tab=${sec.adminTab}`} className="adm-btn adm-btn-sm">
+                Edit Section
               </Link>
               {sec.adminTab !== "backup" && (
-                <Link
-                  to={sec.route}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  title="View Live Page"
-                  style={{
-                    width: "42px",
-                    display: "inline-flex",
-                    alignItems: "center",
-                    justifyContent: "center",
-                    border: "1px solid #e7e8ec",
-                    color: "#686e7d",
-                    textDecoration: "none",
-                    fontSize: "16px",
-                  }}
-                >
+                <Link to={sec.route} target="_blank" rel="noopener noreferrer" title="View live page" className="adm-icon-btn">
                   <i className="ri-external-link-line" />
                 </Link>
               )}

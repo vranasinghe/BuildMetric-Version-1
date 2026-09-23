@@ -98,16 +98,16 @@ const AdminHome: React.FC = () => {
 
   return (
     <div>
-      <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "25px", flexWrap: "wrap", gap: "15px" }}>
+      <div className="adm-page-head">
         <div>
-          <span style={{ fontSize: "12px", color: "#f15a24", fontWeight: 700, textTransform: "uppercase" }}>
+          <span className="adm-eyebrow">
             Header: HOME
           </span>
-          <h2 style={{ fontSize: "24px", fontWeight: 700, color: "#001F5B", margin: "4px 0 0 0" }}>
+          <h2 className="adm-page-title">
             Home Page Components Editor
           </h2>
         </div>
-        <div style={{ display: "flex", gap: "10px" }}>
+        <div className="adm-actions">
           <button
             type="button"
             onClick={() => {
@@ -124,32 +124,13 @@ const AdminHome: React.FC = () => {
                 setTimeout(() => setSavedNotice(false), 3000);
               }
             }}
-            style={{
-              padding: "10px 18px",
-              background: "#f4f5f7",
-              color: "#686e7d",
-              border: "1px solid #e7e8ec",
-              fontWeight: 600,
-              fontSize: "13px",
-              cursor: "pointer",
-            }}
+            className="adm-btn adm-btn-ghost"
           >
             Reset Defaults
           </button>
           <button
             onClick={handleSaveAll}
-            style={{
-              padding: "10px 24px",
-              background: "#001F5B",
-              color: "#ffffff",
-              border: "none",
-              fontWeight: 700,
-              fontSize: "13px",
-              cursor: "pointer",
-              display: "flex",
-              alignItems: "center",
-              gap: "8px",
-            }}
+            className="adm-btn"
           >
             <i className="ri-save-line" />
             Save Home Page
@@ -159,15 +140,7 @@ const AdminHome: React.FC = () => {
 
       {savedNotice && (
         <div
-          style={{
-            backgroundColor: "#e3fcef",
-            color: "#008060",
-            padding: "12px 18px",
-            marginBottom: "20px",
-            borderLeft: "4px solid #008060",
-            fontWeight: 600,
-            fontSize: "14px",
-          }}
+          className="adm-notice"
         >
           ✓ Home components saved successfully! Check the home page to see changes.
         </div>
@@ -175,13 +148,7 @@ const AdminHome: React.FC = () => {
 
       {/* Sub tabs for Home components */}
       <div
-        style={{
-          display: "flex",
-          gap: "2px",
-          borderBottom: "2px solid #001F5B",
-          marginBottom: "20px",
-          flexWrap: "wrap",
-        }}
+        className="adm-tabs"
       >
         {[
           { id: "hero", label: `Hero Slider (${slides.length} Slides)`, badge: "CRUD" },
@@ -193,31 +160,9 @@ const AdminHome: React.FC = () => {
             key={tab.id}
             type="button"
             onClick={() => setActiveTab(tab.id as any)}
-            style={{
-              padding: "11px 18px",
-              background: activeTab === tab.id ? "#001F5B" : "#f4f5f7",
-              color: activeTab === tab.id ? "#ffffff" : "#4a505e",
-              border: "none",
-              fontWeight: 700,
-              fontSize: "13px",
-              cursor: "pointer",
-              display: "flex",
-              alignItems: "center",
-              gap: "7px",
-            }}
+            className={`adm-tab ${activeTab === tab.id ? "active" : ""}`}
           >
             {tab.label}
-            <span
-              style={{
-                fontSize: "10px",
-                padding: "2px 5px",
-                background: activeTab === tab.id ? "#f15a24" : "#e0e2e8",
-                color: activeTab === tab.id ? "#fff" : "#4a505e",
-                fontWeight: 700,
-              }}
-            >
-              {tab.badge}
-            </span>
           </button>
         ))}
       </div>
@@ -232,20 +177,9 @@ const AdminHome: React.FC = () => {
             <button
               type="button"
               onClick={addSlide}
-              style={{
-                padding: "8px 16px",
-                background: "#f15a24",
-                color: "#ffffff",
-                border: "none",
-                fontWeight: 700,
-                fontSize: "13px",
-                cursor: "pointer",
-                display: "flex",
-                alignItems: "center",
-                gap: "6px",
-              }}
+              className="adm-btn adm-btn-sm adm-btn-outline"
             >
-              <i className="ri-add-line" /> + Add New Slide [Create]
+              <i className="ri-add-line" /> Add New Slide
             </button>
           </div>
 
@@ -260,7 +194,7 @@ const AdminHome: React.FC = () => {
                   padding: "20px",
                 }}
               >
-                <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "15px", borderBottom: "1px solid #f0f1f4", paddingBottom: "10px" }}>
+                <div className="adm-card-head">
                   <div style={{ display: "flex", alignItems: "center", gap: "10px" }}>
                     <span style={{ background: "#001F5B", color: "#ffffff", padding: "3px 8px", fontSize: "11px", fontWeight: 700 }}>
                       Slide #{index + 1}
@@ -270,85 +204,77 @@ const AdminHome: React.FC = () => {
                   <button
                     type="button"
                     onClick={() => removeSlide(index)}
-                    style={{
-                      padding: "6px 12px",
-                      background: "#feebee",
-                      color: "#c62828",
-                      border: "1px solid #ffcdd2",
-                      fontSize: "12px",
-                      fontWeight: 600,
-                      cursor: "pointer",
-                    }}
+                    className="adm-btn-danger-soft"
                   >
-                    <i className="ri-delete-bin-line" /> Delete Slide [Delete]
+                    <i className="ri-delete-bin-line" /> Delete Slide
                   </button>
                 </div>
 
                 <div className="row gy-3">
                   <div className="col-md-4">
-                    <label style={{ display: "block", fontSize: "12px", fontWeight: 600, marginBottom: "4px" }}>
-                      Subtitle Badge [Update]
+                    <label className="adm-label">
+                      Subtitle Badge
                     </label>
                     <input
                       type="text"
                       value={slide.subtitle}
                       onChange={(e) => handleSlideChange(index, "subtitle", e.target.value)}
-                      style={{ width: "100%", padding: "8px 10px", border: "1px solid #dcdfe5", fontSize: "13px" }}
+                      className="adm-input adm-input-sm"
                     />
                   </div>
                   <div className="col-md-8">
-                    <label style={{ display: "block", fontSize: "12px", fontWeight: 600, marginBottom: "4px" }}>
-                      Main Headline [Update]
+                    <label className="adm-label">
+                      Main Headline
                     </label>
                     <input
                       type="text"
                       value={slide.title}
                       onChange={(e) => handleSlideChange(index, "title", e.target.value)}
-                      style={{ width: "100%", padding: "8px 10px", border: "1px solid #dcdfe5", fontSize: "13px", fontWeight: 700 }}
+                      className="adm-input adm-input-sm adm-input-strong"
                     />
                   </div>
                   <div className="col-12">
-                    <label style={{ display: "block", fontSize: "12px", fontWeight: 600, marginBottom: "4px" }}>
-                      Description Paragraph [Update]
+                    <label className="adm-label">
+                      Description Paragraph
                     </label>
                     <textarea
                       rows={2}
                       value={slide.text}
                       onChange={(e) => handleSlideChange(index, "text", e.target.value)}
-                      style={{ width: "100%", padding: "8px 10px", border: "1px solid #dcdfe5", fontSize: "13px" }}
+                      className="adm-input adm-input-sm"
                     />
                   </div>
                   <div className="col-md-6">
-                    <label style={{ display: "block", fontSize: "12px", fontWeight: 600, marginBottom: "4px" }}>
-                      Background Image URL [Update]
+                    <label className="adm-label">
+                      Background Image URL
                     </label>
                     <input
                       type="text"
                       value={slide.bgImage}
                       onChange={(e) => handleSlideChange(index, "bgImage", e.target.value)}
-                      style={{ width: "100%", padding: "8px 10px", border: "1px solid #dcdfe5", fontSize: "13px" }}
+                      className="adm-input adm-input-sm"
                     />
                   </div>
                   <div className="col-md-3">
-                    <label style={{ display: "block", fontSize: "12px", fontWeight: 600, marginBottom: "4px" }}>
-                      Button Label [Update]
+                    <label className="adm-label">
+                      Button Label
                     </label>
                     <input
                       type="text"
                       value={slide.btnText}
                       onChange={(e) => handleSlideChange(index, "btnText", e.target.value)}
-                      style={{ width: "100%", padding: "8px 10px", border: "1px solid #dcdfe5", fontSize: "13px" }}
+                      className="adm-input adm-input-sm"
                     />
                   </div>
                   <div className="col-md-3">
-                    <label style={{ display: "block", fontSize: "12px", fontWeight: 600, marginBottom: "4px" }}>
-                      Button Link [Update]
+                    <label className="adm-label">
+                      Button Link
                     </label>
                     <input
                       type="text"
                       value={slide.btnLink}
                       onChange={(e) => handleSlideChange(index, "btnLink", e.target.value)}
-                      style={{ width: "100%", padding: "8px 10px", border: "1px solid #dcdfe5", fontSize: "13px" }}
+                      className="adm-input adm-input-sm"
                     />
                   </div>
                 </div>
@@ -360,40 +286,26 @@ const AdminHome: React.FC = () => {
 
       {/* Tab 2: Counter Statistics (Full CRUD) */}
       {activeTab === "counter" && (
-        <div style={{ background: "#ffffff", border: "1px solid #e7e8ec", padding: "25px" }}>
-          <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "20px", borderBottom: "1px solid #f0f1f4", paddingBottom: "10px" }}>
+        <div className="adm-card">
+          <div className="adm-card-head">
             <div>
-              <span style={{ background: "#001F5B", color: "#fff", padding: "3px 8px", fontSize: "11px", fontWeight: 700, marginRight: "8px" }}>
-                CRUD
-              </span>
-              <h3 style={{ fontSize: "16px", fontWeight: 700, color: "#001F5B", display: "inline-block", margin: 0 }}>
+              <h3 className="adm-card-title-inline">
                 Home Counter Statistics ({counters.length} Metrics)
               </h3>
             </div>
             <button
               type="button"
               onClick={addCounter}
-              style={{
-                padding: "7px 15px",
-                background: "#f15a24",
-                color: "#ffffff",
-                border: "none",
-                fontWeight: 700,
-                fontSize: "12px",
-                cursor: "pointer",
-                display: "flex",
-                alignItems: "center",
-                gap: "5px",
-              }}
+              className="adm-btn adm-btn-sm adm-btn-outline"
             >
-              <i className="ri-add-line" /> + Add New Metric [Create]
+              <i className="ri-add-line" /> Add New Metric
             </button>
           </div>
 
           <div className="row gy-4">
             {counters.map((c, idx) => (
               <div key={c.id} className="col-md-6">
-                <div style={{ background: "#fbfbfc", border: "1px solid #e7e8ec", padding: "16px" }}>
+                <div className="adm-item">
                   <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "10px" }}>
                     <span style={{ fontSize: "12px", fontWeight: 700, color: "#001F5B" }}>
                       Metric #{idx + 1}
@@ -401,21 +313,14 @@ const AdminHome: React.FC = () => {
                     <button
                       type="button"
                       onClick={() => removeCounter(idx)}
-                      style={{
-                        background: "transparent",
-                        border: "none",
-                        color: "#c62828",
-                        cursor: "pointer",
-                        fontSize: "12px",
-                        fontWeight: 600,
-                      }}
+                      className="adm-link-danger"
                     >
-                      <i className="ri-delete-bin-line" /> Delete [Delete]
+                      <i className="ri-delete-bin-line" /> Delete
                     </button>
                   </div>
                   <div className="row gy-2">
                     <div className="col-3">
-                      <label style={{ display: "block", fontSize: "11px", fontWeight: 600, color: "#686e7d", marginBottom: "2px" }}>
+                      <label className="adm-label adm-label-sm">
                         Prefix (e.g. $)
                       </label>
                       <input
@@ -423,44 +328,44 @@ const AdminHome: React.FC = () => {
                         value={c.prefix || ""}
                         placeholder="$"
                         onChange={(e) => handleCounterChange(idx, "prefix", e.target.value)}
-                        style={{ width: "100%", padding: "7px 10px", border: "1px solid #dcdfe5", fontSize: "14px", fontWeight: 700 }}
+                        className="adm-input adm-input-sm adm-input-strong"
                       />
                     </div>
                     <div className="col-5">
-                      <label style={{ display: "block", fontSize: "11px", fontWeight: 600, color: "#686e7d", marginBottom: "2px" }}>
-                        Number Value [Update]
+                      <label className="adm-label adm-label-sm">
+                        Number Value
                       </label>
                       <input
                         type="number"
                         value={c.number}
                         onChange={(e) => handleCounterChange(idx, "number", parseInt(e.target.value) || 0)}
-                        style={{ width: "100%", padding: "7px 10px", border: "1px solid #dcdfe5", fontSize: "14px", fontWeight: 700 }}
+                        className="adm-input adm-input-sm adm-input-strong"
                       />
                     </div>
                     <div className="col-4">
-                      <label style={{ display: "block", fontSize: "11px", fontWeight: 600, color: "#686e7d", marginBottom: "2px" }}>
+                      <label className="adm-label adm-label-sm">
                         Suffix (e.g. +, B+, %)
                       </label>
                       <input
                         type="text"
                         value={c.suffix}
                         onChange={(e) => handleCounterChange(idx, "suffix", e.target.value)}
-                        style={{ width: "100%", padding: "7px 10px", border: "1px solid #dcdfe5", fontSize: "14px", fontWeight: 700 }}
+                        className="adm-input adm-input-sm adm-input-strong"
                       />
                     </div>
                     <div className="col-12">
-                      <label style={{ display: "block", fontSize: "11px", fontWeight: 600, color: "#686e7d", marginBottom: "2px" }}>
-                        Primary Title / Label [Update]
+                      <label className="adm-label adm-label-sm">
+                        Primary Title / Label
                       </label>
                       <input
                         type="text"
                         value={c.label}
                         onChange={(e) => handleCounterChange(idx, "label", e.target.value)}
-                        style={{ width: "100%", padding: "7px 10px", border: "1px solid #dcdfe5", fontSize: "13px", fontWeight: 600 }}
+                        className="adm-input adm-input-sm adm-input-strong"
                       />
                     </div>
                     <div className="col-8">
-                      <label style={{ display: "block", fontSize: "11px", fontWeight: 600, color: "#686e7d", marginBottom: "2px" }}>
+                      <label className="adm-label adm-label-sm">
                         Consultancy Subtext / Detail
                       </label>
                       <input
@@ -468,11 +373,11 @@ const AdminHome: React.FC = () => {
                         value={c.sublabel || ""}
                         placeholder="e.g. Strategic Cost & Commercial Management"
                         onChange={(e) => handleCounterChange(idx, "sublabel", e.target.value)}
-                        style={{ width: "100%", padding: "7px 10px", border: "1px solid #dcdfe5", fontSize: "13px" }}
+                        className="adm-input adm-input-sm"
                       />
                     </div>
                     <div className="col-4">
-                      <label style={{ display: "block", fontSize: "11px", fontWeight: 600, color: "#686e7d", marginBottom: "2px" }}>
+                      <label className="adm-label adm-label-sm">
                         Icon (RemixIcon)
                       </label>
                       <input
@@ -480,7 +385,7 @@ const AdminHome: React.FC = () => {
                         value={c.icon || ""}
                         placeholder="ri-funds-line"
                         onChange={(e) => handleCounterChange(idx, "icon", e.target.value)}
-                        style={{ width: "100%", padding: "7px 10px", border: "1px solid #dcdfe5", fontSize: "13px" }}
+                        className="adm-input adm-input-sm"
                       />
                     </div>
                   </div>
@@ -493,64 +398,64 @@ const AdminHome: React.FC = () => {
 
       {/* Tab 3: About Teaser (Full CRUD for Checklist) */}
       {activeTab === "about" && (
-        <div style={{ background: "#ffffff", border: "1px solid #e7e8ec", padding: "25px" }}>
-          <h3 style={{ fontSize: "16px", fontWeight: 700, color: "#001F5B", borderBottom: "1px solid #f0f1f4", paddingBottom: "10px", marginBottom: "18px" }}>
+        <div className="adm-card">
+          <h3 className="adm-card-title">
             Homepage About Teaser Section
           </h3>
           <div className="row gy-3 mb-4">
             <div className="col-md-4">
-              <label style={{ display: "block", fontSize: "12px", fontWeight: 600, marginBottom: "4px" }}>
+              <label className="adm-label">
                 Section Tag / Subtitle
               </label>
               <input
                 type="text"
                 value={homeAbout.subtitle}
                 onChange={(e) => setHomeAbout({ ...homeAbout, subtitle: e.target.value })}
-                style={{ width: "100%", padding: "8px 10px", border: "1px solid #dcdfe5", fontSize: "13px" }}
+                className="adm-input adm-input-sm"
               />
             </div>
             <div className="col-md-8">
-              <label style={{ display: "block", fontSize: "12px", fontWeight: 600, marginBottom: "4px" }}>
+              <label className="adm-label">
                 Main Headline
               </label>
               <input
                 type="text"
                 value={homeAbout.title}
                 onChange={(e) => setHomeAbout({ ...homeAbout, title: e.target.value })}
-                style={{ width: "100%", padding: "8px 10px", border: "1px solid #dcdfe5", fontSize: "13px", fontWeight: 700 }}
+                className="adm-input adm-input-sm adm-input-strong"
               />
             </div>
             <div className="col-12">
-              <label style={{ display: "block", fontSize: "12px", fontWeight: 600, marginBottom: "4px" }}>
+              <label className="adm-label">
                 Primary Narrative
               </label>
               <textarea
                 rows={3}
                 value={homeAbout.desc1}
                 onChange={(e) => setHomeAbout({ ...homeAbout, desc1: e.target.value })}
-                style={{ width: "100%", padding: "8px 10px", border: "1px solid #dcdfe5", fontSize: "13px" }}
+                className="adm-input adm-input-sm"
               />
             </div>
             <div className="col-md-6">
-              <label style={{ display: "block", fontSize: "12px", fontWeight: 600, marginBottom: "4px" }}>
+              <label className="adm-label">
                 Years Experience Number
               </label>
               <input
                 type="number"
                 value={homeAbout.experienceYears}
                 onChange={(e) => setHomeAbout({ ...homeAbout, experienceYears: parseInt(e.target.value) || 0 })}
-                style={{ width: "100%", padding: "8px 10px", border: "1px solid #dcdfe5", fontSize: "13px" }}
+                className="adm-input adm-input-sm"
               />
             </div>
             <div className="col-md-6">
-              <label style={{ display: "block", fontSize: "12px", fontWeight: 600, marginBottom: "4px" }}>
+              <label className="adm-label">
                 Experience Badge Label
               </label>
               <input
                 type="text"
                 value={homeAbout.experienceLabel}
                 onChange={(e) => setHomeAbout({ ...homeAbout, experienceLabel: e.target.value })}
-                style={{ width: "100%", padding: "8px 10px", border: "1px solid #dcdfe5", fontSize: "13px" }}
+                className="adm-input adm-input-sm"
               />
             </div>
           </div>
@@ -564,17 +469,9 @@ const AdminHome: React.FC = () => {
               <button
                 type="button"
                 onClick={addChecklistItem}
-                style={{
-                  padding: "5px 12px",
-                  background: "#001F5B",
-                  color: "#fff",
-                  border: "none",
-                  fontWeight: 700,
-                  fontSize: "12px",
-                  cursor: "pointer",
-                }}
+                className="adm-btn adm-btn-sm"
               >
-                + Add Point [Create]
+                Add Point
               </button>
             </div>
             <div style={{ display: "flex", flexDirection: "column", gap: "8px" }}>
@@ -589,14 +486,7 @@ const AdminHome: React.FC = () => {
                   <button
                     type="button"
                     onClick={() => removeChecklistItem(i)}
-                    style={{
-                      padding: "6px 10px",
-                      background: "#feebee",
-                      color: "#c62828",
-                      border: "1px solid #ffcdd2",
-                      cursor: "pointer",
-                      fontSize: "12px",
-                    }}
+                    className="adm-btn-danger-soft"
                   >
                     <i className="ri-delete-bin-line" />
                   </button>
@@ -609,53 +499,53 @@ const AdminHome: React.FC = () => {
 
       {/* Tab 4: Renovation CTA */}
       {activeTab === "cta" && (
-        <div style={{ background: "#ffffff", border: "1px solid #e7e8ec", padding: "25px" }}>
-          <h3 style={{ fontSize: "16px", fontWeight: 700, color: "#001F5B", borderBottom: "1px solid #f0f1f4", paddingBottom: "10px", marginBottom: "18px" }}>
+        <div className="adm-card">
+          <h3 className="adm-card-title">
             Home Renovation Callout Banner
           </h3>
           <div className="row gy-3">
             <div className="col-md-6">
-              <label style={{ display: "block", fontSize: "12px", fontWeight: 600, marginBottom: "4px" }}>
+              <label className="adm-label">
                 Headline Line 1
               </label>
               <input
                 type="text"
                 value={cta.title1}
                 onChange={(e) => setCta({ ...cta, title1: e.target.value })}
-                style={{ width: "100%", padding: "8px 10px", border: "1px solid #dcdfe5", fontSize: "13px", fontWeight: 700 }}
+                className="adm-input adm-input-sm adm-input-strong"
               />
             </div>
             <div className="col-md-6">
-              <label style={{ display: "block", fontSize: "12px", fontWeight: 600, marginBottom: "4px" }}>
+              <label className="adm-label">
                 Headline Line 2 (Orange Accent)
               </label>
               <input
                 type="text"
                 value={cta.title2}
                 onChange={(e) => setCta({ ...cta, title2: e.target.value })}
-                style={{ width: "100%", padding: "8px 10px", border: "1px solid #dcdfe5", fontSize: "13px", fontWeight: 700, color: "#f15a24" }}
+                style={{ width: "100%", padding: "8px 10px", border: "1px solid #dcdfe5", fontSize: "13px", fontWeight: 700, color: "#001F5B" }}
               />
             </div>
             <div className="col-md-6">
-              <label style={{ display: "block", fontSize: "12px", fontWeight: 600, marginBottom: "4px" }}>
+              <label className="adm-label">
                 Button Text
               </label>
               <input
                 type="text"
                 value={cta.btnText}
                 onChange={(e) => setCta({ ...cta, btnText: e.target.value })}
-                style={{ width: "100%", padding: "8px 10px", border: "1px solid #dcdfe5", fontSize: "13px" }}
+                className="adm-input adm-input-sm"
               />
             </div>
             <div className="col-md-6">
-              <label style={{ display: "block", fontSize: "12px", fontWeight: 600, marginBottom: "4px" }}>
+              <label className="adm-label">
                 Button Link
               </label>
               <input
                 type="text"
                 value={cta.btnLink}
                 onChange={(e) => setCta({ ...cta, btnLink: e.target.value })}
-                style={{ width: "100%", padding: "8px 10px", border: "1px solid #dcdfe5", fontSize: "13px" }}
+                className="adm-input adm-input-sm"
               />
             </div>
           </div>

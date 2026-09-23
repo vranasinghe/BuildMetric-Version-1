@@ -132,45 +132,26 @@ const AdminHeader: React.FC = () => {
 
   return (
     <form onSubmit={handleSave}>
-      <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "25px", flexWrap: "wrap", gap: "15px" }}>
+      <div className="adm-page-head">
         <div>
-          <span style={{ fontSize: "12px", color: "#f15a24", fontWeight: 700, textTransform: "uppercase" }}>
+          <span className="adm-eyebrow">
             Header Section
           </span>
-          <h2 style={{ fontSize: "24px", fontWeight: 700, color: "#001F5B", margin: "4px 0 0 0" }}>
+          <h2 className="adm-page-title">
             Header & Top Bar Editor
           </h2>
         </div>
-        <div style={{ display: "flex", gap: "10px" }}>
+        <div className="adm-actions">
           <button
             type="button"
             onClick={handleReset}
-            style={{
-              padding: "10px 18px",
-              background: "#f4f5f7",
-              color: "#686e7d",
-              border: "1px solid #e7e8ec",
-              fontWeight: 600,
-              fontSize: "13px",
-              cursor: "pointer",
-            }}
+            className="adm-btn adm-btn-ghost"
           >
             Reset Defaults
           </button>
           <button
             type="submit"
-            style={{
-              padding: "10px 24px",
-              background: "#001F5B",
-              color: "#ffffff",
-              border: "none",
-              fontWeight: 700,
-              fontSize: "13px",
-              cursor: "pointer",
-              display: "flex",
-              alignItems: "center",
-              gap: "8px",
-            }}
+            className="adm-btn"
           >
             <i className="ri-save-line" />
             Save Changes
@@ -180,48 +161,26 @@ const AdminHeader: React.FC = () => {
 
       {savedNotice && (
         <div
-          style={{
-            backgroundColor: "#e3fcef",
-            color: "#008060",
-            padding: "12px 18px",
-            marginBottom: "20px",
-            borderLeft: "4px solid #008060",
-            fontWeight: 600,
-            fontSize: "14px",
-          }}
+          className="adm-notice"
         >
           ✓ Header settings saved successfully! Changes are live on the website.
         </div>
       )}
 
       {/* Group 1: Navigation Menu Items (Full CRUD) */}
-      <div style={{ background: "#ffffff", border: "1px solid #e7e8ec", padding: "25px", marginBottom: "25px" }}>
-        <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "18px", borderBottom: "1px solid #f0f1f4", paddingBottom: "10px" }}>
+      <div className="adm-card">
+        <div className="adm-card-head">
           <div>
-            <span style={{ background: "#001F5B", color: "#fff", padding: "3px 8px", fontSize: "11px", fontWeight: 700, marginRight: "8px" }}>
-              CRUD
-            </span>
-            <h3 style={{ fontSize: "16px", fontWeight: 700, color: "#001F5B", display: "inline-block", margin: 0 }}>
+            <h3 className="adm-card-title-inline">
               1. Main Navigation Menu Links ({formData.navLinks.length} Items)
             </h3>
           </div>
           <button
             type="button"
             onClick={addNavLink}
-            style={{
-              padding: "7px 15px",
-              background: "#f15a24",
-              color: "#fff",
-              border: "none",
-              fontWeight: 700,
-              fontSize: "12px",
-              cursor: "pointer",
-              display: "flex",
-              alignItems: "center",
-              gap: "5px",
-            }}
+            className="adm-btn adm-btn-sm adm-btn-outline"
           >
-            <i className="ri-add-line" /> + Add Menu Item [Create]
+            <i className="ri-add-line" /> Add Menu Item
           </button>
         </div>
 
@@ -242,41 +201,33 @@ const AdminHeader: React.FC = () => {
                 #{idx + 1}
               </span>
               <div style={{ flex: 1 }}>
-                <label style={{ display: "block", fontSize: "11px", fontWeight: 600, color: "#686e7d", marginBottom: "3px" }}>
-                  Menu Label [Update]
+                <label className="adm-label adm-label-sm">
+                  Menu Label
                 </label>
                 <input
                   type="text"
                   value={link.label}
                   onChange={(e) => updateNavLink(idx, "label", e.target.value)}
-                  style={{ width: "100%", padding: "7px 10px", border: "1px solid #dcdfe5", fontSize: "13px" }}
+                  className="adm-input adm-input-sm"
                 />
               </div>
               <div style={{ flex: 2 }}>
-                <label style={{ display: "block", fontSize: "11px", fontWeight: 600, color: "#686e7d", marginBottom: "3px" }}>
-                  Destination Route / URL [Update]
+                <label className="adm-label adm-label-sm">
+                  Destination Route / URL
                 </label>
                 <input
                   type="text"
                   value={link.url}
                   onChange={(e) => updateNavLink(idx, "url", e.target.value)}
-                  style={{ width: "100%", padding: "7px 10px", border: "1px solid #dcdfe5", fontSize: "13px" }}
+                  className="adm-input adm-input-sm"
                 />
               </div>
               <div style={{ alignSelf: "flex-end" }}>
                 <button
                   type="button"
                   onClick={() => deleteNavLink(idx)}
-                  title="Delete Navigation Item [Delete]"
-                  style={{
-                    padding: "8px 12px",
-                    background: "#feebee",
-                    color: "#c62828",
-                    border: "1px solid #ffcdd2",
-                    fontSize: "12px",
-                    cursor: "pointer",
-                    fontWeight: 700,
-                  }}
+                  title="Delete Navigation Item"
+                  className="adm-btn-danger-soft"
                 >
                   <i className="ri-delete-bin-line" /> Delete
                 </button>
@@ -287,33 +238,19 @@ const AdminHeader: React.FC = () => {
       </div>
 
       {/* Group 2: Languages Switcher (Full CRUD) */}
-      <div style={{ background: "#ffffff", border: "1px solid #e7e8ec", padding: "25px", marginBottom: "25px" }}>
-        <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "18px", borderBottom: "1px solid #f0f1f4", paddingBottom: "10px" }}>
+      <div className="adm-card">
+        <div className="adm-card-head">
           <div>
-            <span style={{ background: "#001F5B", color: "#fff", padding: "3px 8px", fontSize: "11px", fontWeight: 700, marginRight: "8px" }}>
-              CRUD
-            </span>
-            <h3 style={{ fontSize: "16px", fontWeight: 700, color: "#001F5B", display: "inline-block", margin: 0 }}>
+            <h3 className="adm-card-title-inline">
               2. Supported Languages Switcher ({formData.languages.length} Languages)
             </h3>
           </div>
           <button
             type="button"
             onClick={addLanguage}
-            style={{
-              padding: "7px 15px",
-              background: "#001F5B",
-              color: "#fff",
-              border: "none",
-              fontWeight: 700,
-              fontSize: "12px",
-              cursor: "pointer",
-              display: "flex",
-              alignItems: "center",
-              gap: "5px",
-            }}
+            className="adm-btn adm-btn-sm"
           >
-            <i className="ri-add-line" /> + Add Language [Create]
+            <i className="ri-add-line" /> Add Language
           </button>
         </div>
 
@@ -322,39 +259,32 @@ const AdminHeader: React.FC = () => {
             <div key={lang.id || idx} className="col-md-6">
               <div style={{ background: "#fbfbfc", border: "1px solid #e7e8ec", padding: "14px", display: "flex", gap: "10px", alignItems: "flex-end" }}>
                 <div style={{ width: "80px" }}>
-                  <label style={{ display: "block", fontSize: "11px", fontWeight: 600, color: "#686e7d", marginBottom: "3px" }}>
-                    Code [Update]
+                  <label className="adm-label adm-label-sm">
+                    Code
                   </label>
                   <input
                     type="text"
                     value={lang.code}
                     onChange={(e) => handleLanguageChange(idx, "code", e.target.value)}
-                    style={{ width: "100%", padding: "7px 8px", border: "1px solid #dcdfe5", fontSize: "13px", fontWeight: 700 }}
+                    className="adm-input adm-input-sm adm-input-strong"
                   />
                 </div>
                 <div style={{ flex: 1 }}>
-                  <label style={{ display: "block", fontSize: "11px", fontWeight: 600, color: "#686e7d", marginBottom: "3px" }}>
-                    Display Name [Update]
+                  <label className="adm-label adm-label-sm">
+                    Display Name
                   </label>
                   <input
                     type="text"
                     value={lang.name}
                     onChange={(e) => handleLanguageChange(idx, "name", e.target.value)}
-                    style={{ width: "100%", padding: "7px 8px", border: "1px solid #dcdfe5", fontSize: "13px" }}
+                    className="adm-input adm-input-sm"
                   />
                 </div>
                 <button
                   type="button"
                   onClick={() => removeLanguage(idx)}
-                  title="Remove Language [Delete]"
-                  style={{
-                    padding: "8px 12px",
-                    background: "#feebee",
-                    color: "#c62828",
-                    border: "1px solid #ffcdd2",
-                    fontSize: "12px",
-                    cursor: "pointer",
-                  }}
+                  title="Remove Language"
+                  className="adm-btn-danger-soft"
                 >
                   <i className="ri-delete-bin-line" />
                 </button>
@@ -365,24 +295,24 @@ const AdminHeader: React.FC = () => {
       </div>
 
       {/* Group 3: Logo & Branding */}
-      <div style={{ background: "#ffffff", border: "1px solid #e7e8ec", padding: "25px", marginBottom: "25px" }}>
-        <h3 style={{ fontSize: "16px", fontWeight: 700, color: "#001F5B", borderBottom: "1px solid #f0f1f4", paddingBottom: "10px", marginBottom: "18px" }}>
+      <div className="adm-card">
+        <h3 className="adm-card-title">
           3. Logo & Branding
         </h3>
         <div className="row gy-3">
           <div className="col-md-8">
-            <label style={{ display: "block", fontSize: "13px", fontWeight: 600, marginBottom: "5px" }}>
+            <label className="adm-label">
               Logo Asset Path / URL
             </label>
             <input
               type="text"
               value={formData.logoUrl}
               onChange={(e) => handleChange("logoUrl", e.target.value)}
-              style={{ width: "100%", padding: "9px 12px", border: "1px solid #dcdfe5", fontSize: "14px" }}
+              className="adm-input"
             />
           </div>
           <div className="col-md-4">
-            <label style={{ display: "block", fontSize: "13px", fontWeight: 600, marginBottom: "5px" }}>
+            <label className="adm-label">
               Logo Preview
             </label>
             <div style={{ background: "#141d30", padding: "10px 15px", display: "inline-block" }}>
@@ -393,77 +323,77 @@ const AdminHeader: React.FC = () => {
       </div>
 
       {/* Group 4: Top Bar Contact & Location */}
-      <div style={{ background: "#ffffff", border: "1px solid #e7e8ec", padding: "25px", marginBottom: "25px" }}>
-        <h3 style={{ fontSize: "16px", fontWeight: 700, color: "#001F5B", borderBottom: "1px solid #f0f1f4", paddingBottom: "10px", marginBottom: "18px" }}>
+      <div className="adm-card">
+        <h3 className="adm-card-title">
           4. Top Bar Contact & Working Hours
         </h3>
         <div className="row gy-3">
           <div className="col-md-6">
-            <label style={{ display: "block", fontSize: "13px", fontWeight: 600, marginBottom: "5px" }}>
+            <label className="adm-label">
               Working Hours Notice
             </label>
             <input
               type="text"
               value={formData.workingHours}
               onChange={(e) => handleChange("workingHours", e.target.value)}
-              style={{ width: "100%", padding: "9px 12px", border: "1px solid #dcdfe5", fontSize: "14px" }}
+              className="adm-input"
             />
           </div>
           <div className="col-md-6">
-            <label style={{ display: "block", fontSize: "13px", fontWeight: 600, marginBottom: "5px" }}>
+            <label className="adm-label">
               Phone Number
             </label>
             <input
               type="text"
               value={formData.phone}
               onChange={(e) => handleChange("phone", e.target.value)}
-              style={{ width: "100%", padding: "9px 12px", border: "1px solid #dcdfe5", fontSize: "14px" }}
+              className="adm-input"
             />
           </div>
           <div className="col-md-6">
-            <label style={{ display: "block", fontSize: "13px", fontWeight: 600, marginBottom: "5px" }}>
+            <label className="adm-label">
               Email Address
             </label>
             <input
               type="email"
               value={formData.email}
               onChange={(e) => handleChange("email", e.target.value)}
-              style={{ width: "100%", padding: "9px 12px", border: "1px solid #dcdfe5", fontSize: "14px" }}
+              className="adm-input"
             />
           </div>
           <div className="col-md-6">
-            <label style={{ display: "block", fontSize: "13px", fontWeight: 600, marginBottom: "5px" }}>
+            <label className="adm-label">
               Physical Address
             </label>
             <input
               type="text"
               value={formData.address}
               onChange={(e) => handleChange("address", e.target.value)}
-              style={{ width: "100%", padding: "9px 12px", border: "1px solid #dcdfe5", fontSize: "14px" }}
+              className="adm-input"
             />
           </div>
         </div>
       </div>
 
       {/* Group 5: Region Settings */}
-      <div style={{ background: "#ffffff", border: "1px solid #e7e8ec", padding: "25px", marginBottom: "25px" }}>
-        <h3 style={{ fontSize: "16px", fontWeight: 700, color: "#001F5B", borderBottom: "1px solid #f0f1f4", paddingBottom: "10px", marginBottom: "18px" }}>
+      <div className="adm-card">
+        <h3 className="adm-card-title">
           5. Region Settings
         </h3>
         <div className="row gy-3">
           <div className="col-md-6">
-            <label style={{ display: "block", fontSize: "13px", fontWeight: 600, marginBottom: "5px" }}>
+            <label className="adm-label">
               Region Name
             </label>
             <input
               type="text"
               value={formData.regionName}
               onChange={(e) => handleChange("regionName", e.target.value)}
-              style={{ width: "100%", padding: "9px 12px", border: "1px solid #dcdfe5", fontSize: "14px" }}
+              className="adm-input"
             />
           </div>
           <div className="col-md-6">
-            <label style={{ display: "block", fontSize: "13px", fontWeight: 600, marginBottom: "5px" }}>
+            <label className="adm-label">
               Region Flag URL
             </label>
             <div style={{ display: "flex", gap: "10px", alignItems: "center" }}>
@@ -480,80 +410,59 @@ const AdminHeader: React.FC = () => {
       </div>
 
       {/* Group 6: Social Media Links (Full CRUD) */}
-      <div style={{ background: "#ffffff", border: "1px solid #e7e8ec", padding: "25px", marginBottom: "25px" }}>
-        <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "18px", borderBottom: "1px solid #f0f1f4", paddingBottom: "10px" }}>
+      <div className="adm-card">
+        <div className="adm-card-head">
           <div>
-            <span style={{ background: "#001F5B", color: "#fff", padding: "3px 8px", fontSize: "11px", fontWeight: 700, marginRight: "8px" }}>
-              CRUD
-            </span>
-            <h3 style={{ fontSize: "16px", fontWeight: 700, color: "#001F5B", display: "inline-block", margin: 0 }}>
+            <h3 className="adm-card-title-inline">
               6. Social Media Accounts ({formData.socialLinks.length} Platforms)
             </h3>
           </div>
           <button
             type="button"
             onClick={addSocial}
-            style={{
-              padding: "7px 15px",
-              background: "#001F5B",
-              color: "#fff",
-              border: "none",
-              fontWeight: 700,
-              fontSize: "12px",
-              cursor: "pointer",
-              display: "flex",
-              alignItems: "center",
-              gap: "5px",
-            }}
+            className="adm-btn adm-btn-sm"
           >
-            <i className="ri-add-line" /> + Add Platform [Create]
+            <i className="ri-add-line" /> Add Platform
           </button>
         </div>
 
         <div className="row gy-3">
           {formData.socialLinks.map((soc, idx) => (
             <div key={soc.id || idx} className="col-md-6">
-              <div style={{ background: "#fbfbfc", border: "1px solid #e7e8ec", padding: "16px" }}>
+              <div className="adm-item">
                 <div style={{ display: "flex", justifyContent: "space-between", marginBottom: "10px" }}>
                   <div style={{ display: "flex", alignItems: "center", gap: "8px" }}>
-                    <i className={soc.icon} style={{ fontSize: "18px", color: "#f15a24" }} />
+                    <i className={soc.icon} style={{ fontSize: "18px", color: "#001F5B" }} />
                     <span style={{ fontSize: "12px", fontWeight: 700, color: "#001F5B" }}>Platform #{idx + 1}</span>
                   </div>
                   <button
                     type="button"
                     onClick={() => removeSocial(idx)}
-                    style={{
-                      background: "transparent",
-                      border: "none",
-                      color: "#c62828",
-                      cursor: "pointer",
-                      fontSize: "13px",
-                      fontWeight: 600,
-                    }}
+                    className="adm-link-danger"
                   >
                     <i className="ri-delete-bin-line" /> Delete
                   </button>
                 </div>
                 <div style={{ marginBottom: "8px" }}>
-                  <label style={{ display: "block", fontSize: "11px", fontWeight: 600, color: "#686e7d", marginBottom: "2px" }}>
-                    Remixicon Icon Class [Update]
+                  <label className="adm-label adm-label-sm">
+                    Remixicon Icon Class
                   </label>
                   <input
                     type="text"
                     value={soc.icon}
                     onChange={(e) => handleSocialChange(idx, "icon", e.target.value)}
-                    style={{ width: "100%", padding: "7px 10px", border: "1px solid #dcdfe5", fontSize: "13px" }}
+                    className="adm-input adm-input-sm"
                   />
                 </div>
                 <div>
-                  <label style={{ display: "block", fontSize: "11px", fontWeight: 600, color: "#686e7d", marginBottom: "2px" }}>
-                    Target Profile URL [Update]
+                  <label className="adm-label adm-label-sm">
+                    Target Profile URL
                   </label>
                   <input
                     type="text"
                     value={soc.url}
                     onChange={(e) => handleSocialChange(idx, "url", e.target.value)}
-                    style={{ width: "100%", padding: "7px 10px", border: "1px solid #dcdfe5", fontSize: "13px" }}
+                    className="adm-input adm-input-sm"
                   />
                 </div>
               </div>

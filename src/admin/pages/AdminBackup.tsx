@@ -48,10 +48,10 @@ const AdminBackup: React.FC = () => {
   return (
     <div>
       <div style={{ marginBottom: "25px" }}>
-        <span style={{ fontSize: "12px", color: "#f15a24", fontWeight: 700, textTransform: "uppercase" }}>
+        <span className="adm-eyebrow">
           System Tools
         </span>
-        <h2 style={{ fontSize: "24px", fontWeight: 700, color: "#001F5B", margin: "4px 0 0 0" }}>
+        <h2 className="adm-page-title">
           Data Backup, Export & Factory Reset
         </h2>
       </div>
@@ -73,7 +73,7 @@ const AdminBackup: React.FC = () => {
       )}
 
       {/* Export Section */}
-      <div style={{ background: "#ffffff", border: "1px solid #e7e8ec", padding: "25px", marginBottom: "25px" }}>
+      <div className="adm-card">
         <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", flexWrap: "wrap", gap: "15px" }}>
           <div>
             <h3 style={{ fontSize: "16px", fontWeight: 700, color: "#001F5B", margin: "0 0 4px 0" }}>
@@ -86,18 +86,7 @@ const AdminBackup: React.FC = () => {
           <button
             type="button"
             onClick={exportJSON}
-            style={{
-              padding: "10px 22px",
-              background: "#001F5B",
-              color: "#ffffff",
-              border: "none",
-              fontWeight: 700,
-              fontSize: "13px",
-              cursor: "pointer",
-              display: "flex",
-              alignItems: "center",
-              gap: "8px",
-            }}
+            className="adm-btn"
           >
             <i className="ri-download-2-line" />
             Download Backup File
@@ -106,8 +95,8 @@ const AdminBackup: React.FC = () => {
       </div>
 
       {/* Import Section */}
-      <div style={{ background: "#ffffff", border: "1px solid #e7e8ec", padding: "25px", marginBottom: "25px" }}>
-        <h3 style={{ fontSize: "16px", fontWeight: 700, color: "#001F5B", borderBottom: "1px solid #f0f1f4", paddingBottom: "10px", marginBottom: "18px" }}>
+      <div className="adm-card">
+        <h3 className="adm-card-title">
           2. Import Configuration from Backup File
         </h3>
         <p style={{ margin: "0 0 16px 0", color: "#686e7d", fontSize: "13px" }}>
@@ -119,19 +108,12 @@ const AdminBackup: React.FC = () => {
             type="file"
             accept=".json,application/json"
             onChange={handleFileUpload}
-            style={{
-              padding: "8px 12px",
-              border: "1px dashed #dcdfe5",
-              background: "#fbfbfc",
-              width: "100%",
-              maxWidth: "400px",
-              cursor: "pointer",
-            }}
+            className="adm-file"
           />
         </div>
 
         <div style={{ marginBottom: "16px" }}>
-          <label style={{ display: "block", fontSize: "12px", fontWeight: 600, color: "#141d30", marginBottom: "4px" }}>
+          <label className="adm-label">
             Or Paste JSON Configuration Content:
           </label>
           <textarea
@@ -152,18 +134,7 @@ const AdminBackup: React.FC = () => {
         <button
           type="button"
           onClick={handleManualImport}
-          style={{
-            padding: "10px 22px",
-            background: "#f15a24",
-            color: "#ffffff",
-            border: "none",
-            fontWeight: 700,
-            fontSize: "13px",
-            cursor: "pointer",
-            display: "inline-flex",
-            alignItems: "center",
-            gap: "8px",
-          }}
+          className="adm-btn adm-btn-accent"
         >
           <i className="ri-upload-2-line" />
           Apply & Restore JSON
@@ -181,18 +152,7 @@ const AdminBackup: React.FC = () => {
         <button
           type="button"
           onClick={handleFullReset}
-          style={{
-            padding: "10px 22px",
-            background: "#d13b3b",
-            color: "#ffffff",
-            border: "none",
-            fontWeight: 700,
-            fontSize: "13px",
-            cursor: "pointer",
-            display: "inline-flex",
-            alignItems: "center",
-            gap: "8px",
-          }}
+          className="adm-btn adm-btn-danger"
         >
           <i className="ri-refresh-line" />
           Reset All to Factory Defaults

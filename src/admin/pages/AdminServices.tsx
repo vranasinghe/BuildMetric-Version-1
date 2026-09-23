@@ -221,45 +221,26 @@ const AdminServices: React.FC = () => {
 
   return (
     <form onSubmit={handleSaveAll}>
-      <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "25px", flexWrap: "wrap", gap: "15px" }}>
+      <div className="adm-page-head">
         <div>
-          <span style={{ fontSize: "12px", color: "#f15a24", fontWeight: 700, textTransform: "uppercase" }}>
+          <span className="adm-eyebrow">
             Header Section
           </span>
-          <h2 style={{ fontSize: "24px", fontWeight: 700, color: "#001F5B", margin: "4px 0 0 0" }}>
+          <h2 className="adm-page-title">
             Services Management
           </h2>
         </div>
-        <div style={{ display: "flex", gap: "10px" }}>
+        <div className="adm-actions">
           <button
             type="button"
             onClick={handleReset}
-            style={{
-              padding: "10px 18px",
-              background: "#f4f5f7",
-              color: "#686e7d",
-              border: "1px solid #e7e8ec",
-              fontWeight: 600,
-              fontSize: "13px",
-              cursor: "pointer",
-            }}
+            className="adm-btn adm-btn-ghost"
           >
             Reset Defaults
           </button>
           <button
             type="submit"
-            style={{
-              padding: "10px 24px",
-              background: "#001F5B",
-              color: "#ffffff",
-              border: "none",
-              fontWeight: 700,
-              fontSize: "13px",
-              cursor: "pointer",
-              display: "flex",
-              alignItems: "center",
-              gap: "8px",
-            }}
+            className="adm-btn"
           >
             <i className="ri-save-line" />
             Save Services
@@ -269,15 +250,7 @@ const AdminServices: React.FC = () => {
 
       {savedNotice && (
         <div
-          style={{
-            backgroundColor: "#e3fcef",
-            color: "#008060",
-            padding: "12px 18px",
-            marginBottom: "20px",
-            borderLeft: "4px solid #008060",
-            fontWeight: 600,
-            fontSize: "14px",
-          }}
+          className="adm-notice"
         >
           {savedNotice}
         </div>
@@ -285,28 +258,12 @@ const AdminServices: React.FC = () => {
 
       {/* Internal Sub-Tabs for Services Section */}
       <div
-        style={{
-          display: "flex",
-          gap: "2px",
-          borderBottom: "2px solid #001F5B",
-          marginBottom: "25px",
-        }}
+        className="adm-tabs"
       >
         <button
           type="button"
           onClick={() => setSubTab("main")}
-          style={{
-            padding: "12px 24px",
-            background: activeSubTab === "main" ? "#001F5B" : "#f4f5f7",
-            color: activeSubTab === "main" ? "#ffffff" : "#4a505e",
-            border: "none",
-            fontWeight: 700,
-            fontSize: "14px",
-            cursor: "pointer",
-            display: "flex",
-            alignItems: "center",
-            gap: "8px",
-          }}
+          className={`adm-tab ${activeSubTab === "main" ? "active" : ""}`}
         >
           <i className="ri-tools-line" />
           1. Services Overview & Cards ({pageData.services.length} Cards)
@@ -314,18 +271,7 @@ const AdminServices: React.FC = () => {
         <button
           type="button"
           onClick={() => setSubTab("details")}
-          style={{
-            padding: "12px 24px",
-            background: activeSubTab === "details" ? "#001F5B" : "#f4f5f7",
-            color: activeSubTab === "details" ? "#ffffff" : "#4a505e",
-            border: "none",
-            fontWeight: 700,
-            fontSize: "14px",
-            cursor: "pointer",
-            display: "flex",
-            alignItems: "center",
-            gap: "8px",
-          }}
+          className={`adm-tab ${activeSubTab === "details" ? "active" : ""}`}
         >
           <i className="ri-file-list-3-line" />
           2. Service Details Articles ({detailArticles.length} In-Depth Articles)
@@ -336,106 +282,92 @@ const AdminServices: React.FC = () => {
       {activeSubTab === "main" && (
         <div>
           {/* Breadcrumb Banner */}
-          <div style={{ background: "#ffffff", border: "1px solid #e7e8ec", padding: "25px", marginBottom: "25px" }}>
-            <h3 style={{ fontSize: "16px", fontWeight: 700, color: "#001F5B", borderBottom: "1px solid #f0f1f4", paddingBottom: "10px", marginBottom: "18px" }}>
+          <div className="adm-card">
+            <h3 className="adm-card-title">
               Hero Breadcrumb Banner
             </h3>
             <div className="row gy-3">
               <div className="col-md-6">
-                <label style={{ display: "block", fontSize: "13px", fontWeight: 600, marginBottom: "5px" }}>
+                <label className="adm-label">
                   Banner Title
                 </label>
                 <input
                   type="text"
                   value={pageData.breadcrumb.title}
                   onChange={(e) => handleBreadcrumbChange("title", e.target.value)}
-                  style={{ width: "100%", padding: "9px 12px", border: "1px solid #dcdfe5", fontSize: "14px" }}
+                  className="adm-input"
                 />
               </div>
               <div className="col-md-6">
-                <label style={{ display: "block", fontSize: "13px", fontWeight: 600, marginBottom: "5px" }}>
+                <label className="adm-label">
                   Trail Page Name
                 </label>
                 <input
                   type="text"
                   value={pageData.breadcrumb.pageName}
                   onChange={(e) => handleBreadcrumbChange("pageName", e.target.value)}
-                  style={{ width: "100%", padding: "9px 12px", border: "1px solid #dcdfe5", fontSize: "14px" }}
+                  className="adm-input"
                 />
               </div>
             </div>
           </div>
 
           {/* Intro Section */}
-          <div style={{ background: "#ffffff", border: "1px solid #e7e8ec", padding: "25px", marginBottom: "25px" }}>
-            <h3 style={{ fontSize: "16px", fontWeight: 700, color: "#001F5B", borderBottom: "1px solid #f0f1f4", paddingBottom: "10px", marginBottom: "18px" }}>
+          <div className="adm-card">
+            <h3 className="adm-card-title">
               Section Intro
             </h3>
             <div className="row gy-3">
               <div className="col-md-4">
-                <label style={{ display: "block", fontSize: "13px", fontWeight: 600, marginBottom: "5px" }}>
+                <label className="adm-label">
                   Subtitle
                 </label>
                 <input
                   type="text"
                   value={pageData.subtitle}
                   onChange={(e) => setPageData({ ...pageData, subtitle: e.target.value })}
-                  style={{ width: "100%", padding: "9px 12px", border: "1px solid #dcdfe5", fontSize: "14px" }}
+                  className="adm-input"
                 />
               </div>
               <div className="col-md-8">
-                <label style={{ display: "block", fontSize: "13px", fontWeight: 600, marginBottom: "5px" }}>
+                <label className="adm-label">
                   Title
                 </label>
                 <input
                   type="text"
                   value={pageData.title}
                   onChange={(e) => setPageData({ ...pageData, title: e.target.value })}
-                  style={{ width: "100%", padding: "9px 12px", border: "1px solid #dcdfe5", fontSize: "14px", fontWeight: 700 }}
+                  className="adm-input adm-input-strong"
                 />
               </div>
               <div className="col-12">
-                <label style={{ display: "block", fontSize: "13px", fontWeight: 600, marginBottom: "5px" }}>
+                <label className="adm-label">
                   Description Paragraph
                 </label>
                 <textarea
                   rows={2}
                   value={pageData.description}
                   onChange={(e) => setPageData({ ...pageData, description: e.target.value })}
-                  style={{ width: "100%", padding: "9px 12px", border: "1px solid #dcdfe5", fontSize: "14px" }}
+                  className="adm-input"
                 />
               </div>
             </div>
           </div>
 
           {/* Service Cards (Full CRUD) */}
-          <div style={{ background: "#ffffff", border: "1px solid #e7e8ec", padding: "25px", marginBottom: "25px" }}>
-            <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "20px", borderBottom: "1px solid #f0f1f4", paddingBottom: "10px" }}>
+          <div className="adm-card">
+            <div className="adm-card-head">
               <div>
-                <span style={{ background: "#001F5B", color: "#fff", padding: "3px 8px", fontSize: "11px", fontWeight: 700, marginRight: "8px" }}>
-                  CRUD
-                </span>
-                <h3 style={{ fontSize: "16px", fontWeight: 700, color: "#001F5B", display: "inline-block", margin: 0 }}>
+                <h3 className="adm-card-title-inline">
                   Service Cards ({pageData.services.length} Cards)
                 </h3>
               </div>
               <button
                 type="button"
                 onClick={addServiceCard}
-                style={{
-                  padding: "7px 15px",
-                  background: "#f15a24",
-                  color: "#ffffff",
-                  border: "none",
-                  fontWeight: 700,
-                  fontSize: "12px",
-                  cursor: "pointer",
-                  display: "flex",
-                  alignItems: "center",
-                  gap: "5px",
-                }}
+                className="adm-btn adm-btn-sm adm-btn-outline"
               >
-                <i className="ri-add-line" /> + Add New Service Card [Create]
+                <i className="ri-add-line" /> Add New Service Card
               </button>
             </div>
 
@@ -461,7 +393,7 @@ const AdminServices: React.FC = () => {
                               fontFamily: "var(--title-font)",
                               fontSize: "18px",
                               fontWeight: 700,
-                              color: "#f15a24",
+                              color: "#001F5B",
                             }}
                           >
                             {service.num}
@@ -471,40 +403,33 @@ const AdminServices: React.FC = () => {
                         <button
                           type="button"
                           onClick={() => removeServiceCard(sIndex)}
-                          style={{
-                            background: "transparent",
-                            border: "none",
-                            color: "#c62828",
-                            cursor: "pointer",
-                            fontSize: "12px",
-                            fontWeight: 600,
-                          }}
+                          className="adm-link-danger"
                         >
-                          <i className="ri-delete-bin-line" /> Delete Card [Delete]
+                          <i className="ri-delete-bin-line" /> Delete Card
                         </button>
                       </div>
 
                       <div className="mb-3">
-                        <label style={{ display: "block", fontSize: "11px", fontWeight: 600, color: "#686e7d", marginBottom: "2px" }}>
-                          Service Title [Update]
+                        <label className="adm-label adm-label-sm">
+                          Service Title
                         </label>
                         <input
                           type="text"
                           value={service.title}
                           onChange={(e) => handleServiceCardChange(sIndex, "title", e.target.value)}
-                          style={{ width: "100%", padding: "7px 10px", border: "1px solid #dcdfe5", fontSize: "13px", fontWeight: 700 }}
+                          className="adm-input adm-input-sm adm-input-strong"
                         />
                       </div>
 
                       <div className="mb-3">
-                        <label style={{ display: "block", fontSize: "11px", fontWeight: 600, color: "#686e7d", marginBottom: "2px" }}>
-                          Icon Asset URL [Update]
+                        <label className="adm-label adm-label-sm">
+                          Icon Asset URL
                         </label>
                         <input
                           type="text"
                           value={service.icon}
                           onChange={(e) => handleServiceCardChange(sIndex, "icon", e.target.value)}
-                          style={{ width: "100%", padding: "7px 10px", border: "1px solid #dcdfe5", fontSize: "13px" }}
+                          className="adm-input adm-input-sm"
                         />
                       </div>
 
@@ -517,17 +442,9 @@ const AdminServices: React.FC = () => {
                           <button
                             type="button"
                             onClick={() => addDeliverable(sIndex)}
-                            style={{
-                              padding: "3px 8px",
-                              background: "#001F5B",
-                              color: "#ffffff",
-                              border: "none",
-                              fontSize: "11px",
-                              fontWeight: 700,
-                              cursor: "pointer",
-                            }}
+                            className="adm-btn adm-btn-sm"
                           >
-                            + Add [Create]
+                            Add
                           </button>
                         </div>
                         <div style={{ display: "flex", flexDirection: "column", gap: "6px" }}>
@@ -542,14 +459,7 @@ const AdminServices: React.FC = () => {
                               <button
                                 type="button"
                                 onClick={() => removeDeliverable(sIndex, iIndex)}
-                                style={{
-                                  padding: "4px 8px",
-                                  background: "#feebee",
-                                  color: "#c62828",
-                                  border: "1px solid #ffcdd2",
-                                  cursor: "pointer",
-                                  fontSize: "11px",
-                                }}
+                                className="adm-btn-danger-soft"
                               >
                                 <i className="ri-delete-bin-line" />
                               </button>
@@ -565,57 +475,43 @@ const AdminServices: React.FC = () => {
           </div>
 
           {/* Benefits (01-04) (Full CRUD) */}
-          <div style={{ background: "#ffffff", border: "1px solid #e7e8ec", padding: "25px", marginBottom: "25px" }}>
-            <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "18px", borderBottom: "1px solid #f0f1f4", paddingBottom: "10px" }}>
+          <div className="adm-card">
+            <div className="adm-card-head">
               <div>
-                <span style={{ background: "#001F5B", color: "#fff", padding: "3px 8px", fontSize: "11px", fontWeight: 700, marginRight: "8px" }}>
-                  CRUD
-                </span>
-                <h3 style={{ fontSize: "16px", fontWeight: 700, color: "#001F5B", display: "inline-block", margin: 0 }}>
+                <h3 className="adm-card-title-inline">
                   Key Process Benefits ({pageData.benefitsList.length} Steps)
                 </h3>
               </div>
               <button
                 type="button"
                 onClick={addBenefit}
-                style={{
-                  padding: "7px 15px",
-                  background: "#001F5B",
-                  color: "#fff",
-                  border: "none",
-                  fontWeight: 700,
-                  fontSize: "12px",
-                  cursor: "pointer",
-                  display: "flex",
-                  alignItems: "center",
-                  gap: "5px",
-                }}
+                className="adm-btn adm-btn-sm"
               >
-                <i className="ri-add-line" /> + Add Benefit Step [Create]
+                <i className="ri-add-line" /> Add Benefit Step
               </button>
             </div>
 
             <div className="row gy-3 mb-4">
               <div className="col-md-6">
-                <label style={{ display: "block", fontSize: "13px", fontWeight: 600, marginBottom: "5px" }}>
+                <label className="adm-label">
                   Benefits Section Subtitle
                 </label>
                 <input
                   type="text"
                   value={pageData.benefitsSubtitle}
                   onChange={(e) => setPageData({ ...pageData, benefitsSubtitle: e.target.value })}
-                  style={{ width: "100%", padding: "9px 12px", border: "1px solid #dcdfe5", fontSize: "14px" }}
+                  className="adm-input"
                 />
               </div>
               <div className="col-md-6">
-                <label style={{ display: "block", fontSize: "13px", fontWeight: 600, marginBottom: "5px" }}>
+                <label className="adm-label">
                   Benefits Section Title
                 </label>
                 <input
                   type="text"
                   value={pageData.benefitsTitle}
                   onChange={(e) => setPageData({ ...pageData, benefitsTitle: e.target.value })}
-                  style={{ width: "100%", padding: "9px 12px", border: "1px solid #dcdfe5", fontSize: "14px", fontWeight: 700 }}
+                  className="adm-input adm-input-strong"
                 />
               </div>
             </div>
@@ -623,14 +519,14 @@ const AdminServices: React.FC = () => {
             <div className="row gy-3">
               {pageData.benefitsList.map((benefit, bIndex) => (
                 <div key={benefit.id} className="col-md-6">
-                  <div style={{ background: "#fbfbfc", border: "1px solid #e7e8ec", padding: "16px" }}>
+                  <div className="adm-item">
                     <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "8px" }}>
                       <span
                         style={{
                           fontFamily: "var(--title-font)",
                           fontSize: "20px",
                           fontWeight: 700,
-                          color: "#f15a24",
+                          color: "#001F5B",
                         }}
                       >
                         {benefit.number}
@@ -638,49 +534,42 @@ const AdminServices: React.FC = () => {
                       <button
                         type="button"
                         onClick={() => removeBenefit(bIndex)}
-                        style={{
-                          background: "transparent",
-                          border: "none",
-                          color: "#c62828",
-                          cursor: "pointer",
-                          fontSize: "12px",
-                          fontWeight: 600,
-                        }}
+                        className="adm-link-danger"
                       >
-                        <i className="ri-delete-bin-line" /> Delete [Delete]
+                        <i className="ri-delete-bin-line" /> Delete
                       </button>
                     </div>
                     <div style={{ marginBottom: "8px" }}>
-                      <label style={{ display: "block", fontSize: "11px", fontWeight: 600, color: "#686e7d", marginBottom: "2px" }}>
-                        Number (e.g. 01, 02) [Update]
+                      <label className="adm-label adm-label-sm">
+                        Number (e.g. 01, 02)
                       </label>
                       <input
                         type="text"
                         value={benefit.number}
                         onChange={(e) => handleBenefitChange(bIndex, "number", e.target.value)}
-                        style={{ width: "100%", padding: "6px 10px", border: "1px solid #dcdfe5", fontSize: "13px" }}
+                        className="adm-input adm-input-xs"
                       />
                     </div>
                     <div style={{ marginBottom: "8px" }}>
-                      <label style={{ display: "block", fontSize: "11px", fontWeight: 600, color: "#686e7d", marginBottom: "2px" }}>
-                        Title [Update]
+                      <label className="adm-label adm-label-sm">
+                        Title
                       </label>
                       <input
                         type="text"
                         value={benefit.title}
                         onChange={(e) => handleBenefitChange(bIndex, "title", e.target.value)}
-                        style={{ width: "100%", padding: "6px 10px", border: "1px solid #dcdfe5", fontSize: "13px", fontWeight: 700 }}
+                        className="adm-input adm-input-xs adm-input-strong"
                       />
                     </div>
                     <div>
-                      <label style={{ display: "block", fontSize: "11px", fontWeight: 600, color: "#686e7d", marginBottom: "2px" }}>
-                        Description [Update]
+                      <label className="adm-label adm-label-sm">
+                        Description
                       </label>
                       <textarea
                         rows={2}
                         value={benefit.desc}
                         onChange={(e) => handleBenefitChange(bIndex, "desc", e.target.value)}
-                        style={{ width: "100%", padding: "6px 10px", border: "1px solid #dcdfe5", fontSize: "13px" }}
+                        className="adm-input adm-input-xs"
                       />
                     </div>
                   </div>
@@ -695,12 +584,9 @@ const AdminServices: React.FC = () => {
       {activeSubTab === "details" && (
         <div>
           {/* Article Selector & Create / Delete Article */}
-          <div style={{ background: "#ffffff", border: "1px solid #e7e8ec", padding: "20px", marginBottom: "25px" }}>
+          <div className="adm-card">
             <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "15px" }}>
               <div>
-                <span style={{ background: "#001F5B", color: "#fff", padding: "3px 8px", fontSize: "11px", fontWeight: 700, marginRight: "8px" }}>
-                  CRUD
-                </span>
                 <label style={{ fontSize: "14px", fontWeight: 700, color: "#001F5B" }}>
                   Select Service Article To Edit ({detailArticles.length} Total Articles)
                 </label>
@@ -708,20 +594,9 @@ const AdminServices: React.FC = () => {
               <button
                 type="button"
                 onClick={addDetailArticle}
-                style={{
-                  padding: "7px 15px",
-                  background: "#f15a24",
-                  color: "#fff",
-                  border: "none",
-                  fontWeight: 700,
-                  fontSize: "12px",
-                  cursor: "pointer",
-                  display: "flex",
-                  alignItems: "center",
-                  gap: "5px",
-                }}
+                className="adm-btn adm-btn-sm adm-btn-outline"
               >
-                <i className="ri-add-line" /> + Add New Service Article [Create]
+                <i className="ri-add-line" /> Add New Service Article
               </button>
             </div>
 
@@ -731,18 +606,7 @@ const AdminServices: React.FC = () => {
                   key={srv.id}
                   type="button"
                   onClick={() => setSelectedDetailIndex(idx)}
-                  style={{
-                    padding: "10px 14px",
-                    background: selectedDetailIndex === idx ? "#001F5B" : "#f4f5f7",
-                    color: selectedDetailIndex === idx ? "#ffffff" : "#333333",
-                    border: selectedDetailIndex === idx ? "2px solid #f15a24" : "1px solid #e0e2e8",
-                    fontWeight: 700,
-                    fontSize: "13px",
-                    cursor: "pointer",
-                    display: "flex",
-                    alignItems: "center",
-                    gap: "8px",
-                  }}
+                  className={`adm-pill ${selectedDetailIndex === idx ? "active" : ""}`}
                 >
                   <span style={{ color: selectedDetailIndex === idx ? "#f15a24" : "#888" }}>{srv.num}</span>
                   {srv.tabTitle}
@@ -757,94 +621,86 @@ const AdminServices: React.FC = () => {
               <button
                 type="button"
                 onClick={() => removeDetailArticle(selectedDetailIndex)}
-                style={{
-                  padding: "6px 12px",
-                  background: "#feebee",
-                  color: "#c62828",
-                  border: "1px solid #ffcdd2",
-                  fontSize: "12px",
-                  fontWeight: 700,
-                  cursor: "pointer",
-                }}
+                className="adm-btn-danger-soft"
               >
-                <i className="ri-delete-bin-line" /> Delete This Article [Delete]
+                <i className="ri-delete-bin-line" /> Delete This Article
               </button>
             </div>
           </div>
 
           {/* Editor for Selected Service Article */}
-          <div style={{ background: "#ffffff", border: "1px solid #e7e8ec", padding: "25px", marginBottom: "25px" }}>
-            <h3 style={{ fontSize: "16px", fontWeight: 700, color: "#001F5B", borderBottom: "1px solid #f0f1f4", paddingBottom: "10px", marginBottom: "18px" }}>
-              Article Details & Content [Update]
+          <div className="adm-card">
+            <h3 className="adm-card-title">
+              Article Details & Content
             </h3>
 
             <div className="row gy-3 mb-4">
               <div className="col-md-2">
-                <label style={{ display: "block", fontSize: "12px", fontWeight: 600, marginBottom: "4px" }}>
+                <label className="adm-label">
                   Number (e.g. 01)
                 </label>
                 <input
                   type="text"
                   value={selectedArticle.num}
                   onChange={(e) => handleDetailFieldChange("num", e.target.value)}
-                  style={{ width: "100%", padding: "8px 10px", border: "1px solid #dcdfe5", fontSize: "13px", fontWeight: 700 }}
+                  className="adm-input adm-input-sm adm-input-strong"
                 />
               </div>
               <div className="col-md-5">
-                <label style={{ display: "block", fontSize: "12px", fontWeight: 600, marginBottom: "4px" }}>
+                <label className="adm-label">
                   Sidebar Tab Title
                 </label>
                 <input
                   type="text"
                   value={selectedArticle.tabTitle}
                   onChange={(e) => handleDetailFieldChange("tabTitle", e.target.value)}
-                  style={{ width: "100%", padding: "8px 10px", border: "1px solid #dcdfe5", fontSize: "13px" }}
+                  className="adm-input adm-input-sm"
                 />
               </div>
               <div className="col-md-5">
-                <label style={{ display: "block", fontSize: "12px", fontWeight: 600, marginBottom: "4px" }}>
+                <label className="adm-label">
                   URL Tab Key (e.g. service-tab-1)
                 </label>
                 <input
                   type="text"
                   value={selectedArticle.id}
                   onChange={(e) => handleDetailFieldChange("id", e.target.value)}
-                  style={{ width: "100%", padding: "8px 10px", border: "1px solid #dcdfe5", fontSize: "13px" }}
+                  className="adm-input adm-input-sm"
                 />
               </div>
 
               <div className="col-md-8">
-                <label style={{ display: "block", fontSize: "12px", fontWeight: 600, marginBottom: "4px" }}>
+                <label className="adm-label">
                   Main Article Headline
                 </label>
                 <input
                   type="text"
                   value={selectedArticle.serviceTitle}
                   onChange={(e) => handleDetailFieldChange("serviceTitle", e.target.value)}
-                  style={{ width: "100%", padding: "8px 10px", border: "1px solid #dcdfe5", fontSize: "13px", fontWeight: 700 }}
+                  className="adm-input adm-input-sm adm-input-strong"
                 />
               </div>
               <div className="col-md-4">
-                <label style={{ display: "block", fontSize: "12px", fontWeight: 600, marginBottom: "4px" }}>
+                <label className="adm-label">
                   Feature Image Asset Path
                 </label>
                 <input
                   type="text"
                   value={selectedArticle.thumb}
                   onChange={(e) => handleDetailFieldChange("thumb", e.target.value)}
-                  style={{ width: "100%", padding: "8px 10px", border: "1px solid #dcdfe5", fontSize: "13px" }}
+                  className="adm-input adm-input-sm"
                 />
               </div>
 
               <div className="col-12">
-                <label style={{ display: "block", fontSize: "12px", fontWeight: 600, marginBottom: "4px" }}>
+                <label className="adm-label">
                   Executive Overview Paragraph
                 </label>
                 <textarea
                   rows={3}
                   value={selectedArticle.desc}
                   onChange={(e) => handleDetailFieldChange("desc", e.target.value)}
-                  style={{ width: "100%", padding: "8px 10px", border: "1px solid #dcdfe5", fontSize: "13px" }}
+                  className="adm-input adm-input-sm"
                 />
               </div>
             </div>
@@ -853,30 +709,16 @@ const AdminServices: React.FC = () => {
             <div style={{ borderTop: "1px solid #f0f1f4", paddingTop: "20px" }}>
               <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "15px" }}>
                 <div>
-                  <span style={{ background: "#001F5B", color: "#fff", padding: "3px 8px", fontSize: "11px", fontWeight: 700, marginRight: "8px" }}>
-                    CRUD
-                  </span>
-                  <h4 style={{ fontSize: "15px", fontWeight: 700, color: "#001F5B", display: "inline-block", margin: 0 }}>
+                  <h4 className="adm-card-title-inline">
                     Subsections & Deliverables ({selectedArticle.subsections.length} Items)
                   </h4>
                 </div>
                 <button
                   type="button"
                   onClick={addSubsection}
-                  style={{
-                    padding: "6px 14px",
-                    background: "#001F5B",
-                    color: "#ffffff",
-                    border: "none",
-                    fontWeight: 700,
-                    fontSize: "12px",
-                    cursor: "pointer",
-                    display: "flex",
-                    alignItems: "center",
-                    gap: "5px",
-                  }}
+                  className="adm-btn adm-btn-sm"
                 >
-                  <i className="ri-add-line" /> + Add Subsection [Create]
+                  <i className="ri-add-line" /> Add Subsection
                 </button>
               </div>
 
@@ -884,51 +726,40 @@ const AdminServices: React.FC = () => {
                 {selectedArticle.subsections.map((sub, subIdx) => (
                   <div
                     key={subIdx}
-                    style={{
-                      background: "#fbfbfc",
-                      border: "1px solid #e7e8ec",
-                      padding: "16px",
-                    }}
+                    className="adm-item"
                   >
                     <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "8px" }}>
-                      <span style={{ fontSize: "12px", fontWeight: 700, color: "#f15a24" }}>
+                      <span style={{ fontSize: "12px", fontWeight: 700, color: "#001F5B" }}>
                         Subsection #{subIdx + 1}
                       </span>
                       <button
                         type="button"
                         onClick={() => removeSubsection(subIdx)}
-                        style={{
-                          background: "transparent",
-                          border: "none",
-                          color: "#c62828",
-                          cursor: "pointer",
-                          fontSize: "12px",
-                          fontWeight: 600,
-                        }}
+                        className="adm-link-danger"
                       >
-                        <i className="ri-delete-bin-line" /> Delete Subsection [Delete]
+                        <i className="ri-delete-bin-line" /> Delete Subsection
                       </button>
                     </div>
                     <div style={{ marginBottom: "8px" }}>
-                      <label style={{ display: "block", fontSize: "11px", fontWeight: 600, color: "#686e7d", marginBottom: "2px" }}>
-                        Heading / Title [Update]
+                      <label className="adm-label adm-label-sm">
+                        Heading / Title
                       </label>
                       <input
                         type="text"
                         value={sub.name}
                         onChange={(e) => handleSubsectionChange(subIdx, "name", e.target.value)}
-                        style={{ width: "100%", padding: "7px 10px", border: "1px solid #dcdfe5", fontSize: "13px", fontWeight: 700 }}
+                        className="adm-input adm-input-sm adm-input-strong"
                       />
                     </div>
                     <div>
-                      <label style={{ display: "block", fontSize: "11px", fontWeight: 600, color: "#686e7d", marginBottom: "2px" }}>
-                        Detailed Text [Update]
+                      <label className="adm-label adm-label-sm">
+                        Detailed Text
                       </label>
                       <textarea
                         rows={2}
                         value={sub.detail}
                         onChange={(e) => handleSubsectionChange(subIdx, "detail", e.target.value)}
-                        style={{ width: "100%", padding: "7px 10px", border: "1px solid #dcdfe5", fontSize: "13px" }}
+                        className="adm-input adm-input-sm"
                       />
                     </div>
                   </div>
@@ -944,17 +775,7 @@ const AdminServices: React.FC = () => {
             <Link
               to={`/service-details?tab=${selectedArticle.id}`}
               target="_blank"
-              style={{
-                padding: "8px 16px",
-                background: "#f15a24",
-                color: "#ffffff",
-                fontWeight: 700,
-                fontSize: "12px",
-                textDecoration: "none",
-                display: "inline-flex",
-                alignItems: "center",
-                gap: "6px",
-              }}
+              className="adm-btn adm-btn-sm adm-btn-outline"
             >
               View On Public Site <i className="ri-external-link-line" />
             </Link>

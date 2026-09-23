@@ -6,18 +6,7 @@ type Stats = Record<"clients" | "inquiries" | InquiryStatus, number>;
 const STATUS_ORDER: InquiryStatus[] = ["new", "in_progress", "resolved", "closed"];
 
 const StatusBadge = ({ status }: { status: InquiryStatus }) => (
-  <span
-    style={{
-      background: STATUS_COLORS[status].bg,
-      color: STATUS_COLORS[status].fg,
-      fontSize: "11px",
-      fontWeight: 700,
-      padding: "3px 8px",
-      textTransform: "uppercase",
-      letterSpacing: "0.4px",
-      whiteSpace: "nowrap",
-    }}
-  >
+  <span className="adm-status" style={{ background: STATUS_COLORS[status].bg, color: STATUS_COLORS[status].fg }}>
     {STATUS_LABELS[status]}
   </span>
 );
@@ -72,68 +61,58 @@ const AdminInquiries: React.FC = () => {
     }
   };
 
-  const card: React.CSSProperties = { background: "#ffffff", border: "1px solid #e7e8ec" };
-
   return (
     <div>
-      <div style={{ marginBottom: "22px" }}>
-        <span style={{ fontSize: "12px", color: "#f15a24", fontWeight: 700, textTransform: "uppercase" }}>Clients: INQUIRIES</span>
-        <h2 style={{ fontSize: "24px", fontWeight: 700, color: "#001F5B", margin: "4px 0 0 0" }}>Client Inquiries</h2>
+      <div className="adm-page-head">
+        <div>
+          <span className="adm-eyebrow">Clients</span>
+          <h1 className="adm-page-title">Client Inquiries</h1>
+          <p className="adm-page-sub">Messages sent by logged-in clients from the website inquiry forms.</p>
+        </div>
       </div>
 
       {stats && (
-        <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(140px, 1fr))", gap: "12px", marginBottom: "20px" }}>
+        <div className="adm-stats">
           {[
-            { label: "Total inquiries", value: stats.inquiries, color: "#001F5B" },
+            { label: "Total inquiries", value: stats.inquiries, color: "#001f5b" },
             ...STATUS_ORDER.map((s) => ({ label: STATUS_LABELS[s], value: stats[s], color: STATUS_COLORS[s].fg })),
-            { label: "Registered clients", value: stats.clients, color: "#001F5B" },
+            { label: "Registered clients", value: stats.clients, color: "#15161c" },
           ].map((s) => (
-            <div key={s.label} style={{ ...card, padding: "14px 16px" }}>
-              <div style={{ fontSize: "26px", fontWeight: 700, color: s.color, lineHeight: 1.1 }}>{s.value}</div>
-              <div style={{ fontSize: "12px", color: "#686e7d", marginTop: "4px" }}>{s.label}</div>
+            <div key={s.label} className="adm-stat" style={{ "--stat-color": s.color } as React.CSSProperties}>
+              <div className="adm-stat-value">{s.value}</div>
+              <div className="adm-stat-label">{s.label}</div>
             </div>
           ))}
         </div>
       )}
 
-      <div style={{ display: "flex", gap: "10px", flexWrap: "wrap", marginBottom: "16px" }}>
+      <div className="adm-tabs" style={{ marginBottom: 18 }}>
         {(["all", ...STATUS_ORDER] as const).map((s) => (
-          <button
-            key={s}
-            type="button"
-            onClick={() => setFilter(s)}
-            style={{
-              padding: "8px 14px",
-              fontSize: "13px",
-              fontWeight: 700,
-              cursor: "pointer",
-              border: "1px solid",
-              borderColor: filter === s ? "#001F5B" : "#e7e8ec",
-              background: filter === s ? "#001F5B" : "#ffffff",
-              color: filter === s ? "#ffffff" : "#141d30",
-            }}
-          >
+          <button key={s} type="button" onClick={() => setFilter(s)} className={`adm-tab ${filter === s ? "active" : ""}`}>
             {s === "all" ? "All" : STATUS_LABELS[s]}
+            {stats && <span style={{ fontWeight: 600, opacity: 0.7 }}>({s === "all" ? stats.inquiries : stats[s]})</span>}
           </button>
         ))}
-        <input
-          type="search"
-          placeholder="Search name, email, service or message"
-          value={search}
-          onChange={(e) => setSearch(e.target.value)}
-          style={{ flex: "1 1 240px", height: "38px", padding: "0 12px", border: "1px solid #e7e8ec", fontSize: "13px", fontFamily: "inherit" }}
-        />
       </div>
 
-      {error && (
-        <div style={{ background: "#fdecec", color: "#991b1b", padding: "12px 16px", marginBottom: "16px", borderLeft: "4px solid #dc2626", fontSize: "14px" }}>
-          {error}
+      <div className="adm-toolbar">
+        <div className="adm-search">
+          <i className="ri-search-line" />
+          <input
+            type="search"
+            placeholder="Search by name, email, service or message"
+            value={search}
+            onChange={(e) => setSearch(e.target.value)}
+            aria-label="Search inquiries"
+          />
         </div>
-      )}
+      </div>
 
-      {inquiries === null && !error && <div style={{ color: "#686e7d" }}>Loading inquiries...</div>}
+      {error && <div className="adm-notice adm-notice-error">{error}</div>}
+
+      {inquiries === null && !error && <div className="adm-empty">Loading inquiries...</div>}
       {inquiries && inquiries.length === 0 && (
-        <div style={{ ...card, padding: "40px", textAlign: "center", color: "#686e7d" }}>
+        <div className="adm-empty">
           No inquiries {filter !== "all" ? `with status "${STATUS_LABELS[filter]}"` : "yet"}.
         </div>
       )}
@@ -141,83 +120,68 @@ const AdminInquiries: React.FC = () => {
       {inquiries?.map((inq) => {
         const open = openId === inq.id;
         const note = notes[inq.id] ?? inq.admin_note ?? "";
+        const noteUnchanged = note === (inq.admin_note ?? "");
         return (
-          <div key={inq.id} style={{ ...card, marginBottom: "10px", borderLeft: `4px solid ${STATUS_COLORS[inq.status].fg}` }}>
-            <button
-              type="button"
-              onClick={() => setOpenId(open ? null : inq.id)}
-              style={{ width: "100%", background: "none", border: "none", textAlign: "left", padding: "14px 18px", cursor: "pointer", display: "flex", gap: "14px", alignItems: "center", flexWrap: "wrap", fontFamily: "inherit" }}
-            >
-              <div style={{ flex: "1 1 220px", minWidth: 0 }}>
-                <div style={{ fontWeight: 700, color: "#141d30", fontSize: "15px" }}>
-                  {inq.name} <span style={{ fontWeight: 400, color: "#686e7d", fontSize: "13px" }}>· {inq.email}</span>
+          <div key={inq.id} className="adm-inquiry" style={{ "--row-color": STATUS_COLORS[inq.status].fg } as React.CSSProperties}>
+            <button type="button" className="adm-inquiry-summary" onClick={() => setOpenId(open ? null : inq.id)} aria-expanded={open}>
+              <div className="adm-inquiry-who">
+                <div className="adm-inquiry-name">
+                  {inq.name} <span>· {inq.email}</span>
                 </div>
-                <div style={{ fontSize: "13px", color: "#686e7d", whiteSpace: "nowrap", overflow: "hidden", textOverflow: "ellipsis" }}>
-                  <strong style={{ color: "#263b82" }}>{inq.service || "General"}</strong> — {inq.message}
+                <div className="adm-inquiry-preview">
+                  <strong>{inq.service || "General"}</strong> — {inq.message}
                 </div>
               </div>
-              <div style={{ fontSize: "12px", color: "#686e7d", whiteSpace: "nowrap" }}>{formatDate(inq.created_at)}</div>
+              <div className="adm-inquiry-date">{formatDate(inq.created_at)}</div>
               <StatusBadge status={inq.status} />
-              <i className={open ? "ri-arrow-up-s-line" : "ri-arrow-down-s-line"} style={{ fontSize: "18px", color: "#686e7d" }} />
+              <i className={open ? "ri-arrow-up-s-line" : "ri-arrow-down-s-line"} style={{ fontSize: 20, color: "#737373" }} />
             </button>
 
             {open && (
-              <div style={{ padding: "0 18px 18px", borderTop: "1px solid #f0f1f3" }}>
-                <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(180px, 1fr))", gap: "10px", fontSize: "13px", margin: "14px 0" }}>
-                  <div><span style={{ color: "#686e7d" }}>Email:</span> <a href={`mailto:${inq.email}`}>{inq.email}</a></div>
-                  <div><span style={{ color: "#686e7d" }}>Phone:</span> {inq.phone ? <a href={`tel:${inq.phone}`}>{inq.phone}</a> : "—"}</div>
-                  <div><span style={{ color: "#686e7d" }}>Sent from:</span> {inq.source_page || "—"}</div>
-                  <div><span style={{ color: "#686e7d" }}>Account:</span> {inq.account_name}</div>
+              <div className="adm-inquiry-body">
+                <div className="adm-detail-grid">
+                  <div><span>Email</span><a href={`mailto:${inq.email}`}>{inq.email}</a></div>
+                  <div><span>Phone</span>{inq.phone ? <a href={`tel:${inq.phone}`}>{inq.phone}</a> : "—"}</div>
+                  <div><span>Sent from</span>{inq.source_page || "—"}</div>
+                  <div><span>Account</span>{inq.account_name}</div>
                 </div>
-                <div style={{ background: "#f8f9fb", padding: "14px", fontSize: "14px", whiteSpace: "pre-wrap", color: "#141d30", marginBottom: "14px" }}>
-                  {inq.message}
+                <div className="adm-message">{inq.message}</div>
+
+                <div className="row gy-3">
+                  <div className="col-md-4">
+                    <label className="adm-label" htmlFor={`status-${inq.id}`}>Status</label>
+                    <select
+                      id={`status-${inq.id}`}
+                      className="adm-input"
+                      value={inq.status}
+                      onChange={(e) => update(inq.id, { status: e.target.value as InquiryStatus })}
+                    >
+                      {STATUS_ORDER.map((s) => <option key={s} value={s}>{STATUS_LABELS[s]}</option>)}
+                    </select>
+                    <div style={{ fontSize: 13, color: "#737373", marginTop: 6 }}>Updated {formatDate(inq.updated_at)}</div>
+                  </div>
+                  <div className="col-md-8">
+                    <label className="adm-label" htmlFor={`note-${inq.id}`}>Internal note <span style={{ fontWeight: 400, color: "#737373" }}>(only admins see this)</span></label>
+                    <textarea
+                      id={`note-${inq.id}`}
+                      className="adm-input"
+                      value={note}
+                      onChange={(e) => setNotes({ ...notes, [inq.id]: e.target.value })}
+                      rows={3}
+                      maxLength={2000}
+                    />
+                  </div>
                 </div>
 
-                <div style={{ display: "flex", gap: "10px", alignItems: "center", flexWrap: "wrap", marginBottom: "12px" }}>
-                  <label style={{ fontSize: "13px", fontWeight: 600 }} htmlFor={`status-${inq.id}`}>Status</label>
-                  <select
-                    id={`status-${inq.id}`}
-                    value={inq.status}
-                    onChange={(e) => update(inq.id, { status: e.target.value as InquiryStatus })}
-                    style={{ height: "36px", padding: "0 10px", border: "1px solid #e7e8ec", fontFamily: "inherit" }}
-                  >
-                    {STATUS_ORDER.map((s) => <option key={s} value={s}>{STATUS_LABELS[s]}</option>)}
-                  </select>
-                  <span style={{ fontSize: "12px", color: "#686e7d" }}>Updated {formatDate(inq.updated_at)}</span>
-                </div>
-
-                <label style={{ fontSize: "13px", fontWeight: 600, display: "block", marginBottom: "6px" }} htmlFor={`note-${inq.id}`}>
-                  Internal note (only admins see this)
-                </label>
-                <textarea
-                  id={`note-${inq.id}`}
-                  value={note}
-                  onChange={(e) => setNotes({ ...notes, [inq.id]: e.target.value })}
-                  rows={2}
-                  maxLength={2000}
-                  style={{ width: "100%", padding: "10px", border: "1px solid #e7e8ec", fontFamily: "inherit", fontSize: "13px" }}
-                />
-                <div style={{ display: "flex", gap: "10px", marginTop: "10px", flexWrap: "wrap" }}>
-                  <button
-                    type="button"
-                    disabled={note === (inq.admin_note ?? "")}
-                    onClick={() => update(inq.id, { adminNote: note })}
-                    style={{ padding: "8px 16px", background: "#001F5B", color: "#fff", border: "none", fontWeight: 700, fontSize: "13px", cursor: "pointer", opacity: note === (inq.admin_note ?? "") ? 0.5 : 1 }}
-                  >
-                    Save note
+                <div className="adm-actions" style={{ marginTop: 16 }}>
+                  <button type="button" className="adm-btn adm-btn-sm" disabled={noteUnchanged} onClick={() => update(inq.id, { adminNote: note })}>
+                    <i className="ri-save-line" /> Save Note
                   </button>
-                  <a
-                    href={`mailto:${inq.email}?subject=${encodeURIComponent("Re: your BuildMetric inquiry")}`}
-                    style={{ padding: "8px 16px", background: "#f15a24", color: "#fff", fontWeight: 700, fontSize: "13px", textDecoration: "none" }}
-                  >
-                    Reply by email
+                  <a href={`mailto:${inq.email}?subject=${encodeURIComponent("Re: your BuildMetric inquiry")}`} className="adm-btn adm-btn-sm adm-btn-outline">
+                    <i className="ri-reply-line" /> Reply by Email
                   </a>
-                  <button
-                    type="button"
-                    onClick={() => remove(inq.id)}
-                    style={{ padding: "8px 16px", background: "#ffffff", color: "#b91c1c", border: "1px solid #f3c4c4", fontWeight: 700, fontSize: "13px", cursor: "pointer", marginLeft: "auto" }}
-                  >
-                    Delete
+                  <button type="button" className="adm-btn-danger-soft" style={{ marginLeft: "auto" }} onClick={() => remove(inq.id)}>
+                    <i className="ri-delete-bin-line" /> Delete
                   </button>
                 </div>
               </div>

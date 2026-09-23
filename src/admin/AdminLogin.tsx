@@ -1,10 +1,13 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import { useAuth } from "../auth/AuthContext";
+import { useContent } from "./ContentContext";
+import "./admin.css";
 
 // Shown at /admin until someone with the admin role logs in.
 const AdminLogin: React.FC = () => {
   const { user, login, logout } = useAuth();
+  const { content } = useContent();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
@@ -24,52 +27,61 @@ const AdminLogin: React.FC = () => {
     }
   };
 
-  const inputStyle: React.CSSProperties = {
-    width: "100%",
-    height: "46px",
-    padding: "0 14px",
-    border: "1px solid #d6d9df",
-    fontSize: "14px",
-    marginBottom: "16px",
-    fontFamily: "inherit",
-  };
-
   return (
-    <div style={{ minHeight: "100vh", background: "#0d131f", display: "flex", alignItems: "center", justifyContent: "center", padding: "20px", fontFamily: "'Titillium Web', sans-serif" }}>
-      <div style={{ width: "100%", maxWidth: "400px", background: "#ffffff", padding: "36px 32px", borderTop: "4px solid #f15a24" }}>
-        <div style={{ fontSize: "22px", fontWeight: 700, color: "#141d30", letterSpacing: "1px", marginBottom: "4px" }}>
-          BUILD<span style={{ color: "#f15a24" }}>METRIC</span>
-        </div>
-        <div style={{ fontSize: "13px", color: "#686e7d", marginBottom: "24px" }}>Admin panel sign in</div>
+    <div className="bm-admin">
+      <div className="adm-login">
+        <div className="adm-login-card">
+          <img src={content.header.logoUrl || "/assets/img/buildmetric-logo.png"} alt="BuildMetric Consultancy" />
+          <span className="adm-eyebrow">Admin Panel</span>
+          <h1>Sign in</h1>
+          <p>Manage website content, client inquiries and registered clients.</p>
 
-        {user && user.role !== "admin" ? (
-          <>
-            <div style={{ background: "#fdecec", color: "#991b1b", padding: "12px 14px", fontSize: "14px", marginBottom: "16px" }}>
-              You are logged in as <strong>{user.email}</strong>, which is a client account without admin access.
-            </div>
-            <button onClick={logout} style={{ width: "100%", height: "44px", background: "#001F5B", color: "#fff", border: "none", fontWeight: 700, cursor: "pointer" }}>
-              Log out and use an admin account
-            </button>
-          </>
-        ) : (
-          <form onSubmit={handleSubmit}>
-            {error && (
-              <div role="alert" style={{ background: "#fdecec", color: "#991b1b", padding: "10px 14px", fontSize: "14px", marginBottom: "16px" }}>
-                {error}
+          {user && user.role !== "admin" ? (
+            <>
+              <div className="adm-notice adm-notice-error">
+                You are logged in as {user.email}, which is a client account without admin access.
               </div>
-            )}
-            <label htmlFor="admin-email" style={{ fontSize: "13px", fontWeight: 600, display: "block", marginBottom: "6px" }}>Email</label>
-            <input id="admin-email" type="email" value={email} onChange={(e) => setEmail(e.target.value)} required autoComplete="username" style={inputStyle} />
-            <label htmlFor="admin-password" style={{ fontSize: "13px", fontWeight: 600, display: "block", marginBottom: "6px" }}>Password</label>
-            <input id="admin-password" type="password" value={password} onChange={(e) => setPassword(e.target.value)} required autoComplete="current-password" style={inputStyle} />
-            <button type="submit" disabled={submitting} style={{ width: "100%", height: "46px", background: "#001F5B", color: "#fff", border: "none", fontWeight: 700, letterSpacing: "0.5px", cursor: "pointer", marginTop: "4px" }}>
-              {submitting ? "Signing in..." : "SIGN IN"}
-            </button>
-          </form>
-        )}
+              <button type="button" onClick={logout} className="adm-btn" style={{ width: "100%" }}>
+                Log out and use an admin account
+              </button>
+            </>
+          ) : (
+            <form onSubmit={handleSubmit}>
+              {error && (
+                <div className="adm-notice adm-notice-error" role="alert">
+                  <i className="ri-error-warning-line" /> {error}
+                </div>
+              )}
+              <label htmlFor="admin-email" className="adm-label">Email address</label>
+              <input
+                id="admin-email"
+                type="email"
+                className="adm-input"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                required
+                autoComplete="username"
+              />
+              <label htmlFor="admin-password" className="adm-label">Password</label>
+              <input
+                id="admin-password"
+                type="password"
+                className="adm-input"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                required
+                autoComplete="current-password"
+              />
+              <button type="submit" className="adm-btn" disabled={submitting} style={{ width: "100%", padding: "16px 22px" }}>
+                {submitting ? "Signing in..." : "Sign in"}
+                {!submitting && <i className="ri-arrow-right-up-line" />}
+              </button>
+            </form>
+          )}
 
-        <div style={{ textAlign: "center", marginTop: "20px" }}>
-          <Link to="/" style={{ fontSize: "13px", color: "#001F5B" }}>← Back to website</Link>
+          <Link to="/" className="adm-login-back">
+            <i className="ri-arrow-left-line" /> Back to website
+          </Link>
         </div>
       </div>
     </div>

@@ -60,45 +60,26 @@ const AdminFooter: React.FC = () => {
 
   return (
     <form onSubmit={handleSave}>
-      <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "25px", flexWrap: "wrap", gap: "15px" }}>
+      <div className="adm-page-head">
         <div>
-          <span style={{ fontSize: "12px", color: "#f15a24", fontWeight: 700, textTransform: "uppercase" }}>
+          <span className="adm-eyebrow">
             Footer Section
           </span>
-          <h2 style={{ fontSize: "24px", fontWeight: 700, color: "#001F5B", margin: "4px 0 0 0" }}>
+          <h2 className="adm-page-title">
             Footer Components Editor
           </h2>
         </div>
-        <div style={{ display: "flex", gap: "10px" }}>
+        <div className="adm-actions">
           <button
             type="button"
             onClick={handleReset}
-            style={{
-              padding: "10px 18px",
-              background: "#f4f5f7",
-              color: "#686e7d",
-              border: "1px solid #e7e8ec",
-              fontWeight: 600,
-              fontSize: "13px",
-              cursor: "pointer",
-            }}
+            className="adm-btn adm-btn-ghost"
           >
             Reset Defaults
           </button>
           <button
             type="submit"
-            style={{
-              padding: "10px 24px",
-              background: "#001F5B",
-              color: "#ffffff",
-              border: "none",
-              fontWeight: 700,
-              fontSize: "13px",
-              cursor: "pointer",
-              display: "flex",
-              alignItems: "center",
-              gap: "8px",
-            }}
+            className="adm-btn"
           >
             <i className="ri-save-line" />
             Save Footer
@@ -108,55 +89,33 @@ const AdminFooter: React.FC = () => {
 
       {savedNotice && (
         <div
-          style={{
-            backgroundColor: "#e3fcef",
-            color: "#008060",
-            padding: "12px 18px",
-            marginBottom: "20px",
-            borderLeft: "4px solid #008060",
-            fontWeight: 600,
-            fontSize: "14px",
-          }}
+          className="adm-notice"
         >
           ✓ Footer settings saved successfully! Changes are live across all site footers.
         </div>
       )}
 
       {/* 1. Quick Navigation Links (Full CRUD) */}
-      <div style={{ background: "#ffffff", border: "1px solid #e7e8ec", padding: "25px", marginBottom: "25px" }}>
-        <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", borderBottom: "1px solid #f0f1f4", paddingBottom: "10px", marginBottom: "18px" }}>
+      <div className="adm-card">
+        <div className="adm-card-head">
           <div>
-            <span style={{ background: "#001F5B", color: "#fff", padding: "3px 8px", fontSize: "11px", fontWeight: 700, marginRight: "8px" }}>
-              CRUD
-            </span>
-            <h3 style={{ fontSize: "16px", fontWeight: 700, color: "#001F5B", display: "inline-block", margin: 0 }}>
+            <h3 className="adm-card-title-inline">
               1. Footer Navigation Quick Links ({formData.quickLinks.length} Links)
             </h3>
           </div>
           <button
             type="button"
             onClick={addLink}
-            style={{
-              padding: "7px 15px",
-              background: "#f15a24",
-              color: "#ffffff",
-              border: "none",
-              fontWeight: 700,
-              fontSize: "12px",
-              cursor: "pointer",
-              display: "flex",
-              alignItems: "center",
-              gap: "5px",
-            }}
+            className="adm-btn adm-btn-sm adm-btn-outline"
           >
-            <i className="ri-add-line" /> + Add Footer Link [Create]
+            <i className="ri-add-line" /> Add Footer Link
           </button>
         </div>
 
         <div className="row gy-3">
           {formData.quickLinks.map((link, idx) => (
             <div key={link.id || idx} className="col-md-6">
-              <div style={{ background: "#fbfbfc", border: "1px solid #e7e8ec", padding: "14px" }}>
+              <div className="adm-item">
                 <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "8px" }}>
                   <span style={{ fontSize: "12px", fontWeight: 700, color: "#001F5B" }}>
                     Link #{idx + 1}
@@ -164,38 +123,31 @@ const AdminFooter: React.FC = () => {
                   <button
                     type="button"
                     onClick={() => removeLink(idx)}
-                    style={{
-                      background: "transparent",
-                      border: "none",
-                      color: "#c62828",
-                      cursor: "pointer",
-                      fontSize: "12px",
-                      fontWeight: 600,
-                    }}
+                    className="adm-link-danger"
                   >
-                    <i className="ri-delete-bin-line" /> Delete [Delete]
+                    <i className="ri-delete-bin-line" /> Delete
                   </button>
                 </div>
                 <div style={{ marginBottom: "8px" }}>
-                  <label style={{ display: "block", fontSize: "11px", fontWeight: 600, color: "#686e7d", marginBottom: "2px" }}>
-                    Link Label [Update]
+                  <label className="adm-label adm-label-sm">
+                    Link Label
                   </label>
                   <input
                     type="text"
                     value={link.label}
                     onChange={(e) => handleLinkChange(idx, "label", e.target.value)}
-                    style={{ width: "100%", padding: "7px 10px", border: "1px solid #dcdfe5", fontSize: "13px" }}
+                    className="adm-input adm-input-sm"
                   />
                 </div>
                 <div>
-                  <label style={{ display: "block", fontSize: "11px", fontWeight: 600, color: "#686e7d", marginBottom: "2px" }}>
-                    URL Route [Update]
+                  <label className="adm-label adm-label-sm">
+                    URL Route
                   </label>
                   <input
                     type="text"
                     value={link.url}
                     onChange={(e) => handleLinkChange(idx, "url", e.target.value)}
-                    style={{ width: "100%", padding: "7px 10px", border: "1px solid #dcdfe5", fontSize: "13px" }}
+                    className="adm-input adm-input-sm"
                   />
                 </div>
               </div>
@@ -205,84 +157,84 @@ const AdminFooter: React.FC = () => {
       </div>
 
       {/* 2. Brand Bio & Copyright */}
-      <div style={{ background: "#ffffff", border: "1px solid #e7e8ec", padding: "25px", marginBottom: "25px" }}>
-        <h3 style={{ fontSize: "16px", fontWeight: 700, color: "#001F5B", borderBottom: "1px solid #f0f1f4", paddingBottom: "10px", marginBottom: "18px" }}>
+      <div className="adm-card">
+        <h3 className="adm-card-title">
           2. Bio Summary & Copyright Notice
         </h3>
         <div className="row gy-3">
           <div className="col-12">
-            <label style={{ display: "block", fontSize: "13px", fontWeight: 600, marginBottom: "5px" }}>
+            <label className="adm-label">
               Company Bio Summary
             </label>
             <textarea
               rows={3}
               value={formData.aboutText}
               onChange={(e) => handleChange("aboutText", e.target.value)}
-              style={{ width: "100%", padding: "9px 12px", border: "1px solid #dcdfe5", fontSize: "14px" }}
+              className="adm-input"
             />
           </div>
           <div className="col-12">
-            <label style={{ display: "block", fontSize: "13px", fontWeight: 600, marginBottom: "5px" }}>
+            <label className="adm-label">
               Copyright Notice Text
             </label>
             <input
               type="text"
               value={formData.copyrightText}
               onChange={(e) => handleChange("copyrightText", e.target.value)}
-              style={{ width: "100%", padding: "9px 12px", border: "1px solid #dcdfe5", fontSize: "14px" }}
+              className="adm-input"
             />
           </div>
         </div>
       </div>
 
       {/* 3. Footer Contact Information */}
-      <div style={{ background: "#ffffff", border: "1px solid #e7e8ec", padding: "25px", marginBottom: "25px" }}>
-        <h3 style={{ fontSize: "16px", fontWeight: 700, color: "#001F5B", borderBottom: "1px solid #f0f1f4", paddingBottom: "10px", marginBottom: "18px" }}>
+      <div className="adm-card">
+        <h3 className="adm-card-title">
           3. Footer Direct Contact Info
         </h3>
         <div className="row gy-3">
           <div className="col-md-6">
-            <label style={{ display: "block", fontSize: "13px", fontWeight: 600, marginBottom: "5px" }}>
+            <label className="adm-label">
               Phone
             </label>
             <input
               type="text"
               value={formData.phone}
               onChange={(e) => handleChange("phone", e.target.value)}
-              style={{ width: "100%", padding: "9px 12px", border: "1px solid #dcdfe5", fontSize: "14px" }}
+              className="adm-input"
             />
           </div>
           <div className="col-md-6">
-            <label style={{ display: "block", fontSize: "13px", fontWeight: 600, marginBottom: "5px" }}>
+            <label className="adm-label">
               Email
             </label>
             <input
               type="email"
               value={formData.email}
               onChange={(e) => handleChange("email", e.target.value)}
-              style={{ width: "100%", padding: "9px 12px", border: "1px solid #dcdfe5", fontSize: "14px" }}
+              className="adm-input"
             />
           </div>
           <div className="col-md-6">
-            <label style={{ display: "block", fontSize: "13px", fontWeight: 600, marginBottom: "5px" }}>
+            <label className="adm-label">
               Address
             </label>
             <input
               type="text"
               value={formData.address}
               onChange={(e) => handleChange("address", e.target.value)}
-              style={{ width: "100%", padding: "9px 12px", border: "1px solid #dcdfe5", fontSize: "14px" }}
+              className="adm-input"
             />
           </div>
           <div className="col-md-6">
-            <label style={{ display: "block", fontSize: "13px", fontWeight: 600, marginBottom: "5px" }}>
+            <label className="adm-label">
               Working Hours
             </label>
             <input
               type="text"
               value={formData.workingHours}
               onChange={(e) => handleChange("workingHours", e.target.value)}
-              style={{ width: "100%", padding: "9px 12px", border: "1px solid #dcdfe5", fontSize: "14px" }}
+              className="adm-input"
             />
           </div>
         </div>

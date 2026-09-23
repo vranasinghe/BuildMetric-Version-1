@@ -60,45 +60,26 @@ const AdminContact: React.FC = () => {
 
   return (
     <form onSubmit={handleSave}>
-      <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "25px", flexWrap: "wrap", gap: "15px" }}>
+      <div className="adm-page-head">
         <div>
-          <span style={{ fontSize: "12px", color: "#f15a24", fontWeight: 700, textTransform: "uppercase" }}>
+          <span className="adm-eyebrow">
             Header: CONTACT
           </span>
-          <h2 style={{ fontSize: "24px", fontWeight: 700, color: "#001F5B", margin: "4px 0 0 0" }}>
+          <h2 className="adm-page-title">
             Contact Page Components Editor
           </h2>
         </div>
-        <div style={{ display: "flex", gap: "10px" }}>
+        <div className="adm-actions">
           <button
             type="button"
             onClick={handleReset}
-            style={{
-              padding: "10px 18px",
-              background: "#f4f5f7",
-              color: "#686e7d",
-              border: "1px solid #e7e8ec",
-              fontWeight: 600,
-              fontSize: "13px",
-              cursor: "pointer",
-            }}
+            className="adm-btn adm-btn-ghost"
           >
             Reset Defaults
           </button>
           <button
             type="submit"
-            style={{
-              padding: "10px 24px",
-              background: "#001F5B",
-              color: "#ffffff",
-              border: "none",
-              fontWeight: 700,
-              fontSize: "13px",
-              cursor: "pointer",
-              display: "flex",
-              alignItems: "center",
-              gap: "8px",
-            }}
+            className="adm-btn"
           >
             <i className="ri-save-line" />
             Save Contact Page
@@ -108,55 +89,33 @@ const AdminContact: React.FC = () => {
 
       {savedNotice && (
         <div
-          style={{
-            backgroundColor: "#e3fcef",
-            color: "#008060",
-            padding: "12px 18px",
-            marginBottom: "20px",
-            borderLeft: "4px solid #008060",
-            fontWeight: 600,
-            fontSize: "14px",
-          }}
+          className="adm-notice"
         >
           ✓ Contact page updated successfully! Check the Contact Us page.
         </div>
       )}
 
       {/* 1. Global Offices (Full CRUD) */}
-      <div style={{ background: "#ffffff", border: "1px solid #e7e8ec", padding: "25px", marginBottom: "25px" }}>
-        <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", borderBottom: "1px solid #f0f1f4", paddingBottom: "10px", marginBottom: "18px" }}>
+      <div className="adm-card">
+        <div className="adm-card-head">
           <div>
-            <span style={{ background: "#001F5B", color: "#fff", padding: "3px 8px", fontSize: "11px", fontWeight: 700, marginRight: "8px" }}>
-              CRUD
-            </span>
-            <h3 style={{ fontSize: "16px", fontWeight: 700, color: "#001F5B", display: "inline-block", margin: 0 }}>
+            <h3 className="adm-card-title-inline">
               1. Global Branch Offices ({formData.offices.length} Offices)
             </h3>
           </div>
           <button
             type="button"
             onClick={addOffice}
-            style={{
-              padding: "7px 15px",
-              background: "#f15a24",
-              color: "#fff",
-              border: "none",
-              fontSize: "12px",
-              fontWeight: 700,
-              cursor: "pointer",
-              display: "flex",
-              alignItems: "center",
-              gap: "5px",
-            }}
+            className="adm-btn adm-btn-sm adm-btn-outline"
           >
-            <i className="ri-add-line" /> + Add New Office [Create]
+            <i className="ri-add-line" /> Add New Office
           </button>
         </div>
 
         <div className="row gy-4">
           {formData.offices.map((office, idx) => (
             <div key={office.id || idx} className="col-md-6">
-              <div style={{ background: "#fbfbfc", border: "1px solid #e7e8ec", padding: "18px" }}>
+              <div className="adm-item">
                 <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "12px" }}>
                   <span style={{ fontSize: "13px", fontWeight: 700, color: "#001F5B" }}>
                     Office #{idx + 1}: {office.title}
@@ -164,64 +123,56 @@ const AdminContact: React.FC = () => {
                   <button
                     type="button"
                     onClick={() => removeOffice(idx)}
-                    style={{
-                      background: "#feebee",
-                      border: "1px solid #ffcdd2",
-                      color: "#c62828",
-                      padding: "4px 8px",
-                      cursor: "pointer",
-                      fontSize: "12px",
-                      fontWeight: 600,
-                    }}
-                    title="Delete Office [Delete]"
+                    className="adm-btn-danger-soft"
+                    title="Delete Office"
                   >
-                    <i className="ri-delete-bin-line" /> Delete [Delete]
+                    <i className="ri-delete-bin-line" /> Delete
                   </button>
                 </div>
 
                 <div className="row gy-2">
                   <div className="col-12">
-                    <label style={{ display: "block", fontSize: "11px", fontWeight: 600, color: "#686e7d", marginBottom: "2px" }}>
-                      Office / City Title [Update]
+                    <label className="adm-label adm-label-sm">
+                      Office / City Title
                     </label>
                     <input
                       type="text"
                       value={office.title}
                       onChange={(e) => handleOfficeChange(idx, "title", e.target.value)}
-                      style={{ width: "100%", padding: "7px 10px", border: "1px solid #dcdfe5", fontSize: "13px", fontWeight: 700 }}
+                      className="adm-input adm-input-sm adm-input-strong"
                     />
                   </div>
                   <div className="col-12">
-                    <label style={{ display: "block", fontSize: "11px", fontWeight: 600, color: "#686e7d", marginBottom: "2px" }}>
-                      Phone Numbers [Update]
+                    <label className="adm-label adm-label-sm">
+                      Phone Numbers
                     </label>
                     <input
                       type="text"
                       value={office.phone}
                       onChange={(e) => handleOfficeChange(idx, "phone", e.target.value)}
-                      style={{ width: "100%", padding: "7px 10px", border: "1px solid #dcdfe5", fontSize: "13px" }}
+                      className="adm-input adm-input-sm"
                     />
                   </div>
                   <div className="col-12">
-                    <label style={{ display: "block", fontSize: "11px", fontWeight: 600, color: "#686e7d", marginBottom: "2px" }}>
-                      Support Email [Update]
+                    <label className="adm-label adm-label-sm">
+                      Support Email
                     </label>
                     <input
                       type="email"
                       value={office.email}
                       onChange={(e) => handleOfficeChange(idx, "email", e.target.value)}
-                      style={{ width: "100%", padding: "7px 10px", border: "1px solid #dcdfe5", fontSize: "13px" }}
+                      className="adm-input adm-input-sm"
                     />
                   </div>
                   <div className="col-12">
-                    <label style={{ display: "block", fontSize: "11px", fontWeight: 600, color: "#686e7d", marginBottom: "2px" }}>
-                      Working Hours [Update]
+                    <label className="adm-label adm-label-sm">
+                      Working Hours
                     </label>
                     <input
                       type="text"
                       value={office.hours}
                       onChange={(e) => handleOfficeChange(idx, "hours", e.target.value)}
-                      style={{ width: "100%", padding: "7px 10px", border: "1px solid #dcdfe5", fontSize: "13px" }}
+                      className="adm-input adm-input-sm"
                     />
                   </div>
                 </div>
@@ -232,64 +183,64 @@ const AdminContact: React.FC = () => {
       </div>
 
       {/* 2. Inquiry Form Settings */}
-      <div style={{ background: "#ffffff", border: "1px solid #e7e8ec", padding: "25px", marginBottom: "25px" }}>
-        <h3 style={{ fontSize: "16px", fontWeight: 700, color: "#001F5B", borderBottom: "1px solid #f0f1f4", paddingBottom: "10px", marginBottom: "18px" }}>
+      <div className="adm-card">
+        <h3 className="adm-card-title">
           2. Inquiry Form Content & Map
         </h3>
         <div className="row gy-3">
           <div className="col-md-6">
-            <label style={{ display: "block", fontSize: "13px", fontWeight: 600, marginBottom: "5px" }}>
+            <label className="adm-label">
               Form Subtitle
             </label>
             <input
               type="text"
               value={formData.formSubtitle}
               onChange={(e) => setFormData({ ...formData, formSubtitle: e.target.value })}
-              style={{ width: "100%", padding: "9px 12px", border: "1px solid #dcdfe5", fontSize: "14px" }}
+              className="adm-input"
             />
           </div>
           <div className="col-md-6">
-            <label style={{ display: "block", fontSize: "13px", fontWeight: 600, marginBottom: "5px" }}>
+            <label className="adm-label">
               Form Main Title
             </label>
             <input
               type="text"
               value={formData.formTitle}
               onChange={(e) => setFormData({ ...formData, formTitle: e.target.value })}
-              style={{ width: "100%", padding: "9px 12px", border: "1px solid #dcdfe5", fontSize: "14px", fontWeight: 700 }}
+              className="adm-input adm-input-strong"
             />
           </div>
           <div className="col-12">
-            <label style={{ display: "block", fontSize: "13px", fontWeight: 600, marginBottom: "5px" }}>
+            <label className="adm-label">
               Form Description Text
             </label>
             <textarea
               rows={2}
               value={formData.formDesc}
               onChange={(e) => setFormData({ ...formData, formDesc: e.target.value })}
-              style={{ width: "100%", padding: "9px 12px", border: "1px solid #dcdfe5", fontSize: "14px" }}
+              className="adm-input"
             />
           </div>
           <div className="col-md-6">
-            <label style={{ display: "block", fontSize: "13px", fontWeight: 600, marginBottom: "5px" }}>
+            <label className="adm-label">
               Submit Button Label
             </label>
             <input
               type="text"
               value={formData.submitButtonText}
               onChange={(e) => setFormData({ ...formData, submitButtonText: e.target.value })}
-              style={{ width: "100%", padding: "9px 12px", border: "1px solid #dcdfe5", fontSize: "14px" }}
+              className="adm-input"
             />
           </div>
           <div className="col-12">
-            <label style={{ display: "block", fontSize: "13px", fontWeight: 600, marginBottom: "5px" }}>
+            <label className="adm-label">
               Google Maps Iframe Embed URL
             </label>
             <input
               type="text"
               value={formData.mapEmbedUrl}
               onChange={(e) => setFormData({ ...formData, mapEmbedUrl: e.target.value })}
-              style={{ width: "100%", padding: "9px 12px", border: "1px solid #dcdfe5", fontSize: "13px" }}
+              className="adm-input adm-input-sm"
             />
           </div>
         </div>

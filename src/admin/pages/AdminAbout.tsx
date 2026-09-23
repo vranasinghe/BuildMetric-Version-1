@@ -131,45 +131,26 @@ const AdminAbout: React.FC = () => {
 
   return (
     <form onSubmit={handleSave}>
-      <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "25px", flexWrap: "wrap", gap: "15px" }}>
+      <div className="adm-page-head">
         <div>
-          <span style={{ fontSize: "12px", color: "#f15a24", fontWeight: 700, textTransform: "uppercase" }}>
+          <span className="adm-eyebrow">
             Header: ABOUT
           </span>
-          <h2 style={{ fontSize: "24px", fontWeight: 700, color: "#001F5B", margin: "4px 0 0 0" }}>
+          <h2 className="adm-page-title">
             About Page Components Editor
           </h2>
         </div>
-        <div style={{ display: "flex", gap: "10px" }}>
+        <div className="adm-actions">
           <button
             type="button"
             onClick={handleReset}
-            style={{
-              padding: "10px 18px",
-              background: "#f4f5f7",
-              color: "#686e7d",
-              border: "1px solid #e7e8ec",
-              fontWeight: 600,
-              fontSize: "13px",
-              cursor: "pointer",
-            }}
+            className="adm-btn adm-btn-ghost"
           >
             Reset Defaults
           </button>
           <button
             type="submit"
-            style={{
-              padding: "10px 24px",
-              background: "#001F5B",
-              color: "#ffffff",
-              border: "none",
-              fontWeight: 700,
-              fontSize: "13px",
-              cursor: "pointer",
-              display: "flex",
-              alignItems: "center",
-              gap: "8px",
-            }}
+            className="adm-btn"
           >
             <i className="ri-save-line" />
             Save About Page
@@ -179,121 +160,113 @@ const AdminAbout: React.FC = () => {
 
       {savedNotice && (
         <div
-          style={{
-            backgroundColor: "#e3fcef",
-            color: "#008060",
-            padding: "12px 18px",
-            marginBottom: "20px",
-            borderLeft: "4px solid #008060",
-            fontWeight: 600,
-            fontSize: "14px",
-          }}
+          className="adm-notice"
         >
           ✓ About page components saved successfully! Check the About Us page.
         </div>
       )}
 
       {/* 1. Breadcrumb */}
-      <div style={{ background: "#ffffff", border: "1px solid #e7e8ec", padding: "25px", marginBottom: "25px" }}>
-        <h3 style={{ fontSize: "16px", fontWeight: 700, color: "#001F5B", borderBottom: "1px solid #f0f1f4", paddingBottom: "10px", marginBottom: "18px" }}>
+      <div className="adm-card">
+        <h3 className="adm-card-title">
           1. Hero Breadcrumb Banner
         </h3>
         <div className="row gy-3">
           <div className="col-md-6">
-            <label style={{ display: "block", fontSize: "13px", fontWeight: 600, marginBottom: "5px" }}>
+            <label className="adm-label">
               Banner Title
             </label>
             <input
               type="text"
               value={formData.breadcrumb.title}
               onChange={(e) => handleBreadcrumbChange("title", e.target.value)}
-              style={{ width: "100%", padding: "9px 12px", border: "1px solid #dcdfe5", fontSize: "14px" }}
+              className="adm-input"
             />
           </div>
           <div className="col-md-6">
-            <label style={{ display: "block", fontSize: "13px", fontWeight: 600, marginBottom: "5px" }}>
+            <label className="adm-label">
               Page Name In Trail
             </label>
             <input
               type="text"
               value={formData.breadcrumb.pageName}
               onChange={(e) => handleBreadcrumbChange("pageName", e.target.value)}
-              style={{ width: "100%", padding: "9px 12px", border: "1px solid #dcdfe5", fontSize: "14px" }}
+              className="adm-input"
             />
           </div>
         </div>
       </div>
 
       {/* 2. Main Company Story */}
-      <div style={{ background: "#ffffff", border: "1px solid #e7e8ec", padding: "25px", marginBottom: "25px" }}>
-        <h3 style={{ fontSize: "16px", fontWeight: 700, color: "#001F5B", borderBottom: "1px solid #f0f1f4", paddingBottom: "10px", marginBottom: "18px" }}>
+      <div className="adm-card">
+        <h3 className="adm-card-title">
           2. Company Story & Experience
         </h3>
         <div className="row gy-3">
           <div className="col-md-4">
-            <label style={{ display: "block", fontSize: "13px", fontWeight: 600, marginBottom: "5px" }}>
+            <label className="adm-label">
               Subtitle Tag
             </label>
             <input
               type="text"
               value={formData.subtitle}
               onChange={(e) => handleChange("subtitle", e.target.value)}
-              style={{ width: "100%", padding: "9px 12px", border: "1px solid #dcdfe5", fontSize: "14px" }}
+              className="adm-input"
             />
           </div>
           <div className="col-md-8">
-            <label style={{ display: "block", fontSize: "13px", fontWeight: 600, marginBottom: "5px" }}>
+            <label className="adm-label">
               Headline
             </label>
             <input
               type="text"
               value={formData.title}
               onChange={(e) => handleChange("title", e.target.value)}
-              style={{ width: "100%", padding: "9px 12px", border: "1px solid #dcdfe5", fontSize: "14px", fontWeight: 700 }}
+              className="adm-input adm-input-strong"
             />
           </div>
           <div className="col-12">
-            <label style={{ display: "block", fontSize: "13px", fontWeight: 600, marginBottom: "5px" }}>
+            <label className="adm-label">
               Paragraph 1
             </label>
             <textarea
               rows={3}
               value={formData.desc1}
               onChange={(e) => handleChange("desc1", e.target.value)}
-              style={{ width: "100%", padding: "9px 12px", border: "1px solid #dcdfe5", fontSize: "14px" }}
+              className="adm-input"
             />
           </div>
           <div className="col-12">
-            <label style={{ display: "block", fontSize: "13px", fontWeight: 600, marginBottom: "5px" }}>
+            <label className="adm-label">
               Paragraph 2
             </label>
             <textarea
               rows={3}
               value={formData.desc2}
               onChange={(e) => handleChange("desc2", e.target.value)}
-              style={{ width: "100%", padding: "9px 12px", border: "1px solid #dcdfe5", fontSize: "14px" }}
+              className="adm-input"
             />
           </div>
           <div className="col-md-6">
-            <label style={{ display: "block", fontSize: "13px", fontWeight: 600, marginBottom: "5px" }}>
+            <label className="adm-label">
               Experience Number (e.g. 40)
             </label>
             <input
               type="number"
               value={formData.experienceYears}
               onChange={(e) => handleChange("experienceYears", parseInt(e.target.value) || 0)}
-              style={{ width: "100%", padding: "9px 12px", border: "1px solid #dcdfe5", fontSize: "14px" }}
+              className="adm-input"
             />
           </div>
           <div className="col-md-6">
-            <label style={{ display: "block", fontSize: "13px", fontWeight: 600, marginBottom: "5px" }}>
+            <label className="adm-label">
               Experience Label (e.g. Business Experience)
             </label>
             <input
               type="text"
               value={formData.experienceLabel}
               onChange={(e) => handleChange("experienceLabel", e.target.value)}
-              style={{ width: "100%", padding: "9px 12px", border: "1px solid #dcdfe5", fontSize: "14px" }}
+              className="adm-input"
             />
           </div>
         </div>
@@ -307,17 +280,9 @@ const AdminAbout: React.FC = () => {
             <button
               type="button"
               onClick={addChecklistItem}
-              style={{
-                padding: "5px 12px",
-                background: "#001F5B",
-                color: "#fff",
-                border: "none",
-                fontWeight: 700,
-                fontSize: "12px",
-                cursor: "pointer",
-              }}
+              className="adm-btn adm-btn-sm"
             >
-              + Add Point [Create]
+              Add Point
             </button>
           </div>
           <div style={{ display: "flex", flexDirection: "column", gap: "8px" }}>
@@ -332,14 +297,7 @@ const AdminAbout: React.FC = () => {
                 <button
                   type="button"
                   onClick={() => removeChecklistItem(i)}
-                  style={{
-                    padding: "6px 10px",
-                    background: "#feebee",
-                    color: "#c62828",
-                    border: "1px solid #ffcdd2",
-                    cursor: "pointer",
-                    fontSize: "12px",
-                  }}
+                  className="adm-btn-danger-soft"
                 >
                   <i className="ri-delete-bin-line" />
                 </button>
@@ -350,57 +308,43 @@ const AdminAbout: React.FC = () => {
       </div>
 
       {/* 3. Why Choose Us Section (Full CRUD) */}
-      <div style={{ background: "#ffffff", border: "1px solid #e7e8ec", padding: "25px", marginBottom: "25px" }}>
-        <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "18px", borderBottom: "1px solid #f0f1f4", paddingBottom: "10px" }}>
+      <div className="adm-card">
+        <div className="adm-card-head">
           <div>
-            <span style={{ background: "#001F5B", color: "#fff", padding: "3px 8px", fontSize: "11px", fontWeight: 700, marginRight: "8px" }}>
-              CRUD
-            </span>
-            <h3 style={{ fontSize: "16px", fontWeight: 700, color: "#001F5B", display: "inline-block", margin: 0 }}>
+            <h3 className="adm-card-title-inline">
               3. Why Choose Us Benefit Cards ({formData.whyChooseCards.length} Cards)
             </h3>
           </div>
           <button
             type="button"
             onClick={addWhyChooseCard}
-            style={{
-              padding: "7px 15px",
-              background: "#f15a24",
-              color: "#fff",
-              border: "none",
-              fontWeight: 700,
-              fontSize: "12px",
-              cursor: "pointer",
-              display: "flex",
-              alignItems: "center",
-              gap: "5px",
-            }}
+            className="adm-btn adm-btn-sm adm-btn-outline"
           >
-            <i className="ri-add-line" /> + Add Benefit Card [Create]
+            <i className="ri-add-line" /> Add Benefit Card
           </button>
         </div>
 
         <div className="row gy-3 mb-4">
           <div className="col-md-6">
-            <label style={{ display: "block", fontSize: "13px", fontWeight: 600, marginBottom: "5px" }}>
+            <label className="adm-label">
               Subtitle
             </label>
             <input
               type="text"
               value={formData.whyChooseSubtitle}
               onChange={(e) => handleChange("whyChooseSubtitle", e.target.value)}
-              style={{ width: "100%", padding: "9px 12px", border: "1px solid #dcdfe5", fontSize: "14px" }}
+              className="adm-input"
             />
           </div>
           <div className="col-md-6">
-            <label style={{ display: "block", fontSize: "13px", fontWeight: 600, marginBottom: "5px" }}>
+            <label className="adm-label">
               Section Title
             </label>
             <input
               type="text"
               value={formData.whyChooseTitle}
               onChange={(e) => handleChange("whyChooseTitle", e.target.value)}
-              style={{ width: "100%", padding: "9px 12px", border: "1px solid #dcdfe5", fontSize: "14px", fontWeight: 700 }}
+              className="adm-input adm-input-strong"
             />
           </div>
         </div>
@@ -408,57 +352,50 @@ const AdminAbout: React.FC = () => {
         <div className="row gy-3">
           {formData.whyChooseCards.map((card, idx) => (
             <div key={card.id || idx} className="col-md-6">
-              <div style={{ background: "#fbfbfc", border: "1px solid #e7e8ec", padding: "16px" }}>
+              <div className="adm-item">
                 <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "10px" }}>
-                  <span style={{ fontSize: "12px", fontWeight: 700, color: "#f15a24" }}>
+                  <span style={{ fontSize: "12px", fontWeight: 700, color: "#001F5B" }}>
                     Card #{idx + 1}
                   </span>
                   <button
                     type="button"
                     onClick={() => removeWhyChooseCard(idx)}
-                    style={{
-                      background: "transparent",
-                      border: "none",
-                      color: "#c62828",
-                      cursor: "pointer",
-                      fontSize: "12px",
-                      fontWeight: 600,
-                    }}
+                    className="adm-link-danger"
                   >
-                    <i className="ri-delete-bin-line" /> Delete [Delete]
+                    <i className="ri-delete-bin-line" /> Delete
                   </button>
                 </div>
                 <div style={{ marginBottom: "8px" }}>
-                  <label style={{ display: "block", fontSize: "11px", fontWeight: 600, color: "#686e7d", marginBottom: "2px" }}>
-                    Title [Update]
+                  <label className="adm-label adm-label-sm">
+                    Title
                   </label>
                   <input
                     type="text"
                     value={card.title}
                     onChange={(e) => handleWhyChooseChange(idx, "title", e.target.value)}
-                    style={{ width: "100%", padding: "7px 10px", border: "1px solid #dcdfe5", fontSize: "13px", fontWeight: 700 }}
+                    className="adm-input adm-input-sm adm-input-strong"
                   />
                 </div>
                 <div style={{ marginBottom: "8px" }}>
-                  <label style={{ display: "block", fontSize: "11px", fontWeight: 600, color: "#686e7d", marginBottom: "2px" }}>
-                    Icon Asset URL [Update]
+                  <label className="adm-label adm-label-sm">
+                    Icon Asset URL
                   </label>
                   <input
                     type="text"
                     value={card.icon}
                     onChange={(e) => handleWhyChooseChange(idx, "icon", e.target.value)}
-                    style={{ width: "100%", padding: "7px 10px", border: "1px solid #dcdfe5", fontSize: "13px" }}
+                    className="adm-input adm-input-sm"
                   />
                 </div>
                 <div>
-                  <label style={{ display: "block", fontSize: "11px", fontWeight: 600, color: "#686e7d", marginBottom: "2px" }}>
-                    Description [Update]
+                  <label className="adm-label adm-label-sm">
+                    Description
                   </label>
                   <textarea
                     rows={2}
                     value={card.desc}
                     onChange={(e) => handleWhyChooseChange(idx, "desc", e.target.value)}
-                    style={{ width: "100%", padding: "7px 10px", border: "1px solid #dcdfe5", fontSize: "13px" }}
+                    className="adm-input adm-input-sm"
                   />
                 </div>
               </div>
@@ -468,90 +405,69 @@ const AdminAbout: React.FC = () => {
       </div>
 
       {/* 4. Process Steps (Full CRUD) */}
-      <div style={{ background: "#ffffff", border: "1px solid #e7e8ec", padding: "25px", marginBottom: "25px" }}>
-        <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "18px", borderBottom: "1px solid #f0f1f4", paddingBottom: "10px" }}>
+      <div className="adm-card">
+        <div className="adm-card-head">
           <div>
-            <span style={{ background: "#001F5B", color: "#fff", padding: "3px 8px", fontSize: "11px", fontWeight: 700, marginRight: "8px" }}>
-              CRUD
-            </span>
-            <h3 style={{ fontSize: "16px", fontWeight: 700, color: "#001F5B", display: "inline-block", margin: 0 }}>
+            <h3 className="adm-card-title-inline">
               4. Working Milestones / Process Steps ({formData.processSteps.length} Steps)
             </h3>
           </div>
           <button
             type="button"
             onClick={addProcessStep}
-            style={{
-              padding: "7px 15px",
-              background: "#001F5B",
-              color: "#fff",
-              border: "none",
-              fontWeight: 700,
-              fontSize: "12px",
-              cursor: "pointer",
-              display: "flex",
-              alignItems: "center",
-              gap: "5px",
-            }}
+            className="adm-btn adm-btn-sm"
           >
-            <i className="ri-add-line" /> + Add Process Step [Create]
+            <i className="ri-add-line" /> Add Process Step
           </button>
         </div>
 
         <div className="row gy-3">
           {formData.processSteps.map((step, idx) => (
             <div key={step.id || idx} className="col-md-4">
-              <div style={{ background: "#fbfbfc", border: "1px solid #e7e8ec", padding: "16px" }}>
+              <div className="adm-item">
                 <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "10px" }}>
-                  <span style={{ fontSize: "14px", fontWeight: 800, color: "#f15a24" }}>
+                  <span style={{ fontSize: "14px", fontWeight: 800, color: "#001F5B" }}>
                     Step #{step.number}
                   </span>
                   <button
                     type="button"
                     onClick={() => removeProcessStep(idx)}
-                    style={{
-                      background: "transparent",
-                      border: "none",
-                      color: "#c62828",
-                      cursor: "pointer",
-                      fontSize: "12px",
-                      fontWeight: 600,
-                    }}
+                    className="adm-link-danger"
                   >
-                    <i className="ri-delete-bin-line" /> Delete [Delete]
+                    <i className="ri-delete-bin-line" /> Delete
                   </button>
                 </div>
                 <div style={{ marginBottom: "8px" }}>
-                  <label style={{ display: "block", fontSize: "11px", fontWeight: 600, color: "#686e7d", marginBottom: "2px" }}>
-                    Number Label [Update]
+                  <label className="adm-label adm-label-sm">
+                    Number Label
                   </label>
                   <input
                     type="text"
                     value={step.number}
                     onChange={(e) => handleProcessStepChange(idx, "number", e.target.value)}
-                    style={{ width: "100%", padding: "7px 10px", border: "1px solid #dcdfe5", fontSize: "13px" }}
+                    className="adm-input adm-input-sm"
                   />
                 </div>
                 <div style={{ marginBottom: "8px" }}>
-                  <label style={{ display: "block", fontSize: "11px", fontWeight: 600, color: "#686e7d", marginBottom: "2px" }}>
-                    Step Title [Update]
+                  <label className="adm-label adm-label-sm">
+                    Step Title
                   </label>
                   <input
                     type="text"
                     value={step.title}
                     onChange={(e) => handleProcessStepChange(idx, "title", e.target.value)}
-                    style={{ width: "100%", padding: "7px 10px", border: "1px solid #dcdfe5", fontSize: "13px", fontWeight: 700 }}
+                    className="adm-input adm-input-sm adm-input-strong"
                   />
                 </div>
                 <div>
-                  <label style={{ display: "block", fontSize: "11px", fontWeight: 600, color: "#686e7d", marginBottom: "2px" }}>
-                    Description [Update]
+                  <label className="adm-label adm-label-sm">
+                    Description
                   </label>
                   <textarea
                     rows={2}
                     value={step.desc}
                     onChange={(e) => handleProcessStepChange(idx, "desc", e.target.value)}
-                    style={{ width: "100%", padding: "7px 10px", border: "1px solid #dcdfe5", fontSize: "13px" }}
+                    className="adm-input adm-input-sm"
                   />
                 </div>
               </div>

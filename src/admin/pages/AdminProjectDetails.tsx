@@ -97,45 +97,26 @@ const AdminProjectDetails: React.FC = () => {
 
   return (
     <form onSubmit={handleSave}>
-      <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "25px", flexWrap: "wrap", gap: "15px" }}>
+      <div className="adm-page-head">
         <div>
-          <span style={{ fontSize: "12px", color: "#f15a24", fontWeight: 700, textTransform: "uppercase" }}>
+          <span className="adm-eyebrow">
             Header: PROJECTS &gt; Project Details
           </span>
-          <h2 style={{ fontSize: "24px", fontWeight: 700, color: "#001F5B", margin: "4px 0 0 0" }}>
+          <h2 className="adm-page-title">
             Project Details Components Editor
           </h2>
         </div>
-        <div style={{ display: "flex", gap: "10px" }}>
+        <div className="adm-actions">
           <button
             type="button"
             onClick={handleReset}
-            style={{
-              padding: "10px 18px",
-              background: "#f4f5f7",
-              color: "#686e7d",
-              border: "1px solid #e7e8ec",
-              fontWeight: 600,
-              fontSize: "13px",
-              cursor: "pointer",
-            }}
+            className="adm-btn adm-btn-ghost"
           >
             Reset Defaults
           </button>
           <button
             type="submit"
-            style={{
-              padding: "10px 24px",
-              background: "#001F5B",
-              color: "#ffffff",
-              border: "none",
-              fontWeight: 700,
-              fontSize: "13px",
-              cursor: "pointer",
-              display: "flex",
-              alignItems: "center",
-              gap: "8px",
-            }}
+            className="adm-btn"
           >
             <i className="ri-save-line" />
             Save Project Details
@@ -145,48 +126,26 @@ const AdminProjectDetails: React.FC = () => {
 
       {savedNotice && (
         <div
-          style={{
-            backgroundColor: "#e3fcef",
-            color: "#008060",
-            padding: "12px 18px",
-            marginBottom: "20px",
-            borderLeft: "4px solid #008060",
-            fontWeight: 600,
-            fontSize: "14px",
-          }}
+          className="adm-notice"
         >
           ✓ Project details updated successfully! Changes are live on the Project Details page.
         </div>
       )}
 
       {/* 1. Project Specifications Grid (Full CRUD) */}
-      <div style={{ background: "#ffffff", border: "1px solid #e7e8ec", padding: "25px", marginBottom: "25px" }}>
-        <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", borderBottom: "1px solid #f0f1f4", paddingBottom: "10px", marginBottom: "18px" }}>
+      <div className="adm-card">
+        <div className="adm-card-head">
           <div>
-            <span style={{ background: "#001F5B", color: "#fff", padding: "3px 8px", fontSize: "11px", fontWeight: 700, marginRight: "8px" }}>
-              CRUD
-            </span>
-            <h3 style={{ fontSize: "16px", fontWeight: 700, color: "#001F5B", display: "inline-block", margin: 0 }}>
+            <h3 className="adm-card-title-inline">
               1. Project Specifications ({formData.specs.length} Specifications)
             </h3>
           </div>
           <button
             type="button"
             onClick={addSpec}
-            style={{
-              padding: "7px 15px",
-              background: "#f15a24",
-              color: "#fff",
-              border: "none",
-              fontSize: "12px",
-              fontWeight: 700,
-              cursor: "pointer",
-              display: "flex",
-              alignItems: "center",
-              gap: "5px",
-            }}
+            className="adm-btn adm-btn-sm adm-btn-outline"
           >
-            <i className="ri-add-line" /> + Add Specification [Create]
+            <i className="ri-add-line" /> Add Specification
           </button>
         </div>
 
@@ -195,39 +154,32 @@ const AdminProjectDetails: React.FC = () => {
             <div key={spec.id || sIdx} className="col-md-6">
               <div style={{ background: "#fbfbfc", border: "1px solid #e7e8ec", padding: "12px 16px", display: "flex", gap: "10px", alignItems: "flex-end" }}>
                 <div style={{ width: "130px" }}>
-                  <label style={{ display: "block", fontSize: "11px", fontWeight: 600, color: "#686e7d", marginBottom: "2px" }}>
-                    Spec Label [Update]
+                  <label className="adm-label adm-label-sm">
+                    Spec Label
                   </label>
                   <input
                     type="text"
                     value={spec.label}
                     onChange={(e) => handleSpecChange(sIdx, "label", e.target.value)}
-                    style={{ width: "100%", padding: "6px 8px", border: "1px solid #dcdfe5", fontSize: "12px", fontWeight: 700 }}
+                    className="adm-input adm-input-xs adm-input-strong"
                   />
                 </div>
                 <div style={{ flex: 1 }}>
-                  <label style={{ display: "block", fontSize: "11px", fontWeight: 600, color: "#686e7d", marginBottom: "2px" }}>
-                    Value / Parameter [Update]
+                  <label className="adm-label adm-label-sm">
+                    Value / Parameter
                   </label>
                   <input
                     type="text"
                     value={spec.value}
                     onChange={(e) => handleSpecChange(sIdx, "value", e.target.value)}
-                    style={{ width: "100%", padding: "6px 8px", border: "1px solid #dcdfe5", fontSize: "12px" }}
+                    className="adm-input adm-input-xs"
                   />
                 </div>
                 <button
                   type="button"
                   onClick={() => removeSpec(sIdx)}
-                  style={{
-                    padding: "7px 10px",
-                    background: "#feebee",
-                    color: "#c62828",
-                    border: "1px solid #ffcdd2",
-                    fontSize: "12px",
-                    cursor: "pointer",
-                  }}
-                  title="Remove Spec [Delete]"
+                  className="adm-btn-danger-soft"
+                  title="Remove Spec"
                 >
                   <i className="ri-delete-bin-line" />
                 </button>
@@ -238,90 +190,69 @@ const AdminProjectDetails: React.FC = () => {
       </div>
 
       {/* 2. Feature Highlights (Full CRUD) */}
-      <div style={{ background: "#ffffff", border: "1px solid #e7e8ec", padding: "25px", marginBottom: "25px" }}>
-        <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", borderBottom: "1px solid #f0f1f4", paddingBottom: "10px", marginBottom: "18px" }}>
+      <div className="adm-card">
+        <div className="adm-card-head">
           <div>
-            <span style={{ background: "#001F5B", color: "#fff", padding: "3px 8px", fontSize: "11px", fontWeight: 700, marginRight: "8px" }}>
-              CRUD
-            </span>
-            <h3 style={{ fontSize: "16px", fontWeight: 700, color: "#001F5B", display: "inline-block", margin: 0 }}>
+            <h3 className="adm-card-title-inline">
               2. Key Feature Highlights ({formData.featureHighlights.length} Highlights)
             </h3>
           </div>
           <button
             type="button"
             onClick={addFeature}
-            style={{
-              padding: "7px 15px",
-              background: "#001F5B",
-              color: "#fff",
-              border: "none",
-              fontSize: "12px",
-              fontWeight: 700,
-              cursor: "pointer",
-              display: "flex",
-              alignItems: "center",
-              gap: "5px",
-            }}
+            className="adm-btn adm-btn-sm"
           >
-            <i className="ri-add-line" /> + Add Feature Highlight [Create]
+            <i className="ri-add-line" /> Add Feature Highlight
           </button>
         </div>
 
         <div className="row gy-3">
           {formData.featureHighlights.map((feat, fIdx) => (
             <div key={feat.id || fIdx} className="col-md-6">
-              <div style={{ background: "#fbfbfc", border: "1px solid #e7e8ec", padding: "16px" }}>
+              <div className="adm-item">
                 <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "8px" }}>
-                  <span style={{ fontSize: "12px", fontWeight: 700, color: "#f15a24" }}>
+                  <span style={{ fontSize: "12px", fontWeight: 700, color: "#001F5B" }}>
                     Feature #{fIdx + 1}
                   </span>
                   <button
                     type="button"
                     onClick={() => removeFeature(fIdx)}
-                    style={{
-                      background: "transparent",
-                      border: "none",
-                      color: "#c62828",
-                      cursor: "pointer",
-                      fontSize: "12px",
-                      fontWeight: 600,
-                    }}
+                    className="adm-link-danger"
                   >
-                    <i className="ri-delete-bin-line" /> Delete [Delete]
+                    <i className="ri-delete-bin-line" /> Delete
                   </button>
                 </div>
                 <div style={{ marginBottom: "8px" }}>
-                  <label style={{ display: "block", fontSize: "11px", fontWeight: 600, color: "#686e7d", marginBottom: "2px" }}>
-                    Title [Update]
+                  <label className="adm-label adm-label-sm">
+                    Title
                   </label>
                   <input
                     type="text"
                     value={feat.title}
                     onChange={(e) => handleFeatureChange(fIdx, "title", e.target.value)}
-                    style={{ width: "100%", padding: "7px 10px", border: "1px solid #dcdfe5", fontSize: "13px", fontWeight: 700 }}
+                    className="adm-input adm-input-sm adm-input-strong"
                   />
                 </div>
                 <div style={{ marginBottom: "8px" }}>
-                  <label style={{ display: "block", fontSize: "11px", fontWeight: 600, color: "#686e7d", marginBottom: "2px" }}>
-                    Icon Asset URL [Update]
+                  <label className="adm-label adm-label-sm">
+                    Icon Asset URL
                   </label>
                   <input
                     type="text"
                     value={feat.icon}
                     onChange={(e) => handleFeatureChange(fIdx, "icon", e.target.value)}
-                    style={{ width: "100%", padding: "7px 10px", border: "1px solid #dcdfe5", fontSize: "13px" }}
+                    className="adm-input adm-input-sm"
                   />
                 </div>
                 <div>
-                  <label style={{ display: "block", fontSize: "11px", fontWeight: 600, color: "#686e7d", marginBottom: "2px" }}>
-                    Description [Update]
+                  <label className="adm-label adm-label-sm">
+                    Description
                   </label>
                   <textarea
                     rows={2}
                     value={feat.desc}
                     onChange={(e) => handleFeatureChange(fIdx, "desc", e.target.value)}
-                    style={{ width: "100%", padding: "7px 10px", border: "1px solid #dcdfe5", fontSize: "13px" }}
+                    className="adm-input adm-input-sm"
                   />
                 </div>
               </div>
@@ -331,42 +262,42 @@ const AdminProjectDetails: React.FC = () => {
       </div>
 
       {/* 3. Overview Narrative */}
-      <div style={{ background: "#ffffff", border: "1px solid #e7e8ec", padding: "25px", marginBottom: "25px" }}>
-        <h3 style={{ fontSize: "16px", fontWeight: 700, color: "#001F5B", borderBottom: "1px solid #f0f1f4", paddingBottom: "10px", marginBottom: "18px" }}>
+      <div className="adm-card">
+        <h3 className="adm-card-title">
           3. Project Narrative & Case Study
         </h3>
         <div className="row gy-3">
           <div className="col-12">
-            <label style={{ display: "block", fontSize: "13px", fontWeight: 600, marginBottom: "5px" }}>
+            <label className="adm-label">
               Overview Headline
             </label>
             <input
               type="text"
               value={formData.overviewTitle}
               onChange={(e) => setFormData({ ...formData, overviewTitle: e.target.value })}
-              style={{ width: "100%", padding: "9px 12px", border: "1px solid #dcdfe5", fontSize: "14px", fontWeight: 700 }}
+              className="adm-input adm-input-strong"
             />
           </div>
           <div className="col-12">
-            <label style={{ display: "block", fontSize: "13px", fontWeight: 600, marginBottom: "5px" }}>
+            <label className="adm-label">
               Overview Text
             </label>
             <textarea
               rows={3}
               value={formData.overviewText}
               onChange={(e) => setFormData({ ...formData, overviewText: e.target.value })}
-              style={{ width: "100%", padding: "9px 12px", border: "1px solid #dcdfe5", fontSize: "14px" }}
+              className="adm-input"
             />
           </div>
           <div className="col-12">
-            <label style={{ display: "block", fontSize: "13px", fontWeight: 600, marginBottom: "5px" }}>
+            <label className="adm-label">
               Feature Project Banner Image URL
             </label>
             <input
               type="text"
               value={formData.mainImage}
               onChange={(e) => setFormData({ ...formData, mainImage: e.target.value })}
-              style={{ width: "100%", padding: "9px 12px", border: "1px solid #dcdfe5", fontSize: "14px" }}
+              className="adm-input"
             />
           </div>
         </div>

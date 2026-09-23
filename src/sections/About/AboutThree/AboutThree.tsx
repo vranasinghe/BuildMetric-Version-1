@@ -1,8 +1,10 @@
 import CountUp from "react-countup";
 import { Link } from "react-router-dom";
 import { useContent } from "../../../admin/ContentContext";
+import { useLanguage } from "../../../i18n/LanguageContext";
 
 const AboutThree = () => {
+  const { tr } = useLanguage();
   const { content } = useContent();
   const about = content.aboutPage;
 
@@ -63,10 +65,9 @@ const AboutThree = () => {
                 <img src="/assets/img/icon/about-grid-icon1-1.svg" alt="img" />
               </div>
               <div className="about-grid-details">
-                <h4 className="title">Our Mission</h4>
+                <h4 className="title">{tr("Our Mission")}</h4>
                 <p className="text">
-                  We craft unique digital experiences. With more years of
-                  expertise we design
+                  {tr("We craft unique digital experiences. With more years of expertise we design")}
                 </p>
               </div>
             </div>
@@ -75,16 +76,15 @@ const AboutThree = () => {
                 <img src="/assets/img/icon/about-grid-icon1-2.svg" alt="img" />
               </div>
               <div className="about-grid-details">
-                <h4 className="title">Our Vision</h4>
+                <h4 className="title">{tr("Our Vision")}</h4>
                 <p className="text">
-                  We craft unique digital experiences. With more years of
-                  expertise we design
+                  {tr("We craft unique digital experiences. With more years of expertise we design")}
                 </p>
               </div>
             </div>
             <div className="btn-group mt-60">
               <Link to="/about" className="btn style3">
-                Explore Our Company <i className="ri-arrow-right-up-line"></i>
+                {tr("Explore Our Company")}{" "}<i className="ri-arrow-right-up-line"></i>
               </Link>
             </div>
           </div>

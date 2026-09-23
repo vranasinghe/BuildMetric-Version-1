@@ -1,7 +1,9 @@
 
 import { useContent } from "../../../admin/ContentContext";
+import { useLanguage } from "../../../i18n/LanguageContext";
 
 const Process = () => {
+    const { tr } = useLanguage();
     const { content } = useContent();
     const { benefitsSubtitle, benefitsTitle, benefitsThumb, benefitsList } = content.servicesPage;
 
@@ -21,7 +23,7 @@ const Process = () => {
                     <div className="col-lg-6">
                         <div className="process-grid-list style2">
                             <div className="process-grid-list-bg-text">
-                                BENEFIT
+                                {tr("BENEFIT")}
                             </div>
                             {benefitsList.map((item, index) => (
                                 <div className="process-grid" key={item.id || index}>

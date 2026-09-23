@@ -4,7 +4,7 @@ import { useContent } from "../ContentContext";
 import { ProjectsPageContent, ProjectItem, ProjectDetailsContent } from "../types";
 
 const AdminProjects: React.FC = () => {
-  const { content, updateSection, resetSection } = useContent();
+  const { content, updateSection } = useContent();
   const [searchParams, setSearchParams] = useSearchParams();
   const activeSubTab = (searchParams.get("subtab") as "showcase" | "details") || "showcase";
 
@@ -147,16 +147,6 @@ const AdminProjects: React.FC = () => {
     setTimeout(() => setSavedNotice(null), 3000);
   };
 
-  const handleReset = () => {
-    if (window.confirm("Reset all Projects components to defaults?")) {
-      resetSection("projectsPage");
-      resetSection("projectDetails");
-      setProjectsData({ ...content.projectsPage });
-      setDetailsData({ ...content.projectDetails });
-      setSavedNotice("✓ Projects reset to default content.");
-      setTimeout(() => setSavedNotice(null), 3000);
-    }
-  };
 
   return (
     <form onSubmit={handleSaveAll}>
@@ -170,13 +160,6 @@ const AdminProjects: React.FC = () => {
           </h2>
         </div>
         <div className="adm-actions">
-          <button
-            type="button"
-            onClick={handleReset}
-            className="adm-btn adm-btn-ghost"
-          >
-            Reset Defaults
-          </button>
           <button
             type="submit"
             className="adm-btn"

@@ -70,5 +70,5 @@ export const STATUS_COLORS: Record<InquiryStatus, { bg: string; fg: string }> = 
   closed: { bg: "#f1f2f4", fg: "#686e7d" },
 };
 
-export const formatDate = (iso: string) =>
-  new Date(iso).toLocaleString(undefined, { dateStyle: "medium", timeStyle: "short" });
+export const formatDate = (iso: string, locale?: string) =>
+  new Date(iso).toLocaleString(locale, { dateStyle: "medium", timeStyle: "short" });

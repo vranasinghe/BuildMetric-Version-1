@@ -7,8 +7,9 @@ import Project from "./sections/pages/Project";
 import ProjectDetails from "./sections/pages/ProjectDetails";
 import Contact from "./sections/pages/Contact";
 import AdminLayout from "./admin/AdminLayout";
-import { ContentProvider } from "./admin/ContentContext";
+import { ContentProvider, EnglishContentScope } from "./admin/ContentContext";
 import { AuthProvider } from "./auth/AuthContext";
+import { LanguageProvider } from "./i18n/LanguageContext";
 import AuthPage from "./sections/pages/AuthPage";
 import Account from "./sections/pages/Account";
 
@@ -24,16 +25,18 @@ const router = createBrowserRouter([
 	{ path: "/login", element: <AuthPage mode="login" /> },
 	{ path: "/register", element: <AuthPage mode="register" /> },
 	{ path: "/account", element: <Account /> },
-	{ path: "/admin", element: <AdminLayout /> },
+	{ path: "/admin", element: <EnglishContentScope><AdminLayout /></EnglishContentScope> },
 ]);
 
 function App() {
 	return (
-		<AuthProvider>
-			<ContentProvider>
-				<RouterProvider router={router} />
-			</ContentProvider>
-		</AuthProvider>
+		<LanguageProvider>
+			<AuthProvider>
+				<ContentProvider>
+					<RouterProvider router={router} />
+				</ContentProvider>
+			</AuthProvider>
+		</LanguageProvider>
 	);
 }
 

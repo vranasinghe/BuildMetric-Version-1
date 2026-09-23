@@ -28,3 +28,11 @@ CREATE TABLE IF NOT EXISTS inquiries (
 
 CREATE INDEX IF NOT EXISTS inquiries_user_id_idx ON inquiries (user_id);
 CREATE INDEX IF NOT EXISTS inquiries_status_created_idx ON inquiries (status, created_at DESC);
+
+-- Website content edited in the admin panel: one row per section (homeHero, aboutPage, ...).
+CREATE TABLE IF NOT EXISTS site_content (
+  section    VARCHAR(60) PRIMARY KEY,
+  data       JSONB NOT NULL,
+  updated_at TIMESTAMPTZ NOT NULL DEFAULT NOW(),
+  updated_by INTEGER REFERENCES users(id) ON DELETE SET NULL
+);

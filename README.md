@@ -51,12 +51,18 @@ Project Details pages. Admins log in at `/admin` to see and manage inquiries and
 | --- | --- | --- |
 | POST | `/api/auth/register`, `/api/auth/login`, `/api/auth/logout` | Public |
 | GET | `/api/auth/me` | Public (returns `null` when logged out) |
+| GET | `/api/content` | Public (website text and images edited in the admin panel) |
 | POST | `/api/inquiries` | Logged-in client |
 | GET | `/api/inquiries/mine` | Logged-in client |
 | GET | `/api/admin/stats`, `/api/admin/inquiries`, `/api/admin/clients` | Admin |
 | PATCH, DELETE | `/api/admin/inquiries/:id` | Admin |
+| PUT | `/api/admin/content/:section` | Admin (saves one website section, e.g. `aboutPage`) |
 
 Sessions use an httpOnly cookie signed with `JWT_SECRET`. Passwords are hashed with bcrypt.
+
+Website content edited in the admin panel is stored in the `site_content` table (one row per
+section). Sections that were never edited fall back to the built-in text in
+`src/admin/defaultContent.ts`. Back up the database with your hosting provider's backups or `pg_dump`.
 
 ## Deploying on Vercel
 

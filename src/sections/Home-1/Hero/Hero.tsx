@@ -2,9 +2,11 @@ import { useRef, useState } from "react";
 import Slider from "react-slick";
 import { Link } from "react-router-dom";
 import { useContent } from "../../../admin/ContentContext";
+import { useLanguage } from "../../../i18n/LanguageContext";
 
 const Hero = () => {
   const { content } = useContent();
+  const { dir, tr } = useLanguage();
   const slides = content.homeHero;
   const [currentSlide, setCurrentSlide] = useState(0);
   const sliderRef = useRef<any>(null);
@@ -97,19 +99,20 @@ const Hero = () => {
         ))}
       </Slider>
 
-      {/* Side navigation arrows */}
+      {/* Side navigation arrows. The slider always runs left to right, so on an
+          Arabic page the left arrow goes forward and the right arrow goes back. */}
       <button
-        onClick={goToPrev}
+        onClick={dir === "rtl" ? goToNext : goToPrev}
         className="hero-side-arrow prev-arrow"
-        aria-label="Previous Slide"
+        aria-label={dir === "rtl" ? tr("Next Slide", "الشريحة التالية") : tr("Previous Slide", "الشريحة السابقة")}
       >
         <i className="ri-arrow-left-line"></i>
       </button>
 
       <button
-        onClick={goToNext}
+        onClick={dir === "rtl" ? goToPrev : goToNext}
         className="hero-side-arrow next-arrow"
-        aria-label="Next Slide"
+        aria-label={dir === "rtl" ? tr("Previous Slide", "الشريحة السابقة") : tr("Next Slide", "الشريحة التالية")}
       >
         <i className="ri-arrow-right-line"></i>
       </button>
@@ -151,6 +154,13 @@ const Hero = () => {
         }
         .hero-side-arrow:active {
           transform: translateY(-50%) scale(0.95);
+        }
+        /* Keep the slide text clear of the side arrows */
+        @media (min-width: 992px) {
+          .hero-1 .hero-style1 {
+            padding-left: 80px;
+            padding-right: 80px;
+          }
         }
         @media (max-width: 991px) {
           .hero-side-arrow {

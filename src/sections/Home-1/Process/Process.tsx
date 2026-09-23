@@ -1,8 +1,10 @@
  
 import { useState } from "react";
 import PopupVideo from "../../Common/PopupVideo/PopupVideo";
+import { useLanguage } from "../../../i18n/LanguageContext";
 
 const Process = () => {
+  const { tr } = useLanguage();
   const [popup, setPopup] = useState(false);
   const [isActive, setIsActive] = useState(false);
   const openPopup = () => {
@@ -42,17 +44,17 @@ const Process = () => {
               <div className="title-area content-text-extra-style">
                 <span className="sub-title text-white">
                   <img src="/assets/img/icon/section-subtitle-icon.svg" alt="img" />
-                  Work Process
+                  {tr("Work Process")}
                 </span>
                 <h2 className="sec-title text-white">
-                  Our services that we provide
+                  {tr("Our services that we provide")}
                 </h2>
               </div>
             </div>
             <div className="col-md-auto">
               <div className="sec-btn text-center">
                 <a onClick={openPopup} className="play-btn-wrap">
-                  Play Video
+                  {tr("Play Video")}
                   <span className="play-btn style2">
                     <i className="ri-play-fill"></i>
                   </span>
@@ -67,13 +69,13 @@ const Process = () => {
                 <div className="process-card process-fixed-height">
                   <div className="process-card-number">
                     <span>01</span>
-                    STEP
+                    {tr("STEP")}
                   </div>
                   <h4 className="process-card-title">
-                    Meet and consultant about project
+                    {tr("Meet and consultant about project")}
                   </h4>
                   <p className="process-card-text">
-                    Industry standard dummy text took since the when an unknown
+                    {tr("Industry standard dummy text took since the when an unknown")}
                   </p>
                 </div>
               </div>
@@ -81,13 +83,13 @@ const Process = () => {
                 <div className="process-card process-fixed-height">
                   <div className="process-card-number">
                     <span>02</span>
-                    STEP
+                    {tr("STEP")}
                   </div>
                   <h4 className="process-card-title">
-                    Product design and planning
+                    {tr("Product design and planning")}
                   </h4>
                   <p className="process-card-text">
-                    Known printer took a galley of type and scrambled it to make
+                    {tr("Known printer took a galley of type and scrambled it to make")}
                   </p>
                 </div>
               </div>
@@ -95,14 +97,13 @@ const Process = () => {
                 <div className="process-card process-fixed-height">
                   <div className="process-card-number">
                     <span>03</span>
-                    STEP
+                    {tr("STEP")}
                   </div>
                   <h4 className="process-card-title">
-                    Testing and quality control
+                    {tr("Testing and quality control")}
                   </h4>
                   <p className="process-card-text">
-                    It has survived not only centuries also the leap into
-                    electronic
+                    {tr("It has survived not only centuries also the leap into electronic")}
                   </p>
                 </div>
               </div>
@@ -110,13 +111,13 @@ const Process = () => {
                 <div className="process-card process-fixed-height">
                   <div className="process-card-number">
                     <span>04</span>
-                    STEP
+                    {tr("STEP")}
                   </div>
                   <h4 className="process-card-title">
-                    Final assembly and project handover
+                    {tr("Final assembly and project handover")}
                   </h4>
                   <p className="process-card-text">
-                    Electronic typesetting conta the popularised in the 1960s
+                    {tr("Electronic typesetting conta the popularised in the 1960s")}
                   </p>
                 </div>
               </div>

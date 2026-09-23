@@ -2,8 +2,10 @@
 import CountUp from "react-countup";
 import { useInView } from "react-intersection-observer";
 import { Link } from "react-router-dom";
+import { useLanguage } from "../../../i18n/LanguageContext";
 
 const About = () => {
+    const { tr } = useLanguage();
     const { ref: counterRef, inView: counterInView } = useInView({
         triggerOnce: true,
         threshold: 0.1,
@@ -41,7 +43,7 @@ const About = () => {
                                     </span>
                                     k
                                 </h3>
-                                <p className="about-counter-text">Happy Customers</p>
+                                <p className="about-counter-text">{tr("Happy Customers")}</p>
                                 <div className="about-counter-shape">
                                     <img src="/assets/img/normal/about_shape_1-1.png" alt="img" />
                                 </div>
@@ -56,14 +58,14 @@ const About = () => {
                             <div className="title-area mb-25">
                                 <span className="sub-title">
                                     <img src="/assets/img/icon/section-subtitle-icon.svg" alt="img" />
-                                    ABOUT US
+                                    {tr("ABOUT US")}
                                 </span>
-                                <h2 className="sec-title">We build everything that you need</h2>
+                                <h2 className="sec-title">{tr("We build everything that you need")}</h2>
                                 <p className="sec-text">
-                                    BuildMetric is a specialist construction cost and commercial consultancy delivering strategic Quantity Surveying, cost management, contract, claims and project advisory services.
+                                    {tr("BuildMetric is a specialist construction cost and commercial consultancy delivering strategic Quantity Surveying, cost management, contract, claims and project advisory services.")}
                                 </p>
                                 <p className="sec-text mt-15">
-                                    Drawing on extensive experience across complex residential, hospitality, commercial, marine and infrastructure developments, we provide independent, commercially focused advice throughout the project lifecycle. Our approach combines technical expertise, contractual 
+                                    {tr("Drawing on extensive experience across complex residential, hospitality, commercial, marine and infrastructure developments, we provide independent, commercially focused advice throughout the project lifecycle. Our approach combines technical expertise, contractual")} 
                                 </p>
                             </div>
                             <div className="checklist mb-35">
@@ -73,14 +75,14 @@ const About = () => {
                                             src="/assets/img/icon/about-checklsit-icon1-1.svg"
                                             alt="img"
                                         />
-                                        Providing Solutions For Construction, Management
+                                        {tr("Providing Solutions For Construction, Management")}
                                     </li>
                                     <li>
                                         <img
                                             src="/assets/img/icon/about-checklsit-icon1-1.svg"
                                             alt="img"
                                         />
-                                        Engineers design and build the structure
+                                        {tr("Engineers design and build the structure")}
                                     </li>
                                 </ul>
                             </div>
@@ -89,10 +91,9 @@ const About = () => {
                                     <img src="/assets/img/icon/about-grid-icon1-1.svg" alt="img" />
                                 </div>
                                 <div className="about-grid-details">
-                                    <h4 className="title">Our Mission</h4>
+                                    <h4 className="title">{tr("Our Mission")}</h4>
                                     <p className="text">
-                                        We craft unique digital experiences. With more years of
-                                        expertise we design
+                                        {tr("We craft unique digital experiences. With more years of expertise we design")}
                                     </p>
                                 </div>
                             </div>
@@ -101,16 +102,15 @@ const About = () => {
                                     <img src="/assets/img/icon/about-grid-icon1-2.svg" alt="img" />
                                 </div>
                                 <div className="about-grid-details">
-                                    <h4 className="title">Our Vision</h4>
+                                    <h4 className="title">{tr("Our Vision")}</h4>
                                     <p className="text">
-                                        We craft unique digital experiences. With more years of
-                                        expertise we design
+                                        {tr("We craft unique digital experiences. With more years of expertise we design")}
                                     </p>
                                 </div>
                             </div>
                             <div className="btn-group mt-60">
                                 <Link to="/about" className="btn style3">
-                                    Explore Our Company <i className="ri-arrow-right-up-line"></i>
+                                    {tr("Explore Our Company")}{" "}<i className="ri-arrow-right-up-line"></i>
                                 </Link>
                             </div>
                         </div>

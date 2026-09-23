@@ -28,7 +28,7 @@ const AdminLogin: React.FC = () => {
   };
 
   return (
-    <div className="bm-admin">
+    <div className="bm-admin" dir="ltr" lang="en">
       <div className="adm-login">
         <div className="adm-login-card">
           <img src={content.header.logoUrl || "/assets/img/buildmetric-logo.png"} alt="BuildMetric Consultancy" />

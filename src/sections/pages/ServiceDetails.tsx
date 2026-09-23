@@ -9,8 +9,10 @@ import BreadcumbNine from "../Service/BreadcumbNine/BreadcumbNine";
 import ClientTwoSharedSection from "../Service/Client/Client";
 import Contact from "../Service/Contact/Contact";
 import { useContent } from "../../admin/ContentContext";
+import { useLanguage } from "../../i18n/LanguageContext";
 
 const ServiceDetails: React.FC = () => {
+  const { tr } = useLanguage();
   const { content } = useContent();
   const servicesData = content.serviceDetailsList;
   const location = useLocation();
@@ -63,7 +65,7 @@ const ServiceDetails: React.FC = () => {
                     paddingBottom: "2px",
                   }}
                 >
-                  <i className="ri-arrow-left-line"></i> Back to All Services
+                  <i className="ri-arrow-left-line"></i>{" "}{tr("Back to All Services")}
                 </Link>
               </div>
             </div>
@@ -73,7 +75,7 @@ const ServiceDetails: React.FC = () => {
               <div className="col-lg-8 why-three-extra">
                 <div className="title-area text-center" style={{ marginBottom: "40px" }}>
                   <span className="sub-title text-theme">
-                    What we do <i className="ri-arrow-right-down-line"></i>
+                    {tr("What we do")}{" "}<i className="ri-arrow-right-down-line"></i>
                   </span>
                   <h2 className="homeThree-custom-titleOne">
                     {currentService.serviceTitle}
@@ -151,7 +153,7 @@ const ServiceDetails: React.FC = () => {
                     }}
                   >
                     <img src="/assets/img/icon/section-subtitle-icon.svg" alt="icon" style={{ width: "13px", height: "13px" }} />
-                    About this Service
+                    {tr("About this Service")}
                   </span>
                   <h4
                     style={{
@@ -184,7 +186,7 @@ const ServiceDetails: React.FC = () => {
                     />
                   </div>
                   <div className="why-text-wrap">
-                    <h4 className="title">Service</h4>
+                    <h4 className="title">{tr("Service")}</h4>
                     <hr className="line" />
                     <div className="number">{currentService.num}</div>
                   </div>
@@ -208,7 +210,7 @@ const ServiceDetails: React.FC = () => {
                       }}
                     >
                       <img src="/assets/img/icon/section-subtitle-icon.svg" alt="icon" style={{ width: "14px", height: "14px" }} />
-                      Key Scope & Subsections
+                      {tr("Key Scope & Subsections")}
                     </span>
                     <h3
                       style={{
@@ -220,7 +222,7 @@ const ServiceDetails: React.FC = () => {
                         lineHeight: "1.3",
                       }}
                     >
-                      Scope & Deliverables
+                      {tr("Scope & Deliverables")}
                     </h3>
                   </div>
 
@@ -252,7 +254,7 @@ const ServiceDetails: React.FC = () => {
 
                   <div className="btn-group mt-30">
                     <Link to="/contact" className="btn style3" style={{ borderRadius: "0px" }}>
-                      Request a Consultation <i className="ri-arrow-right-up-line"></i>
+                      {tr("Request a Consultation")}{" "}<i className="ri-arrow-right-up-line"></i>
                     </Link>
                   </div>
                 </div>

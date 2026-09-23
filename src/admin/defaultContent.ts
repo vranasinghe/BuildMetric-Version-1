@@ -21,7 +21,7 @@ export const defaultContent: SiteContent = {
     navLinks: [
       { id: "nav-1", label: "Home", url: "/" },
       { id: "nav-2", label: "About Us", url: "/about" },
-      { id: "nav-3", label: "Services", url: "/services" },
+      { id: "nav-3", label: "Services", url: "/service" },
       { id: "nav-4", label: "Projects", url: "/project" },
       { id: "nav-5", label: "Contact", url: "/contact" },
     ],

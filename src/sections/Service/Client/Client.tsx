@@ -1,8 +1,10 @@
  
 import { Link } from "react-router-dom";
 import Slider from "react-slick";
+import { useLanguage } from "../../../i18n/LanguageContext";
 
 const ClientTwoSharedSection = ({ isSubscribe } : any) => {
+    const { tr } = useLanguage();
     const settings = {
         infinite: true,
         slidesToShow: 5,
@@ -117,17 +119,17 @@ const ClientTwoSharedSection = ({ isSubscribe } : any) => {
                         </div>
                         <div className="subscribe-box">
                             <h4 className="subscribe-box_title">
-                                Sign up to get the latest updates!
+                                {tr("Sign up to get the latest updates!")}
                             </h4>
                             <form className="newsletter-form" onSubmit={(e) => e.preventDefault()}>
                                 <input
                                     className="form-control"
                                     type="email"
-                                    placeholder="Enter Your Email..."
+                                    placeholder={tr("Enter Your Email...")}
                                     required 
                                 />
                                 <button type="submit" className="btn style3">
-                                    SUBCRIBE<i className="ri-arrow-right-up-line"></i>
+                                    {tr("SUBCRIBE")}<i className="ri-arrow-right-up-line"></i>
                                 </button>
                             </form>
                         </div>

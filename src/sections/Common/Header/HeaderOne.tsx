@@ -4,11 +4,13 @@ import { Link, useLocation } from "react-router-dom";
 import MultiPageMobileMenu from "../MultiPageMobileMenu/MultiPageMobileMenu"; 
 import { useContent } from "../../../admin/ContentContext";
 import { useAuth } from "../../../auth/AuthContext";
+import { useLanguage } from "../../../i18n/LanguageContext";
 
 const HeaderOne = () => {
     const { content } = useContent();
     const headerData = content.header;
     const { user } = useAuth();
+    const { lang: currentLang, setLang, tr } = useLanguage();
     const location = useLocation();
     const currentPath = location.pathname;
 
@@ -80,7 +82,7 @@ const HeaderOne = () => {
             <div className={`popup-search-box ${isPopupOpen ? 'show' : ''}`}>
                 <button onClick={handleSearchPopupClose} className="searchClose"><i className="ri-close-line"></i></button>
                 <form action="#">
-                    <input type="text" placeholder="Search Here.." />
+                    <input type="text" placeholder={tr("Search Here..", "ابحث هنا..")} />
                     <button type="submit"><i className="ri-search-line"></i></button>
                 </form>
             </div>
@@ -96,8 +98,7 @@ const HeaderOne = () => {
                             </Link>
                         </div>
                         <p className="about-text mb-4">
-                            A small business can be better than a big business because of agility and
-                            adaptability due to their size and scale.
+                            {tr("A small business can be better than a big business because of agility and adaptability due to their size and scale.", "قد تتفوق الشركة الصغيرة على الشركة الكبيرة بفضل المرونة والقدرة على التكيّف التي يمنحها لها حجمها ونطاق عملها.")}
                         </p>
 
                         <p className="footer-text">
@@ -106,8 +107,7 @@ const HeaderOne = () => {
                             </Link>
                         </p>
                         <p className="contact-text">
-                            <i className="ri-map-pin-line space-right-sidebar-icon"></i> Losangle, Street Road 24, New
-                            York, USA - 67452
+                            <i className="ri-map-pin-line space-right-sidebar-icon"></i> {headerData.address}
                         </p>
                         <p className="footer-text">
                             <Link to="mailto:support@gmail.com">
@@ -129,12 +129,11 @@ const HeaderOne = () => {
                                 </div>
                                 <div className="media-body">
                                     <h4 className="post-title">
-                                        <Link className="text-inherit" to="/blog-details">Best features of
-                                            Building construction work</Link>
+                                        <Link className="text-inherit" to="/blog-details">{tr("Best features of Building construction work", "أهم مزايا أعمال البناء والإنشاءات")}</Link>
                                     </h4>
                                     <div className="recent-post-meta">
-                                        <Link to="/blog">By Nicholes</Link>
-                                        <Link to="/blog">30 min ago</Link>
+                                        <Link to="/blog">{tr("By Nicholes", "بقلم نيكولز")}</Link>
+                                        <Link to="/blog">{tr("30 min ago", "قبل 30 دقيقة")}</Link>
                                     </div>
                                 </div>
                             </div>
@@ -146,12 +145,11 @@ const HeaderOne = () => {
                                 </div>
                                 <div className="media-body">
                                     <h4 className="post-title">
-                                        <Link className="text-inherit" to="/blog-details">The beast team is a
-                                            around and how we make it</Link>
+                                        <Link className="text-inherit" to="/blog-details">{tr("The beast team is a around and how we make it", "الفريق المتميز وكيف نصنع النجاح معًا")}</Link>
                                     </h4>
                                     <div className="recent-post-meta">
-                                        <Link to="/blog">By Nicholes</Link>
-                                        <Link to="/blog">2 days ago</Link>
+                                        <Link to="/blog">{tr("By Nicholes", "بقلم نيكولز")}</Link>
+                                        <Link to="/blog">{tr("2 days ago", "قبل يومين")}</Link>
                                     </div>
                                 </div>
                             </div>
@@ -163,12 +161,11 @@ const HeaderOne = () => {
                                 </div>
                                 <div className="media-body">
                                     <h4 className="post-title">
-                                        <Link className="text-inherit" to="/blog-details">A well designed
-                                            construction website is user accessible</Link>
+                                        <Link className="text-inherit" to="/blog-details">{tr("A well designed construction website is user accessible", "موقع إنشاءات مصمم جيدًا يسهل على المستخدم الوصول إليه")}</Link>
                                     </h4>
                                     <div className="recent-post-meta">
-                                        <Link to="/blog">By Nicholes</Link>
-                                        <Link to="/blog">3 week ago</Link>
+                                        <Link to="/blog">{tr("By Nicholes", "بقلم نيكولز")}</Link>
+                                        <Link to="/blog">{tr("3 week ago", "قبل 3 أسابيع")}</Link>
                                     </div>
                                 </div>
                             </div>
@@ -391,7 +388,7 @@ const HeaderOne = () => {
                                     minHeight: "44px",
                                     background: "#fff"
                                 }}>
-                                    {/* Left: Social Media Icons & Admin shortcut */}
+                                    {/* Left: Social Media Icons */}
                                     <div className="header-social-wrap" style={{ display: "flex", gap: "6px", alignItems: "center" }}>
                                         {headerData.socialLinks.map((item, index) => (
                                             <Link
@@ -422,72 +419,42 @@ const HeaderOne = () => {
                                                 <i className={item.icon} />
                                             </Link>
                                         ))}
-
-                                        {/* Admin Link Button */}
-                                        <Link
-                                            to="/admin"
-                                            title="Open BuildMetric Admin Panel"
-                                            style={{
-                                                height: "30px",
-                                                padding: "0 10px",
-                                                backgroundColor: "#001F5B",
-                                                color: "#ffffff",
-                                                display: "inline-flex",
-                                                alignItems: "center",
-                                                gap: "5px",
-                                                borderRadius: "2px",
-                                                fontSize: "11px",
-                                                fontWeight: 700,
-                                                letterSpacing: "0.5px",
-                                                textDecoration: "none",
-                                                marginLeft: "6px",
-                                                transition: "background-color 0.2s ease"
-                                            }}
-                                            onMouseEnter={(e) => e.currentTarget.style.backgroundColor = "#f15a24"}
-                                            onMouseLeave={(e) => e.currentTarget.style.backgroundColor = "#001F5B"}
-                                        >
-                                            <i className="ri-settings-4-line" />
-                                            <span>ADMIN</span>
-                                        </Link>
                                     </div>
 
-                                    {/* Centre: Language & Region Switcher */}
+                                    {/* Centre: Language Switcher */}
                                     <div style={{ display: "flex", alignItems: "center", gap: "6px", fontSize: "12px", fontWeight: 600 }}>
                                         {/* Language buttons */}
                                         {(headerData.languages && headerData.languages.length > 0 ? headerData.languages : [
                                             { id: "lang-en", code: "EN", name: "English" },
                                             { id: "lang-ar", code: "AR", name: "العربية" }
-                                        ]).map((lang, lIdx) => (
+                                        ]).map((lang, lIdx) => {
+                                            const code = lang.code.toLowerCase() === "ar" ? "ar" : "en";
+                                            const isCurrent = code === currentLang;
+                                            return (
                                             <React.Fragment key={lang.id || lIdx}>
                                                 {lIdx > 0 && <span style={{ color: "#ccc", fontSize: "11px" }}>|</span>}
                                                 <button
                                                     type="button"
+                                                    onClick={() => setLang(code)}
+                                                    aria-pressed={isCurrent}
+                                                    title={lang.name}
                                                     style={{
                                                         background: "none",
                                                         border: "none",
                                                         padding: "2px 6px",
                                                         cursor: "pointer",
-                                                        color: lIdx === 0 ? "#001F5B" : "#686e7d",
-                                                        fontWeight: lIdx === 0 ? 700 : 600,
+                                                        color: isCurrent ? "#001F5B" : "#686e7d",
+                                                        fontWeight: isCurrent ? 700 : 600,
                                                         fontSize: "12px",
                                                         fontFamily: "'Titillium Web', sans-serif",
-                                                        borderBottom: lIdx === 0 ? "2px solid #f15a24" : "none"
+                                                        borderBottom: isCurrent ? "2px solid #f15a24" : "none"
                                                     }}
                                                 >
                                                     {lang.code}
                                                 </button>
                                             </React.Fragment>
-                                        ))}
-                                        <span style={{ color: "#e7e8ec", fontSize: "11px", margin: "0 4px" }}>|</span>
-                                        {/* Region */}
-                                        <span style={{ display: "flex", alignItems: "center", gap: "4px", color: "#686e7d", fontSize: "12px" }}>
-                                            <img
-                                                src={headerData.regionFlagUrl || "https://flagcdn.com/w20/lk.png"}
-                                                alt={headerData.regionName || "Sri Lanka"}
-                                                style={{ width: "18px", height: "12px", objectFit: "cover", borderRadius: "2px" }}
-                                            />
-                                            {headerData.regionName || "Sri Lanka"}
-                                        </span>
+                                            );
+                                        })}
                                     </div>
 
                                     {/* Right: Working Hours & Location with orange circular icons */}
@@ -564,8 +531,8 @@ const HeaderOne = () => {
                                                         <li key={navItem.id} className={`menu-item-has-children ${isActive("/service") ? "active" : ""}`}>
                                                             <Link to={navItem.url} className={isActive("/service") ? "active" : ""}>{navItem.label.toUpperCase()}</Link>
                                                             <ul className="sub-menu">
-                                                                <li className={currentPath === "/service" ? "active" : ""}><Link to="/service" className={currentPath === "/service" ? "active" : ""}>Services</Link></li>
-                                                                <li className={currentPath === "/service-details" ? "active" : ""}><Link to="/service-details" className={currentPath === "/service-details" ? "active" : ""}>Service Details</Link></li>
+                                                                <li className={currentPath === "/service" ? "active" : ""}><Link to="/service" className={currentPath === "/service" ? "active" : ""}>{tr("Services", "الخدمات")}</Link></li>
+                                                                <li className={currentPath === "/service-details" ? "active" : ""}><Link to="/service-details" className={currentPath === "/service-details" ? "active" : ""}>{tr("Service Details", "تفاصيل الخدمة")}</Link></li>
                                                             </ul>
                                                         </li>
                                                     );
@@ -575,8 +542,8 @@ const HeaderOne = () => {
                                                         <li key={navItem.id} className={`menu-item-has-children ${isActive("/project") ? "active" : ""}`}>
                                                             <Link to={navItem.url} className={isActive("/project") ? "active" : ""}>{navItem.label.toUpperCase()}</Link>
                                                             <ul className="sub-menu">
-                                                                <li className={currentPath === "/project" ? "active" : ""}><Link to="/project" className={currentPath === "/project" ? "active" : ""}>Project Page</Link></li>
-                                                                <li className={currentPath === "/project-details" ? "active" : ""}><Link to="/project-details" className={currentPath === "/project-details" ? "active" : ""}>Project Details</Link></li>
+                                                                <li className={currentPath === "/project" ? "active" : ""}><Link to="/project" className={currentPath === "/project" ? "active" : ""}>{tr("Project Page", "صفحة المشاريع")}</Link></li>
+                                                                <li className={currentPath === "/project-details" ? "active" : ""}><Link to="/project-details" className={currentPath === "/project-details" ? "active" : ""}>{tr("Project Details", "تفاصيل المشروع")}</Link></li>
                                                             </ul>
                                                         </li>
                                                     );
@@ -618,14 +585,14 @@ const HeaderOne = () => {
                                             }}
                                         >
                                             <i className={user ? "ri-user-3-line" : "ri-login-box-line"} style={{ fontSize: "16px" }} />
-                                            {user ? (user.role === "admin" ? "ADMIN PANEL" : "MY ACCOUNT") : "LOGIN"}
+                                            {user ? (user.role === "admin" ? tr("ADMIN PANEL", "لوحة التحكم") : tr("MY ACCOUNT", "حسابي")) : tr("LOGIN", "تسجيل الدخول")}
                                         </Link>
 
                                         {/* Search Icon */}
                                         <button
                                             onClick={handleSearchPopupOpen}
                                             type="button"
-                                            aria-label="Search"
+                                            aria-label={tr("Search", "بحث")}
                                             style={{
                                                 background: "none",
                                                 border: "none",

@@ -25,6 +25,7 @@
   color: var(--adm-text);
   background: var(--adm-page);
   min-height: 100vh;
+  text-align: left; /* stays English / left-to-right even when the site is in Arabic */
   display: flex;
   flex-direction: column;
 }
@@ -129,6 +130,11 @@
 
 .adm-saved i {
   color: var(--adm-success);
+}
+
+.adm-saved-error,
+.adm-saved-error i {
+  color: var(--adm-danger);
 }
 
 .adm-menu-toggle {

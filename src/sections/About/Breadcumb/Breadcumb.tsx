@@ -1,8 +1,10 @@
 import { Link } from "react-router-dom";
+import { useLanguage } from "../../../i18n/LanguageContext";
 
  
 
 const Breadcumb = () => {
+  const { tr } = useLanguage();
   return (
     <div
       className="breadcumb-wrapper"
@@ -17,14 +19,14 @@ const Breadcumb = () => {
         <div className="row">
           <div className="col-lg-12">
             <div className="breadcumb-content">
-              <h1 className="breadcumb-title">About Us</h1>
+              <h1 className="breadcumb-title">{tr("About Us")}</h1>
               <ul className="breadcumb-menu">
                 <li>
                   <Link to="/home-1">
-                    <i className="ri-home-4-fill"></i> HOME
+                    <i className="ri-home-4-fill"></i>{" "}{tr("HOME")}
                   </Link>
                 </li>
-                <li className="active">ABOUT US</li>
+                <li className="active">{tr("ABOUT US")}</li>
               </ul>
             </div>
           </div>

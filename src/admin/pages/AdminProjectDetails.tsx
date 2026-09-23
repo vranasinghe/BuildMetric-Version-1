@@ -3,7 +3,7 @@ import { useContent } from "../ContentContext";
 import { ProjectDetailsContent } from "../types";
 
 const AdminProjectDetails: React.FC = () => {
-  const { content, updateSection, resetSection } = useContent();
+  const { content, updateSection } = useContent();
   const [formData, setFormData] = useState<ProjectDetailsContent>({
     ...content.projectDetails,
     specs: content.projectDetails.specs || [
@@ -86,14 +86,6 @@ const AdminProjectDetails: React.FC = () => {
     setTimeout(() => setSavedNotice(false), 3000);
   };
 
-  const handleReset = () => {
-    if (window.confirm("Reset Project Details to default settings?")) {
-      resetSection("projectDetails");
-      setFormData({ ...content.projectDetails });
-      setSavedNotice(true);
-      setTimeout(() => setSavedNotice(false), 3000);
-    }
-  };
 
   return (
     <form onSubmit={handleSave}>
@@ -107,13 +99,6 @@ const AdminProjectDetails: React.FC = () => {
           </h2>
         </div>
         <div className="adm-actions">
-          <button
-            type="button"
-            onClick={handleReset}
-            className="adm-btn adm-btn-ghost"
-          >
-            Reset Defaults
-          </button>
           <button
             type="submit"
             className="adm-btn"

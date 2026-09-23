@@ -1,8 +1,10 @@
  
 
 import InquiryForm from "../../Common/InquiryForm/InquiryForm";
+import { useLanguage } from "../../../i18n/LanguageContext";
 
 const Contact = () => {
+    const { tr } = useLanguage();
     return (
         <section className="contact-area-2 space-bottom overflow-hidden">
             <div className="container">
@@ -13,8 +15,8 @@ const Contact = () => {
                         <div className="col-xl-7">
                             <div className="contact-form-wrap">
                                 <div className="title-area">
-                                    <span className="sub-title text-theme">Get Free Quote <i className="ri-arrow-right-down-line"></i></span>
-                                    <h2 className="sec-title">Have a project in mind?</h2>
+                                    <span className="sub-title text-theme">{tr("Get Free Quote")}{" "}<i className="ri-arrow-right-down-line"></i></span>
+                                    <h2 className="sec-title">{tr("Have a project in mind?")}</h2>
                                 </div>
                                 <InquiryForm />
                             </div>

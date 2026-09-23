@@ -1,9 +1,11 @@
  
 
 import InquiryForm from "../../Common/InquiryForm/InquiryForm";
+import { useLanguage } from "../../../i18n/LanguageContext";
 
 
 const ContactSix = () => {
+    const { tr } = useLanguage();
     return (
         <section className="contact-area-2 space-bottom overflow-hidden">
             <div className="container">
@@ -25,9 +27,9 @@ const ContactSix = () => {
                                 <div className="title-area">
                                     <span className="sub-title text-theme">
                                         <img src="/assets/img/icon/section-subtitle-icon.svg" alt="img" />
-                                        Get Free Quote
+                                        {tr("Get Free Quote")}
                                     </span>
-                                    <h2 className="sec-title">Have a project in mind?</h2>
+                                    <h2 className="sec-title">{tr("Have a project in mind?")}</h2>
                                 </div>
                                 <InquiryForm />
                             </div>

@@ -3,7 +3,7 @@ import { useContent } from "../ContentContext";
 import { ContactPageContent, OfficeLocation } from "../types";
 
 const AdminContact: React.FC = () => {
-  const { content, updateSection, resetSection } = useContent();
+  const { content, updateSection } = useContent();
   const [formData, setFormData] = useState<ContactPageContent>({ ...content.contactPage });
   const [savedNotice, setSavedNotice] = useState(false);
 
@@ -49,14 +49,6 @@ const AdminContact: React.FC = () => {
     setTimeout(() => setSavedNotice(false), 3000);
   };
 
-  const handleReset = () => {
-    if (window.confirm("Reset Contact Page to defaults?")) {
-      resetSection("contactPage");
-      setFormData({ ...content.contactPage });
-      setSavedNotice(true);
-      setTimeout(() => setSavedNotice(false), 3000);
-    }
-  };
 
   return (
     <form onSubmit={handleSave}>
@@ -70,13 +62,6 @@ const AdminContact: React.FC = () => {
           </h2>
         </div>
         <div className="adm-actions">
-          <button
-            type="button"
-            onClick={handleReset}
-            className="adm-btn adm-btn-ghost"
-          >
-            Reset Defaults
-          </button>
           <button
             type="submit"
             className="adm-btn"

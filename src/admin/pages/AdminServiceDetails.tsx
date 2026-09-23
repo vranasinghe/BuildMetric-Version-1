@@ -4,7 +4,7 @@ import { useContent } from "../ContentContext";
 import { ServiceDetailArticle } from "../types";
 
 const AdminServiceDetails: React.FC = () => {
-  const { content, updateSection, resetSection } = useContent();
+  const { content, updateSection } = useContent();
   const [services, setServices] = useState<ServiceDetailArticle[]>([...content.serviceDetailsList]);
   const [selectedIndex, setSelectedIndex] = useState<number>(0);
   const [savedNotice, setSavedNotice] = useState(false);
@@ -92,15 +92,6 @@ const AdminServiceDetails: React.FC = () => {
     setTimeout(() => setSavedNotice(false), 3000);
   };
 
-  const handleReset = () => {
-    if (window.confirm("Reset all Service Details articles to defaults?")) {
-      resetSection("serviceDetailsList");
-      setServices([...content.serviceDetailsList]);
-      setSelectedIndex(0);
-      setSavedNotice(true);
-      setTimeout(() => setSavedNotice(false), 3000);
-    }
-  };
 
   return (
     <form onSubmit={handleSave}>
@@ -114,13 +105,6 @@ const AdminServiceDetails: React.FC = () => {
           </h2>
         </div>
         <div className="adm-actions">
-          <button
-            type="button"
-            onClick={handleReset}
-            className="adm-btn adm-btn-ghost"
-          >
-            Reset Defaults
-          </button>
           <button
             type="submit"
             className="adm-btn"

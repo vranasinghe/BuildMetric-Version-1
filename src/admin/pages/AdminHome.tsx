@@ -3,7 +3,7 @@ import { useContent } from "../ContentContext";
 import { HeroSlide, CounterItem, HomeAboutContent, CtaContent } from "../types";
 
 const AdminHome: React.FC = () => {
-  const { content, updateSection, resetSection } = useContent();
+  const { content, updateSection } = useContent();
 
   const [activeTab, setActiveTab] = useState<"hero" | "counter" | "about" | "cta">("hero");
   const [slides, setSlides] = useState<HeroSlide[]>([...content.homeHero]);
@@ -108,26 +108,6 @@ const AdminHome: React.FC = () => {
           </h2>
         </div>
         <div className="adm-actions">
-          <button
-            type="button"
-            onClick={() => {
-              if (window.confirm("Reset all Home Page components to defaults?")) {
-                resetSection("homeHero");
-                resetSection("homeCounter");
-                resetSection("homeAbout");
-                resetSection("ctaFour");
-                setSlides([...content.homeHero]);
-                setCounters([...content.homeCounter]);
-                setHomeAbout({ ...content.homeAbout });
-                setCta({ ...content.ctaFour });
-                setSavedNotice(true);
-                setTimeout(() => setSavedNotice(false), 3000);
-              }
-            }}
-            className="adm-btn adm-btn-ghost"
-          >
-            Reset Defaults
-          </button>
           <button
             onClick={handleSaveAll}
             className="adm-btn"

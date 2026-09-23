@@ -1,6 +1,6 @@
 
 
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600&family=Raleway:wght@600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600&family=Raleway:wght@600;700&family=Cairo:wght@400;500;600;700;800&display=swap');
  
 
 @import "/assets/css/bootstrap.min.css";
@@ -141,4 +141,4 @@
   box-shadow: 0 6px 18px rgba(0, 31, 91, 0.45) !important;
   transform: translateY(-1px) !important;
 }
-
+

@@ -4,7 +4,7 @@ import { useContent } from "../ContentContext";
 import { ServicesPageContent, ServiceCardItem, BenefitItem, ServiceDetailArticle } from "../types";
 
 const AdminServices: React.FC = () => {
-  const { content, updateSection, resetSection } = useContent();
+  const { content, updateSection } = useContent();
   const [searchParams, setSearchParams] = useSearchParams();
   const activeSubTab = (searchParams.get("subtab") as "main" | "details") || "main";
 
@@ -207,17 +207,6 @@ const AdminServices: React.FC = () => {
     setTimeout(() => setSavedNotice(null), 3000);
   };
 
-  const handleReset = () => {
-    if (window.confirm("Reset all Services components to defaults?")) {
-      resetSection("servicesPage");
-      resetSection("serviceDetailsList");
-      setPageData({ ...content.servicesPage });
-      setDetailArticles([...content.serviceDetailsList]);
-      setSelectedDetailIndex(0);
-      setSavedNotice("✓ Services reset to default content.");
-      setTimeout(() => setSavedNotice(null), 3000);
-    }
-  };
 
   return (
     <form onSubmit={handleSaveAll}>
@@ -231,13 +220,6 @@ const AdminServices: React.FC = () => {
           </h2>
         </div>
         <div className="adm-actions">
-          <button
-            type="button"
-            onClick={handleReset}
-            className="adm-btn adm-btn-ghost"
-          >
-            Reset Defaults
-          </button>
           <button
             type="submit"
             className="adm-btn"

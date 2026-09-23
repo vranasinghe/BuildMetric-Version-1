@@ -1,52 +1,12 @@
 import { Link } from "react-router-dom";
 import Slider from "react-slick";
-
-const servicesData = [
-  {
-    num: "N.01",
-    title: "Quantity Surveying & Cost Management",
-    thumb: "/assets/img/service/service_thumb6_1.png",
-    icon: "/assets/img/icon/service-icon2-1.svg",
-    desc: "Strategic feasibility estimating, cost planning, BOQ preparation, tender evaluation, value engineering, and final accounts.",
-  },
-  {
-    num: "N.02",
-    title: "Commercial & Contract Management",
-    thumb: "/assets/img/service/service_thumb6_2.png",
-    icon: "/assets/img/icon/service-icon2-2.svg",
-    desc: "Strategic contract administration, change management, variations control, commercial reporting, and contractual advice.",
-  },
-  {
-    num: "N.03",
-    title: "Claims & Dispute Support",
-    thumb: "/assets/img/service/service_thumb6_3.png",
-    icon: "/assets/img/icon/service-icon2-3.svg",
-    desc: "Expert claims preparation, quantum assessment, EOT disruption commercial assessment, and dispute resolution.",
-  },
-  {
-    num: "N.04",
-    title: "Project Management / PMC",
-    thumb: "/assets/img/service/service_thumb6_1.png",
-    icon: "/assets/img/icon/service-icon2-4.svg",
-    desc: "Robust project controls, procurement management, design coordination, risk management, and client reporting.",
-  },
-  {
-    num: "N.05",
-    title: "Development & Investment Advisory",
-    thumb: "/assets/img/service/service_thumb6_2.png",
-    icon: "/assets/img/icon/service-icon4-1.svg",
-    desc: "Development feasibility, cost benchmarking, technical due diligence, CAPEX forecasting, and project monitoring.",
-  },
-  {
-    num: "N.06",
-    title: "Digital Project Commercial Management",
-    thumb: "/assets/img/service/service_thumb6_3.png",
-    icon: "/assets/img/icon/service-icon4-2.svg",
-    desc: "Modern cost dashboards, digital cost controls, 5D BIM integration, and data-driven commercial intelligence.",
-  },
-];
+import { useLanguage } from "../../../i18n/LanguageContext";
+import { useContent } from "../../../admin/ContentContext";
 
 const Service = () => {
+  const { tr } = useLanguage();
+  const { content } = useContent();
+  const servicesData = content.homeServices;
   const settings = {
     slidesToShow: 3,
     slidesToScroll: 1,
@@ -120,10 +80,10 @@ const Service = () => {
               <div className="col-lg-6">
                 <div className="title-area text-center mb-50">
                   <span className="sub-title text-theme">
-                    WHAT WE DO <i className="ri-arrow-right-down-line"></i>
+                    {tr("WHAT WE DO")}{" "}<i className="ri-arrow-right-down-line"></i>
                   </span>
                   <h2 className="sec-title">
-                    We provide our services all over the world
+                    {tr("We provide our services all over the world")}
                   </h2>
                 </div>
               </div>
@@ -134,7 +94,7 @@ const Service = () => {
               className="row global-carousel service-slider6 slick-dotted"
             >
               {servicesData.map((service, index) => (
-                <div className="col-xxl-auto col-xl-4 col-md-6" key={index}>
+                <div className="col-xxl-auto col-xl-4 col-md-6" key={service.id || index}>
                   <div
                     className="service-card style6 background-image"
                     style={{
@@ -175,7 +135,7 @@ const Service = () => {
                     </div>
                     <div className="btn-group" style={{ marginTop: "20px" }}>
                       <Link to="/service-details" className="btn">
-                        EXPLORE SERVICE{" "}
+                        {tr("EXPLORE SERVICE", "استكشف الخدمة")}{" "}
                         <i className="ri-arrow-right-up-line"></i>
                       </Link>
                     </div>

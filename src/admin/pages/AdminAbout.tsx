@@ -3,7 +3,7 @@ import { useContent } from "../ContentContext";
 import { AboutPageContent } from "../types";
 
 const AdminAbout: React.FC = () => {
-  const { content, updateSection, resetSection } = useContent();
+  const { content, updateSection } = useContent();
   const [formData, setFormData] = useState<AboutPageContent>({
     ...content.aboutPage,
     whyChooseCards: content.aboutPage.whyChooseCards || [],
@@ -120,14 +120,6 @@ const AdminAbout: React.FC = () => {
     setTimeout(() => setSavedNotice(false), 3000);
   };
 
-  const handleReset = () => {
-    if (window.confirm("Reset About Page to defaults?")) {
-      resetSection("aboutPage");
-      setFormData({ ...content.aboutPage });
-      setSavedNotice(true);
-      setTimeout(() => setSavedNotice(false), 3000);
-    }
-  };
 
   return (
     <form onSubmit={handleSave}>
@@ -141,13 +133,6 @@ const AdminAbout: React.FC = () => {
           </h2>
         </div>
         <div className="adm-actions">
-          <button
-            type="button"
-            onClick={handleReset}
-            className="adm-btn adm-btn-ghost"
-          >
-            Reset Defaults
-          </button>
           <button
             type="submit"
             className="adm-btn"

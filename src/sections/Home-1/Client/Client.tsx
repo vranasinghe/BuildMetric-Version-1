@@ -1,8 +1,10 @@
 
 import { Link } from "react-router-dom";
 import Slider from "react-slick";
+import { useLanguage } from "../../../i18n/LanguageContext";
 
 const Client = () => {
+    const { tr } = useLanguage();
     const settings = {
         infinite: true,
         slidesToShow: 5,
@@ -48,8 +50,8 @@ const Client = () => {
                 </div>
                 <div className="container">
                     <div className="title-area text-center">
-                        <span className="sub-title text-white"><img src="/assets/img/icon/section-subtitle-icon.svg" alt="img" />Happy Clients</span>
-                        <h2 className="sec-title text-white">Our trusted partners</h2>
+                        <span className="sub-title text-white"><img src="/assets/img/icon/section-subtitle-icon.svg" alt="img" />{tr("Happy Clients")}</span>
+                        <h2 className="sec-title text-white">{tr("Our trusted partners")}</h2>
                     </div>
                      
                     <Slider {...settings} className="row global-carousel client-slider1">

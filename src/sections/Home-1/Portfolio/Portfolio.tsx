@@ -3,65 +3,13 @@ import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import { Link } from "react-router-dom";
-
-const projects = [
-  {
-    num: "N.01",
-    title: "Breakwater, Dredging, Wharf & Reclamation Works",
-    location: "Western Region, Abu Dhabi, UAE",
-    image: "/assets/img/project/project2_1.png",
-  },
-  {
-    num: "N.02",
-    title: "Coastal Revetment Works",
-    location: "Western Region, Abu Dhabi, UAE",
-    image: "/assets/img/project/project2_2.png",
-  },
-  {
-    num: "N.03",
-    title: "Site Grading, Roads & Paving Works",
-    location: "Western Region, Abu Dhabi, UAE",
-    image: "/assets/img/project/project2_3.png",
-  },
-  {
-    num: "N.04",
-    title: "Composite Mid-Rise Building Development",
-    location: "Western Region, Abu Dhabi, UAE",
-    image: "/assets/img/project/project2_4.png",
-  },
-  {
-    num: "N.05",
-    title: "The Villa – Thematic Residential Development",
-    location: "Dubai, UAE – 1,200+ villas",
-    image: "/assets/img/project/project2_5.png",
-  },
-  {
-    num: "N.06",
-    title: "Al Khail Gate – Phase 1",
-    location: "Dubai, UAE",
-    image: "/assets/img/project/project2_6.png",
-  },
-  {
-    num: "N.07",
-    title: "DubaiLand Master Development",
-    location: "Dubai, UAE",
-    image: "/assets/img/project/project2_7.png",
-  },
-  {
-    num: "N.08",
-    title: "High-End Private Residential / Palace Developments",
-    location: "UAE",
-    image: "/assets/img/project/project2_8.png",
-  },
-  {
-    num: "N.09",
-    title: "78 storied high-rise building (mix use)",
-    location: "Dubai, UAE",
-    image: "/assets/img/project/project2_9.png",
-  },
-];
+import { useLanguage } from "../../../i18n/LanguageContext";
+import { useContent } from "../../../admin/ContentContext";
 
 const Portfolio = () => {
+  const { tr } = useLanguage();
+  const { content } = useContent();
+  const projects = content.projectsPage.projects;
   const sliderRef = useRef<Slider | null>(null);
 
   const settings = {
@@ -123,11 +71,11 @@ const Portfolio = () => {
                     alt="img"
                     style={{ marginRight: "8px" }}
                   />
-                  Recent Projects <i className="ri-arrow-right-down-line"></i>
+                  {tr("Recent Projects")}{" "}<i className="ri-arrow-right-down-line"></i>
                 </span>
-                <h2 className="sec-title">Check our latest projects</h2>
+                <h2 className="sec-title">{tr("Check our latest projects")}</h2>
                 <p className="sec-text" style={{ marginTop: "10px" }}>
-                  Delivering excellence across iconic developments and complex infrastructure
+                  {tr("Delivering excellence across iconic developments and complex infrastructure")}
                 </p>
               </div>
             </div>
@@ -137,14 +85,14 @@ const Portfolio = () => {
                   <button
                     onClick={handlePrev}
                     className="slick-arrow default style2"
-                    aria-label="Previous Project"
+                    aria-label={tr("Previous Project")}
                   >
                     <i className="ri-arrow-left-line"></i>
                   </button>
                   <button
                     onClick={handleNext}
                     className="slick-arrow default style2"
-                    aria-label="Next Project"
+                    aria-label={tr("Next Project")}
                   >
                     <i className="ri-arrow-right-line"></i>
                   </button>
@@ -161,7 +109,7 @@ const Portfolio = () => {
               className="row gy-30 gx-30 global-carousel portfolio-slider4"
             >
               {projects.map((project, index) => (
-                <div className="col-lg-4" key={index}>
+                <div className="col-lg-4" key={project.id || index}>
                   <div
                     className="portfolio-card style4"
                     style={{ margin: "0 10px" }}
@@ -177,7 +125,7 @@ const Portfolio = () => {
                         }}
                       />
                       <span className="portfolio-card-number">
-                        {project.num}
+                        {`N.${String(index + 1).padStart(2, "0")}`}
                       </span>
                     </div>
                     <div

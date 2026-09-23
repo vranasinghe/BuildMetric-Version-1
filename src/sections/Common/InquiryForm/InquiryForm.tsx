@@ -3,6 +3,7 @@ import { Link, useLocation } from "react-router-dom";
 import { useAuth } from "../../../auth/AuthContext";
 import { loginHref } from "../../../auth/redirect";
 import { api } from "../../../lib/api";
+import { useLanguage } from "../../../i18n/LanguageContext";
 import ContactDropdown from "../ContactDropdown/ContactDropdown";
 import "../../../styles/account.css";
 
@@ -11,6 +12,7 @@ import "../../../styles/account.css";
 // database and appear in the admin panel under Inquiries.
 const InquiryForm = () => {
   const { user, loading } = useAuth();
+  const { tr } = useLanguage();
   const location = useLocation();
   const returnTo = location.pathname + "#inquiry";
 
@@ -24,20 +26,20 @@ const InquiryForm = () => {
     if (user) setForm((f) => ({ ...f, name: f.name || user.name, phone: f.phone || user.phone || "" }));
   }, [user]);
 
-  if (loading) return <p className="bm-signed-in-as">Loading...</p>;
+  if (loading) return <p className="bm-signed-in-as">{tr("Loading...", "جارٍ التحميل...")}</p>;
 
   if (!user) {
     return (
       <div className="bm-login-prompt" id="inquiry">
         <div className="icon"><i className="ri-lock-2-line"></i></div>
-        <h4>Log in to send an inquiry</h4>
-        <p>Create a free account or log in so our team can reply to you and you can track your request.</p>
+        <h4>{tr("Log in to send an inquiry", "سجّل الدخول لإرسال استفسارك")}</h4>
+        <p>{tr("Create a free account or log in so our team can reply to you and you can track your request.", "أنشئ حسابًا مجانيًا أو سجّل الدخول ليتمكن فريقنا من الرد عليك وتتمكن من متابعة طلبك.")}</p>
         <div className="bm-btn-row">
           <Link to={loginHref("login", returnTo)} className="btn">
-            Log In <i className="ri-arrow-right-up-line"></i>
+            {tr("Log In", "تسجيل الدخول")} <i className="ri-arrow-right-up-line"></i>
           </Link>
           <Link to={loginHref("register", returnTo)} className="btn bm-btn-outline">
-            Create Account
+            {tr("Create Account", "إنشاء حساب")}
           </Link>
         </div>
       </div>
@@ -65,44 +67,44 @@ const InquiryForm = () => {
   return (
     <form onSubmit={handleSubmit} className="contact-form" id="inquiry">
       <p className="bm-signed-in-as">
-        Signed in as <strong>{user.email}</strong>. We will reply to this email.
+        {tr("Signed in as", "تم تسجيل الدخول بـ")} <strong dir="ltr">{user.email}</strong>{tr(". We will reply to this email.", ". سنرد على هذا البريد الإلكتروني.")}
       </p>
       {sent && (
         <div className="bm-alert success" role="status">
-          Thank you! Your inquiry has been sent. You can follow its status in{" "}
-          <Link className="bm-muted-link" to="/account">My Account</Link>.
+          {tr("Thank you! Your inquiry has been sent. You can follow its status in", "شكرًا لك! تم إرسال استفسارك. يمكنك متابعة حالته في")}{" "}
+          <Link className="bm-muted-link" to="/account">{tr("My Account", "حسابي")}</Link>.
         </div>
       )}
       {error && <div className="bm-alert error" role="alert">{error}</div>}
       <div className="row gy-4">
         <div className="col-md-6">
           <div className="form-group">
-            <input type="text" className="form-control" name="name" placeholder="Your Name" aria-label="Your name"
+            <input type="text" className="form-control" name="name" placeholder={tr("Your Name", "الاسم")} aria-label={tr("Your name", "الاسم")}
               value={form.name} onChange={update("name")} required maxLength={120} />
           </div>
         </div>
         <div className="col-md-6">
           <div className="form-group">
-            <input type="email" className="form-control" name="email" aria-label="Email address"
-              value={user.email} readOnly title="Inquiries are sent from your account email" />
+            <input type="email" className="form-control" name="email" aria-label={tr("Email address", "البريد الإلكتروني")} dir="ltr"
+              value={user.email} readOnly title={tr("Inquiries are sent from your account email", "يتم إرسال الاستفسارات من البريد الإلكتروني لحسابك")} />
           </div>
         </div>
         <div className="col-md-6">
           <div className="form-group">
-            <input type="tel" className="form-control" name="phone" placeholder="Phone Number" aria-label="Phone number"
+            <input type="tel" className="form-control" name="phone" placeholder={tr("Phone Number", "رقم الهاتف")} aria-label={tr("Phone number", "رقم الهاتف")}
               value={form.phone} onChange={update("phone")} maxLength={40} />
           </div>
         </div>
         <ContactDropdown value={form.service} onChange={(service) => setForm({ ...form, service })} />
         <div className="col-12">
           <div className="form-group">
-            <textarea name="message" rows={3} className="form-control" placeholder="Message..." aria-label="Message"
+            <textarea name="message" rows={3} className="form-control" placeholder={tr("Message...", "رسالتك...")} aria-label={tr("Message", "الرسالة")}
               value={form.message} onChange={update("message")} required maxLength={5000}></textarea>
           </div>
         </div>
         <div className="form-btn col-12">
           <button type="submit" className="btn w-100" disabled={submitting}>
-            {submitting ? "Sending..." : "Submit Now"} {!submitting && <i className="ri-arrow-right-up-line"></i>}
+            {submitting ? tr("Sending...", "جارٍ الإرسال...") : tr("Submit Now", "أرسل الآن")} {!submitting && <i className="ri-arrow-right-up-line"></i>}
           </button>
         </div>
       </div>

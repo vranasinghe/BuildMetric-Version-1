@@ -1,8 +1,10 @@
 // import { useState } from "react";
 import { Link } from "react-router-dom";
 import { useContent } from "../../../admin/ContentContext";
+import { useLanguage } from "../../../i18n/LanguageContext";
 
 const ProjectArea = () => {
+	const { tr } = useLanguage();
 	const { content } = useContent();
 	const projects = content.projectsPage.projects;
 
@@ -31,7 +33,7 @@ const ProjectArea = () => {
 										</p>
 									</div>
 									<Link to="/project-details" className="btn-with-icon" style={{ marginTop: "15px" }}>
-										VIEW DETAILS
+										{tr("VIEW DETAILS")}
 										<span className="btn-icon">
 											<i className="ri-arrow-right-up-line"></i>
 										</span>

@@ -1,7 +1,9 @@
 import { Link } from "react-router-dom";
 import { useContent } from "../../../admin/ContentContext";
+import { useLanguage } from "../../../i18n/LanguageContext";
 
 const ServiceArea = () => {
+    const { tr } = useLanguage();
     const { content } = useContent();
     const servicesPage = content.servicesPage;
     const servicesData = servicesPage.services;
@@ -23,7 +25,7 @@ const ServiceArea = () => {
                         <div className="col-xl-4 col-md-6" key={index}>
                             <div className="service-card style3" style={{ height: "100%", display: "flex", flexDirection: "column", justifyContent: "space-between", marginBottom: "35px" }}>
                                 <div className="service-card-shadow-text">
-                                    SERVICES - {service.num}
+                                    {tr("SERVICES", "الخدمات")} - {service.num}
                                 </div>
                                 <div className="service-card_content" style={{ flexGrow: 1, display: "flex", flexDirection: "column" }}>
                                     <div className="service-card_icon">
@@ -42,7 +44,7 @@ const ServiceArea = () => {
                                     </ul>
                                     <div className="btn-wrap" style={{ marginTop: "auto" }}>
                                         <div className="icon-btn"><i className="ri-arrow-right-up-line"></i></div>
-                                        <Link to={`/service-details?tab=service-tab-${index + 1}`} className="btn">Explore Service <i className="ri-arrow-right-up-line"></i></Link>
+                                        <Link to={`/service-details?tab=service-tab-${index + 1}`} className="btn">{tr("Explore Service")}{" "}<i className="ri-arrow-right-up-line"></i></Link>
                                     </div>
                                 </div>
                             </div>

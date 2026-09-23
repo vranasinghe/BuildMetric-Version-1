@@ -1,8 +1,10 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import { useContent } from "../../../admin/ContentContext";
+import { useLanguage } from "../../../i18n/LanguageContext";
 
 const FooterBuildMetric: React.FC = () => {
+    const { tr } = useLanguage();
     const { content } = useContent();
     const footerData = content.footer;
 
@@ -163,15 +165,15 @@ const FooterBuildMetric: React.FC = () => {
                                     marginBottom: "30px",
                                 }}
                             >
-                                Our Services
+                                {tr("Our Services")}
                             </h2>
                             <ul style={{ listStyle: "none", padding: 0, margin: 0 }}>
                                 {[
-                                    ["Cost Estimating", "/service"],
-                                    ["Bill of Quantities", "/service"],
-                                    ["Commercial Advisory", "/service"],
-                                    ["Dispute Resolution", "/service"],
-                                    ["Value Engineering", "/service"],
+                                    [tr("Cost Estimating", "تقدير التكاليف"), "/service"],
+                                    [tr("Bill of Quantities", "جداول الكميات"), "/service"],
+                                    [tr("Commercial Advisory", "الاستشارات التجارية"), "/service"],
+                                    [tr("Dispute Resolution", "تسوية النزاعات"), "/service"],
+                                    [tr("Value Engineering", "الهندسة القيمية"), "/service"],
                                 ].map(([label, to]) => (
                                     <li key={label} style={{ marginBottom: "12px" }}>
                                         <Link
@@ -210,15 +212,15 @@ const FooterBuildMetric: React.FC = () => {
                                     marginBottom: "30px",
                                 }}
                             >
-                                Quick Links
+                                {tr("Quick Links")}
                             </h2>
                             <ul style={{ listStyle: "none", padding: 0, margin: 0 }}>
                                 {[
-                                    ["About BuildMetric", "/about"],
-                                    ["Case Studies", "/project"],
-                                    ["Our Capabilities", "/service"],
-                                    ["Industry Insights", "/blog"],
-                                    ["Book Consultation", "/contact"],
+                                    [tr("About BuildMetric", "عن بيلد متريك"), "/about"],
+                                    [tr("Case Studies", "دراسات الحالة"), "/project"],
+                                    [tr("Our Capabilities", "قدراتنا"), "/service"],
+                                    [tr("Industry Insights", "رؤى القطاع"), "/blog"],
+                                    [tr("Book Consultation", "احجز استشارة"), "/contact"],
                                 ].map(([label, to]) => (
                                     <li key={label} style={{ marginBottom: "12px" }}>
                                         <Link
@@ -257,20 +259,20 @@ const FooterBuildMetric: React.FC = () => {
                                     marginBottom: "30px",
                                 }}
                             >
-                                Featured Articles
+                                {tr("Featured Articles")}
                             </h2>
                             <div style={{ display: "flex", flexDirection: "column", gap: "18px" }}>
                                 {[
                                     {
                                         img: "/assets/img/footer-v1-img1.jpg",
-                                        title: "Managing Material Volatility in NEC4 & JCT",
-                                        date: "18 Sep 2026",
+                                        title: tr("Managing Material Volatility in NEC4 & JCT", "إدارة تقلبات أسعار المواد في عقود NEC4 وJCT"),
+                                        date: tr("18 Sep 2026", "18 سبتمبر 2026"),
                                         to: "/blog",
                                     },
                                     {
                                         img: "/assets/img/footer-v1-img2.jpg",
-                                        title: "Structuring Defensible Quantum Claims",
-                                        date: "04 Sep 2026",
+                                        title: tr("Structuring Defensible Quantum Claims", "صياغة مطالبات القيمة المالية القابلة للدفاع"),
+                                        date: tr("04 Sep 2026", "04 سبتمبر 2026"),
                                         to: "/blog",
                                     },
                                 ].map(({ img, title, date, to }) => (
@@ -358,11 +360,11 @@ const FooterBuildMetric: React.FC = () => {
                         </p>
                         <div style={{ display: "flex", gap: "22px", flexWrap: "wrap", alignItems: "center" }}>
                             {[
-                                ["Terms & Conditions", "/about"],
-                                ["Services", "/service"],
-                                ["Contact Us", "/contact"],
-                                ["Admin Panel", "/admin"],
-                            ].map(([label, to]) => (
+                                ["Terms & Conditions", "الشروط والأحكام", "/about"],
+                                ["Services", "الخدمات", "/service"],
+                                ["Contact Us", "اتصل بنا", "/contact"],
+                                ["Admin Panel", "لوحة التحكم", "/admin"],
+                            ].map(([label, arLabel, to]) => (
                                 <Link
                                     key={label}
                                     to={to}
@@ -376,7 +378,7 @@ const FooterBuildMetric: React.FC = () => {
                                     onMouseOver={(e) => (e.currentTarget.style.color = "#ffffff")}
                                     onMouseOut={(e) => (e.currentTarget.style.color = label === "Admin Panel" ? "#f15a24" : "rgba(255, 255, 255, 0.7)")}
                                 >
-                                    {label}
+                                    {tr(label, arLabel)}
                                 </Link>
                             ))}
                         </div>

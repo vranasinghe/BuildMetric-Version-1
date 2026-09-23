@@ -1,0 +1,181 @@
+/* =========================================================
+   Arabic (right-to-left) adjustments.
+   <html lang="ar" dir="rtl"> is set by LanguageContext.
+   ========================================================= */
+
+/* Arabic typeface everywhere on the public site */
+html[lang="ar"] {
+  --title-font: "Cairo", sans-serif;
+  --body-font: "Cairo", sans-serif;
+}
+
+html[lang="ar"] body,
+html[lang="ar"] h1,
+html[lang="ar"] h2,
+html[lang="ar"] h3,
+html[lang="ar"] h4,
+html[lang="ar"] h5,
+html[lang="ar"] h6,
+html[lang="ar"] p,
+html[lang="ar"] a,
+html[lang="ar"] button,
+html[lang="ar"] input,
+html[lang="ar"] select,
+html[lang="ar"] textarea,
+html[lang="ar"] li,
+html[lang="ar"] .hero-subtitle,
+html[lang="ar"] span:not([class^="ri-"]):not([class*=" ri-"]) {
+  font-family: "Cairo", sans-serif;
+  letter-spacing: 0 !important;
+}
+
+/* react-adjustment.css forces Titillium Web on every element with !important
+   (body *:not(...)). Match its selector and add html[lang="ar"] so Arabic wins.
+   The admin panel stays in English, so it is left out. */
+html[lang="ar"] body,
+html[lang="ar"] body *:not(i):not([class^="ri-"]):not([class*=" ri-"]):not(.why-thumb-wrap3-1 .why-text-wrap .number):not(.bm-admin):not(.bm-admin *) {
+  font-family: "Cairo", sans-serif !important;
+}
+
+/* Keep icon fonts intact */
+html[lang="ar"] [class^="ri-"],
+html[lang="ar"] [class*=" ri-"] {
+  font-family: "remixicon" !important;
+}
+
+/* Arabic reads better without uppercase styling and with a little more line height */
+html[lang="ar"] .bm-header,
+html[lang="ar"] .btn,
+html[lang="ar"] .sub-title,
+html[lang="ar"] .hero-subtitle,
+html[lang="ar"] .breadcumb-menu {
+  text-transform: none !important;
+}
+
+html[dir="rtl"] body {
+  text-align: right;
+}
+
+/* Directional arrow icons point the other way in Arabic */
+html[dir="rtl"] .ri-arrow-right-up-line,
+html[dir="rtl"] .ri-arrow-right-line,
+html[dir="rtl"] .ri-arrow-left-line,
+html[dir="rtl"] .ri-arrow-right-down-line,
+html[dir="rtl"] .ri-arrow-right-s-line,
+html[dir="rtl"] .ri-arrow-left-s-line {
+  display: inline-block;
+  transform: scaleX(-1);
+}
+
+/* The hero side arrows are placed by side, not by direction (see Hero.tsx),
+   and the subtitle's decorative arrow points along the reading direction. */
+html[dir="rtl"] .hero-side-arrow i {
+  transform: none;
+}
+html[dir="rtl"] .hero-subtitle img {
+  transform: scaleX(-1);
+}
+
+/* Cairo needs more line height than Titillium Web to keep stacked lines apart */
+html[lang="ar"] .hero-title,
+html[lang="ar"] .sec-title,
+html[lang="ar"] .breadcumb-title {
+  line-height: 1.4;
+}
+
+/* Slick carousels position slides for left-to-right pages only. Keep the track
+   left-to-right so slides stay on screen, and the slide content right-to-left. */
+html[dir="rtl"] .slick-slider {
+  direction: ltr;
+}
+
+/* slick.css floats slides right under [dir="rtl"], which reverses their order. */
+html[dir="rtl"] .slick-slide {
+  direction: rtl;
+  float: left;
+}
+
+/* Statistics: keep "14k+" reading as written, but align the card to the right */
+html[dir="rtl"] .outline-counter-card {
+  text-align: right;
+}
+html[dir="rtl"] .outline-counter-number {
+  direction: ltr;
+  justify-content: flex-end;
+}
+@media (max-width: 575px) {
+  html[dir="rtl"] .outline-counter-card {
+    text-align: center;
+  }
+  html[dir="rtl"] .outline-counter-number {
+    justify-content: center;
+  }
+}
+
+/* "1.2k" in the About card */
+html[dir="rtl"] .about-counter-number {
+  direction: ltr;
+  unicode-bidi: isolate;
+}
+
+/* Spacing the theme only defines for the left-to-right side */
+html[dir="rtl"] .checklist li img,
+html[dir="rtl"] .checklist li i,
+html[dir="rtl"] .checklist li svg,
+html[dir="rtl"] .contact-page-card .contact-page-card-text i {
+  margin-right: 0;
+  margin-left: 10px;
+}
+
+/* Breadcrumb bar: point the cut corner and dot separators the other way */
+html[dir="rtl"] .breadcumb-menu {
+  padding: 18px 25px 18px 75px;
+  clip-path: polygon(50px 0, 100% 0, 100% 100%, 0 100%);
+}
+html[dir="rtl"] .breadcumb-menu li {
+  padding-right: 0;
+  padding-left: 11px;
+}
+html[dir="rtl"] .breadcumb-menu li:before {
+  margin-right: 0;
+  margin-left: 16px;
+}
+
+/* Icon + number/email rows: without flex the digits and the icon glyph merge into
+   one left-to-right run and the icon lands on the wrong side */
+html[dir="rtl"] .contact-page-card .contact-page-card-text {
+  display: flex;
+  align-items: center;
+}
+html[dir="rtl"] .contact-page-card .contact-page-card_link {
+  direction: ltr;
+  unicode-bidi: isolate;
+}
+
+/* Dropdown arrow goes on the left, opposite the right-aligned text */
+html[dir="rtl"] .nice-select:after {
+  right: auto;
+  left: 20px;
+}
+
+/* The admin panel is always English and left to right, even when the public
+   site is set to Arabic */
+html[dir="rtl"] .bm-admin {
+  text-align: left;
+}
+html[dir="rtl"] .bm-admin i {
+  transform: none !important;
+}
+
+/* Decorative moving shapes are positioned for left-to-right pages and can poke
+   past the left edge in Arabic, which would add a sideways scrollbar. */
+html[dir="rtl"],
+html[dir="rtl"] body {
+  overflow-x: hidden;
+}
+
+/* Phone menu: keep links right-aligned so the expand arrows (on the left) do not
+   sit on top of the text. */
+html[dir="rtl"] .mobile-menu ul li a {
+  text-align: right;
+}

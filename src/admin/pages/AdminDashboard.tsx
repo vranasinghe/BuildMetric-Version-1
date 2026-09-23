@@ -24,7 +24,7 @@ interface SectionCard {
 }
 
 const AdminDashboard: React.FC = () => {
-  const { content, lastSaved, exportJSON } = useContent();
+  const { content, saveState, lastSaved } = useContent();
   const { user } = useAuth();
   const [stats, setStats] = useState<Stats | null>(null);
 
@@ -37,15 +37,6 @@ const AdminDashboard: React.FC = () => {
   const firstName = user?.name.split(" ")[0] || "Admin";
 
   const sections: SectionCard[] = [
-    {
-      title: "Header & Topbar",
-      headerTag: "Header",
-      route: "/",
-      adminTab: "header",
-      icon: "ri-layout-top-line",
-      description: "Edit topbar contacts, working hours, location, navigation menu links, language switcher, region, and socials.",
-      itemsCount: `${content.header.navLinks.length} Nav Links, ${content.header.socialLinks.length} Socials`,
-    },
     {
       title: "Home",
       headerTag: "Home",
@@ -91,24 +82,6 @@ const AdminDashboard: React.FC = () => {
       description: "Edit global office locations (Sri Lanka, UAE, London), inquiry form text, button text, and map embed.",
       itemsCount: `${content.contactPage.offices.length} Global Offices`,
     },
-    {
-      title: "Global Footer",
-      headerTag: "Footer",
-      route: "/",
-      adminTab: "footer",
-      icon: "ri-layout-bottom-line",
-      description: "Update company bio, quick navigation links, contact points, operating hours, and copyright declaration.",
-      itemsCount: `${content.footer.quickLinks.length} Quick Links, Copyright Notice`,
-    },
-    {
-      title: "Backup & Sync",
-      headerTag: "Data Sync",
-      route: "/admin?tab=backup",
-      adminTab: "backup",
-      icon: "ri-database-2-line",
-      description: "Download JSON backups of all website content, import restore files, or reset to original factory state.",
-      itemsCount: "JSON Export / Import",
-    },
   ];
 
   return (
@@ -118,8 +91,8 @@ const AdminDashboard: React.FC = () => {
           <span className="adm-eyebrow">Dashboard</span>
           <h1 className="adm-page-title">Welcome back, {firstName}</h1>
           <p className="adm-page-sub">
-            Manage client inquiries and edit every section of the BuildMetric website. Content changes are saved
-            instantly and appear on the live site.
+            Manage client inquiries and edit every section of the BuildMetric website. When you save a section it is
+            stored in the database and every visitor sees the update.
           </p>
         </div>
         <div className="adm-actions">
@@ -154,13 +127,12 @@ const AdminDashboard: React.FC = () => {
       <div className="adm-page-head" style={{ marginBottom: 16 }}>
         <h2 className="adm-section-title" style={{ margin: 0 }}>Website content</h2>
         <div className="adm-actions">
-          <span className="adm-saved">
-            <i className="ri-checkbox-circle-fill" />
-            {lastSaved ? `Last saved ${lastSaved.toLocaleTimeString()}` : "All changes saved"}
-          </span>
-          <button type="button" onClick={exportJSON} className="adm-btn adm-btn-sm adm-btn-ghost">
-            <i className="ri-download-2-line" /> Download Backup
-          </button>
+          {saveState !== "error" && (
+            <span className="adm-saved">
+              <i className="ri-database-2-line" />
+              {lastSaved ? `Last saved ${lastSaved.toLocaleTimeString()}` : "Saved in the database"}
+            </span>
+          )}
         </div>
       </div>
 
@@ -177,11 +149,9 @@ const AdminDashboard: React.FC = () => {
               <Link to={`/admin?tab=${sec.adminTab}`} className="adm-btn adm-btn-sm">
                 Edit Section
               </Link>
-              {sec.adminTab !== "backup" && (
-                <Link to={sec.route} target="_blank" rel="noopener noreferrer" title="View live page" className="adm-icon-btn">
-                  <i className="ri-external-link-line" />
-                </Link>
-              )}
+              <Link to={sec.route} target="_blank" rel="noopener noreferrer" title="View live page" className="adm-icon-btn">
+                <i className="ri-external-link-line" />
+              </Link>
             </div>
           </div>
         ))}

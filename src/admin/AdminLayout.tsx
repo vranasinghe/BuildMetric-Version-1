@@ -2,14 +2,11 @@ import React, { useEffect, useState } from "react";
 import { Link, useSearchParams } from "react-router-dom";
 import { useContent } from "./ContentContext";
 import AdminDashboard from "./pages/AdminDashboard";
-import AdminHeader from "./pages/AdminHeader";
 import AdminHome from "./pages/AdminHome";
 import AdminAbout from "./pages/AdminAbout";
 import AdminServices from "./pages/AdminServices";
 import AdminProjects from "./pages/AdminProjects";
 import AdminContact from "./pages/AdminContact";
-import AdminFooter from "./pages/AdminFooter";
-import AdminBackup from "./pages/AdminBackup";
 import AdminInquiries from "./pages/AdminInquiries";
 import AdminClients from "./pages/AdminClients";
 import AdminLogin from "./AdminLogin";
@@ -39,18 +36,12 @@ const navGroups: { label: string; items: NavItem[] }[] = [
   {
     label: "Website Content",
     items: [
-      { id: "header", label: "Header", icon: "ri-layout-top-line", previewUrl: "/" },
       { id: "home", label: "Home", icon: "ri-home-4-line", previewUrl: "/" },
       { id: "about", label: "About", icon: "ri-information-line", previewUrl: "/about" },
       { id: "services", label: "Services", icon: "ri-tools-line", previewUrl: "/service" },
       { id: "projects", label: "Projects", icon: "ri-building-line", previewUrl: "/project" },
       { id: "contact", label: "Contact", icon: "ri-contacts-book-2-line", previewUrl: "/contact" },
-      { id: "footer", label: "Footer", icon: "ri-layout-bottom-line", previewUrl: "/" },
     ],
-  },
-  {
-    label: "System",
-    items: [{ id: "backup", label: "Backup & Restore", icon: "ri-database-2-line", previewUrl: "" }],
   },
 ];
 
@@ -69,7 +60,7 @@ const AdminLayout: React.FC = () => {
   const currentTab = searchParams.get("tab") || "dashboard";
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const [newInquiries, setNewInquiries] = useState(0);
-  const { content, lastSaved, exportJSON } = useContent();
+  const { content, saveState, saveError, lastSaved } = useContent();
   const { user, loading, logout } = useAuth();
   const isAdmin = user?.role === "admin";
 
@@ -97,8 +88,6 @@ const AdminLayout: React.FC = () => {
     switch (currentTab) {
       case "dashboard":
         return <AdminDashboard />;
-      case "header":
-        return <AdminHeader />;
       case "home":
         return <AdminHome />;
       case "about":
@@ -111,10 +100,6 @@ const AdminLayout: React.FC = () => {
         return <AdminProjects />;
       case "contact":
         return <AdminContact />;
-      case "footer":
-        return <AdminFooter />;
-      case "backup":
-        return <AdminBackup />;
       case "inquiries":
         return <AdminInquiries />;
       case "clients":
@@ -126,7 +111,7 @@ const AdminLayout: React.FC = () => {
 
   if (loading) {
     return (
-      <div className="bm-admin" style={{ alignItems: "center", justifyContent: "center" }}>
+      <div className="bm-admin" dir="ltr" lang="en" style={{ alignItems: "center", justifyContent: "center" }}>
         Loading...
       </div>
     );
@@ -136,7 +121,7 @@ const AdminLayout: React.FC = () => {
   }
 
   return (
-    <div className="bm-admin">
+    <div className="bm-admin" dir="ltr" lang="en">
       <header className="adm-topbar">
         <Link to="/admin" className="adm-brand" onClick={() => handleTabChange("dashboard")}>
           <img src={content.header.logoUrl || "/assets/img/buildmetric-logo.png"} alt="BuildMetric Consultancy" />
@@ -151,15 +136,21 @@ const AdminLayout: React.FC = () => {
           </nav>
 
           <div className="adm-topbar-actions">
-            {lastSaved && (
+            {saveState === "saving" && (
+              <span className="adm-saved">
+                <i className="ri-loader-4-line" /> Saving...
+              </span>
+            )}
+            {saveState === "saved" && lastSaved && (
               <span className="adm-saved">
                 <i className="ri-checkbox-circle-fill" /> Saved {lastSaved.toLocaleTimeString()}
               </span>
             )}
-            <button type="button" onClick={exportJSON} className="adm-btn adm-btn-sm adm-btn-ghost adm-hide-md" title="Download a backup of all website content">
-              <i className="ri-download-2-line" />
-              <span>Backup</span>
-            </button>
+            {saveState === "error" && (
+              <span className="adm-saved adm-saved-error">
+                <i className="ri-error-warning-fill" /> Not saved
+              </span>
+            )}
             {activeNavItem.previewUrl && (
               <Link to={activeNavItem.previewUrl} target="_blank" rel="noopener noreferrer" className="adm-btn adm-btn-sm">
                 <i className="ri-external-link-line" />
@@ -223,7 +214,15 @@ const AdminLayout: React.FC = () => {
         {sidebarOpen && <div className="adm-backdrop" onClick={() => setSidebarOpen(false)} />}
 
         <main className="adm-main">
-          <div className="adm-main-inner">{renderActiveSection()}</div>
+          <div className="adm-main-inner">
+            {saveState === "error" && (
+              <div className="adm-notice adm-notice-error" role="alert">
+                <i className="ri-error-warning-line" />
+                Your last change was not saved: {saveError} Please try saving again.
+              </div>
+            )}
+            {renderActiveSection()}
+          </div>
         </main>
       </div>
     </div>

@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Link, useSearchParams } from "react-router-dom";
+import { Link, Navigate, useSearchParams } from "react-router-dom";
 import { useContent } from "./ContentContext";
 import AdminDashboard from "./pages/AdminDashboard";
 import AdminHome from "./pages/AdminHome";
@@ -9,7 +9,6 @@ import AdminProjects from "./pages/AdminProjects";
 import AdminContact from "./pages/AdminContact";
 import AdminInquiries from "./pages/AdminInquiries";
 import AdminClients from "./pages/AdminClients";
-import AdminLogin from "./AdminLogin";
 import { useAuth } from "../auth/AuthContext";
 import { api } from "../lib/api";
 import "./admin.css";
@@ -117,7 +116,10 @@ const AdminLayout: React.FC = () => {
     );
   }
   if (!user || !isAdmin) {
-    return <AdminLogin />;
+    // The admin area has no login page of its own and isn't advertised anywhere:
+    // guests are sent to the normal login (an admin is brought back here after
+    // logging in), and signed-in clients are sent to the home page.
+    return user ? <Navigate to="/" replace /> : <Navigate to="/login?redirect=%2Fadmin" replace />;
   }
 
   return (

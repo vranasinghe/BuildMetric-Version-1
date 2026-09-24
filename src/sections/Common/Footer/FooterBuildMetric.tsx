@@ -1,11 +1,13 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import { useContent } from "../../../admin/ContentContext";
+import { useAuth } from "../../../auth/AuthContext";
 import { useLanguage } from "../../../i18n/LanguageContext";
 
 const FooterBuildMetric: React.FC = () => {
     const { tr } = useLanguage();
     const { content } = useContent();
+    const { user } = useAuth();
     const footerData = content.footer;
 
     return (
@@ -92,11 +94,15 @@ const FooterBuildMetric: React.FC = () => {
                         <div className="col-xl-4 col-lg-6 col-md-6" style={{ marginBottom: "30px" }}>
                             <div className="footer-widget__about">
                                 <div style={{ marginBottom: "25px" }}>
-                                    <Link to="/">
+                                    {/* The full-colour logo sits on a white plate so it stays readable on the dark footer */}
+                                    <Link
+                                        to="/"
+                                        style={{ display: "inline-block", background: "#ffffff", padding: "10px 16px", borderRadius: "4px" }}
+                                    >
                                         <img
-                                            src="/assets/img/logo-1.png"
-                                            alt="BuildMetric"
-                                            style={{ maxHeight: "48px", width: "auto", display: "block" }}
+                                            src="/assets/img/buildmetric-logo.png"
+                                            alt="BuildMetric Consultancy"
+                                            style={{ height: "52px", width: "auto", display: "block" }}
                                         />
                                     </Link>
                                 </div>
@@ -363,7 +369,8 @@ const FooterBuildMetric: React.FC = () => {
                                 ["Terms & Conditions", "الشروط والأحكام", "/about"],
                                 ["Services", "الخدمات", "/service"],
                                 ["Contact Us", "اتصل بنا", "/contact"],
-                                ["Admin Panel", "لوحة التحكم", "/admin"],
+                                // The admin entry is only shown to a logged-in admin.
+                                ...(user?.role === "admin" ? [["Admin Panel", "لوحة التحكم", "/admin"]] : []),
                             ].map(([label, arLabel, to]) => (
                                 <Link
                                     key={label}
